@@ -18,6 +18,7 @@
         <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
+
         <activity
             android:name=".gui.activities.SplashScreenActivity"
             android:theme="@style/SplashTheme">
@@ -27,9 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name="com.hardikgoswami.oauthLibGithub.OauthActivity"/>
         <activity android:name=".gui.activities.TrendingRepositoriesActivity" />
         <activity android:name=".gui.activities.LogInActivity" />
     </application>
-
+    <uses-permission android:name="android.permission.INTERNET"/>
 </manifest>
