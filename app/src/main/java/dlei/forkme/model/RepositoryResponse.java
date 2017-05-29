@@ -7,10 +7,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by David on 15/05/2017.
- */
-
 public class RepositoryResponse {
 
     @SerializedName("repositories")
