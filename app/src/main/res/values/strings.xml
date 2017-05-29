@@ -2,4 +2,20 @@
     <string name="app_name">ForkMe</string>
     <string name="title_activity_log_in">LogInActivity</string>
     <string name="placeholder_text">It\'s time to D-D-D-D!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="drawer_section_github">Github</string>
+    <string name="drawer_section_people">People</string>
+    <string name="drawer_section_settings">Settings</string>
+
+
 </resources>

@@ -12,13 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dlei.forkme.R;
-
-public class LogInActivity extends AppCompatActivity {
+// https://github.com/thephpleague/oauth2-github/issues/4
+public class  LogInActivity extends AppCompatActivity {
 
     private AppCompatButton mLoginButton;
-    private static String clientId = "";
-    private static String clientSecret = "";
-
+    private static String clientId = "d34146c5bec6fe30be05";
+    private static String clientSecret = "caad4e8944b4800502f9e2d2e13910825b978ba1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +30,16 @@ public class LogInActivity extends AppCompatActivity {
         scopeList.add("public_repo");  // Needed to star repositories.
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Log.i("mLoginButton: ", "clicked");
-                Log.i("----- Start OAuth", " -----");
+                Log.i("LoginActivity: ", "start OAuth login");
                 GithubOauth
                         .Builder()
                         .withClientId(clientId)
                         .withClientSecret(clientSecret)
                         .withContext(getApplicationContext())
                         .packageName("dlei.forkme")
-                        .nextActivity("dlei.forkme.gui.activities.TrendingRepositoriesActivity")
+                        .nextActivity("dlei.forkme.gui.activities.github.TrendingRepositoriesActivity")
                         .withScopeList(scopeList)
                         .debug(true)
                         .execute();
