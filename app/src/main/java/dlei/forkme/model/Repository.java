@@ -70,13 +70,30 @@ public class Repository implements Parcelable {
         this.description = description;
     }
 
+    public int getForkCount() {
+        return this.forkCount;
+    }
+
+    public void setForkCount(int forkCount) {
+        this.forkCount = forkCount;
+    }
+
+    public String getLanguage() {
+        return this.language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+
+    }
     public int getId() {
         return id;
     }
 
+    // Log.i("tokens: ", "index 0: " + tokens[0] + ", index 1: " + tokens[1]);
+    //  index 0: Microsoft, index 1: TypeScript-React-Starter
     public String getRepoName() {
         String tokens[] = this.fullname.split("/");
-        Log.i("tokens: ", "index 0: " + tokens[0] + ", index 1: " + tokens[1]);
         return tokens[1];
     }
 
@@ -94,6 +111,10 @@ public class Repository implements Parcelable {
 
     public Owner getOwner() {
         return this.owner;
+    }
+
+    public String getOwnerName() {
+        return this.owner.getUser();
     }
 
     public String getAvatarUrl() {
