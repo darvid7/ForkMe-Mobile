@@ -2,17 +2,15 @@ package dlei.forkme.gui.activities.github;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.widget.TextViewCompat;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.text.Html;
-import android.util.Base64;
 import android.util.Log;
 
+import com.squareup.picasso.Picasso;
+
 import org.commonmark.ext.autolink.AutolinkExtension;
-import org.commonmark.ext.gfm.strikethrough.Strikethrough;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.commonmark.ext.heading.anchor.HeadingAnchorExtension;
@@ -25,12 +23,14 @@ import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Locale;
 
 import dlei.forkme.R;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.model.Readme;
 import dlei.forkme.model.Repository;
+import dlei.forkme.state.LanguageColor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -56,6 +56,7 @@ public class RepositoryViewActivity extends BaseActivity {
     private AppCompatTextView mForkCountText;
     private AppCompatTextView mStarCountText;
     private AppCompatTextView mRepoDescriptionText;
+    private AppCompatImageView mIconImageView;
 
     private static void createParser() {
         // TODO: Move to singleton.
@@ -113,13 +114,22 @@ public class RepositoryViewActivity extends BaseActivity {
         mForkCountText = (AppCompatTextView) findViewById(R.id.forkCountText);
         mStarCountText = (AppCompatTextView) findViewById(R.id.starCountText);
         mRepoDescriptionText = (AppCompatTextView) findViewById(R.id.repositoryDescriptionText);
+        mIconImageView = (AppCompatImageView) findViewById(R.id.iconImageView);
+
+        // Picasso caches url and image automatically from SwipeDeckAdapter.
+        Picasso.with(getBaseContext()).load(mRepository.getAvatarUrl()).into(mIconImageView);
 
         mLanguageText.setText(mRepository.getLanguage());
-        // TODO: Pick circle colour based on language.
-        mWatchCountText.setText("TODO"); // TODO: Fix watchers, at the moment watcher data == star data, either get actual watch count or find another stat.
-        mForkCountText.setText(mRepository.getForkCount());
-        mStarCountText.setText(mRepository.getStargazerCount());
+        mWatchCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getWathcherCount()));
+        mForkCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getForkCount()));
+        mStarCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getStargazerCount()));
         mRepoDescriptionText.setText(mRepository.getDescription());
+        String languageColorAsHex = LanguageColor.getColor(mRepository.getLanguage());
+        if (languageColorAsHex != null) {
+            int languageColorAsInt = Color.parseColor(languageColorAsHex);
+            // TODO: Only draw on the inside of the circle.
+            mLanguageCircleImage.setColorFilter(languageColorAsInt);
+        }
 
         // TODO: Fix common mark parsing of code blocks in <pre> tags or swap to a web view.
         mMarkdownHtmlTextView = (HtmlTextView) findViewById(markdownHtmlTextView);
@@ -170,12 +180,24 @@ public class RepositoryViewActivity extends BaseActivity {
             @Override
             public void onResponse(Call<Readme> call, Response<Readme> response) {
                 if (response.code() == 200 && response.isSuccessful()) {
+                    Log.d("RepositoryActivity: ", String.format("getReadme for owner: %s, repo %s", owner, repo));
                     Readme readme = response.body();
                     String decodedMarkdown  = readme.getDecodedContent();
                     Node document = sParser.parse(decodedMarkdown);
                     String html = sRender.render(document);
                     Log.i("HTML: ", html);
-                    mMarkdownHtmlTextView.setHtml(html, new HtmlHttpImageGetter(mMarkdownHtmlTextView));
+                    try {
+                        mMarkdownHtmlTextView.setHtml(html, new HtmlHttpImageGetter(mMarkdownHtmlTextView));
+                    } catch (IndexOutOfBoundsException e) {
+                        Log.w("RepositoryActivity: ", String.format(
+                                "getReadme: IndexOutOfBoundsException - len of html: %s, message: %s",
+                                html.length(), e.getMessage()));
+                        html = "<h1>Error Loading readme</h3><p>url: <a href=" + readme.getHtmlUrl() + ">" + readme.getHtmlUrl() + "</a>" +
+                                " could not be rendered properly :(</p><br/>" +
+                                "<img src=" + readme.renderFailedImage() +
+                                "></img>";
+                        mMarkdownHtmlTextView.setHtml(html, new HtmlHttpImageGetter(mMarkdownHtmlTextView));
+                    }
                 } else {
                     Log.w("RepositoryActivity: ", String.format(
                             "getReadme: Error Response: Status code: %d, successful: %s, body: %s, headers: %s",
@@ -198,5 +220,3 @@ public class RepositoryViewActivity extends BaseActivity {
         });
     }
 }
-
-

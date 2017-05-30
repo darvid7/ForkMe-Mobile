@@ -36,6 +36,8 @@ public class Repository implements Parcelable {
     private int forkCount;
     @SerializedName("updated_at")
     private String updatedAt; // TODO: Parse date time.
+    @SerializedName("subscribers_count")
+    private int subscribersCount;
 
     // Default constructor.
     public Repository() {}
@@ -76,6 +78,19 @@ public class Repository implements Parcelable {
 
     public void setForkCount(int forkCount) {
         this.forkCount = forkCount;
+    }
+
+    // This is the same as watcher count on the web interface, watcher is the same as star in the API.
+    public int getSubscribersCount() {
+        return this.subscribersCount;
+    }
+
+    public void setSubScribersCount(int subscribersCount) {
+        this.subscribersCount = subscribersCount;
+    }
+
+    public int getWathcherCount() {
+        return this.getStargazerCount();
     }
 
     public String getLanguage() {

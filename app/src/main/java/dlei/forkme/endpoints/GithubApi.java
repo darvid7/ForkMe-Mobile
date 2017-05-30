@@ -1,5 +1,6 @@
 package dlei.forkme.endpoints;
 
+import dlei.forkme.model.Readme;
 import dlei.forkme.model.User;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,4 +15,8 @@ public interface GithubApi {
 
     @GET("/user/{username}")
     Call<User> getUser(@Path("username")  String username);
+
+    // GET /repos/:owner/:repo/readme
+    @GET("/repos/{owner}/{repo}/readme")
+    Call<Readme> getReadme(@Path("owner") String owner, @Path("repo") String repo);
 }

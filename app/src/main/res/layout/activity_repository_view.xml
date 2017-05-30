@@ -18,15 +18,17 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/repositoryViewFullNameText"
-        android:layout_width="192dp"
-        android:layout_height="wrap_content"
+        android:layout_width="216dp"
+        android:layout_height="34dp"
         android:text="@string/placeholder_text_med"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
-        app:layout_constraintVertical_bias="0.055"
-        app:layout_constraintLeft_toRightOf="@+id/iconImageView" />
+        app:layout_constraintLeft_toRightOf="@+id/iconImageView"
+        android:layout_marginEnd="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintVertical_bias="0.099" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iconImageView"
@@ -35,7 +37,8 @@
         app:srcCompat="@mipmap/forkme_clear_launcher"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/repositoryViewFullNameText"
-        app:layout_constraintRight_toLeftOf="@+id/repositoryViewFullNameText" />
+        app:layout_constraintRight_toLeftOf="@+id/repositoryViewFullNameText"
+        android:layout_marginStart="@dimen/padding_normal"/>
 
 
     <android.support.v7.widget.AppCompatImageView
@@ -79,9 +82,8 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/forkCountText"
         android:layout_width="31dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:text="@string/placeholder_number"
-
         android:textAlignment="center"
         android:textSize="@dimen/small_text"
         app:layout_constraintTop_toTopOf="@+id/starCountText"
@@ -91,7 +93,7 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/watchCountText"
         android:layout_width="34dp"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:text="@string/placeholder_number"
         android:textAlignment="center"
         android:textSize="@dimen/small_text"
@@ -102,20 +104,22 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/languageText"
-        android:layout_width="43dp"
-        android:layout_height="18dp"
+        android:layout_width="51dp"
+        android:layout_height="14dp"
         android:text="@string/placeholder_text_small"
         android:textAlignment="viewStart"
         android:textSize="@dimen/small_text"
         app:layout_constraintTop_toTopOf="@+id/watchCountText"
         app:layout_constraintRight_toRightOf="@+id/languageCircleImageView"
         app:layout_constraintLeft_toLeftOf="@+id/languageCircleImageView"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="0dp"
+        tools:layout_editor_absoluteX="91dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/starCountText"
         android:layout_width="29dp"
-        android:layout_height="19dp"
+        android:layout_height="wrap_content"
         android:text="@string/placeholder_number"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -128,24 +132,27 @@
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/repositoryDescriptionText"
         android:layout_width="0dp"
-        android:paddingStart="@dimen/padding_normal"
-        android:paddingEnd="@dimen/padding_normal"
         android:layout_height="wrap_content"
+        android:paddingEnd="@dimen/padding_normal"
+        android:paddingStart="@dimen/padding_normal"
         android:text="@string/placeholder_repository_description"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/watchCountText"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/watchCountText" />
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollView"
         android:layout_width="307dp"
         android:layout_height="299dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="0dp"
+        android:layout_marginEnd="0dp"
         app:layout_constraintTop_toBottomOf="@+id/repositoryDescriptionText">
 
         <org.sufficientlysecure.htmltextview.HtmlTextView
