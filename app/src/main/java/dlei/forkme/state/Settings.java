@@ -1,4 +1,4 @@
-package dlei.forkme.model;
+package dlei.forkme.state;
 
 
 // Can either use this or shared preferences

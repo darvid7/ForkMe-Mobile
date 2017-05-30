@@ -1,4 +1,4 @@
-package dlei.forkme.service;
+package dlei.forkme.endpoints;
 
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
@@ -6,7 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public interface ForkMeBackendApiService {
+public interface ForkMeBackendApi {
     @GET("/all_repos")
     Call<RepositoryResponse> getAllRepositories();
 
