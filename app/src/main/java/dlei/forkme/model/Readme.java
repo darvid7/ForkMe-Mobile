@@ -18,7 +18,22 @@ public class Readme {
     private String content;
     private String encoding;
 
-    private static final String renderFailRedirectUrl = "http://4.bp.blogspot.com/-80e_nFiG00s/T_phyO7ZJ8I/AAAAAAAAETA/p5wOuH3jaxM/w1200-h630-p-k-no-nu/Pug+Dog+Hd+Wallpapers_.jpg";
+    private static final String renderFailImageUrl = "http://4.bp.blogspot.com/-80e_nFiG00s/T_phyO7ZJ8I/AAAAAAAAETA/p5wOuH3jaxM/w1200-h630-p-k-no-nu/Pug+Dog+Hd+Wallpapers_.jpg";
+    private static final String readmeNotFoundImageUrl = "http://photo.elsoar.com/wp-content/images/Dog-looking-for-something.jpg";
+
+    public String getReadmeFailedToRenderHtml() {
+        return "<h3>Error Loading readme</h3><p>url: <a href="
+                + this.getHtmlUrl() + ">" + this.getHtmlUrl() + "</a>" +
+                " could not be rendered properly :(</p><br/>" +
+                "<img src=" + renderFailImageUrl + "></img>";
+    }
+
+    public static String getReadmeNotFoundHtml() {
+        return "<h3>Readme not found for this repository</h3>" +
+                "<img src=" + readmeNotFoundImageUrl + "></img>" +
+                "<p>Maybe prompt the owner to make a readme?</p>";
+    }
+
 
     // Default constructor.
     public Readme() {
@@ -26,10 +41,6 @@ public class Readme {
 
     public String getHtmlUrl() {
         return this.htmlUrl;
-    }
-
-    public String renderFailedImage() {
-        return renderFailRedirectUrl;
     }
 
     public String getEncoding() {

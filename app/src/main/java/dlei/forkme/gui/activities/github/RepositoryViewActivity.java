@@ -203,24 +203,25 @@ public class RepositoryViewActivity extends BaseActivity {
                         Log.w("RepositoryActivity: ", String.format(
                                 "getReadme: IndexOutOfBoundsException - len of html: %s, message: %s",
                                 html.length(), e.getMessage()));
-                        html = "<h1>Error Loading readme</h3><p>url: <a href=" + readme.getHtmlUrl() + ">" + readme.getHtmlUrl() + "</a>" +
-                                " could not be rendered properly :(</p><br/>" +
-                                "<img src=" + readme.renderFailedImage() +
-                                "></img>";
+                        html = readme.getReadmeFailedToRenderHtml();
                         mMarkdownHtmlTextView.setHtml(html, new HtmlHttpImageGetter(mMarkdownHtmlTextView));
                     }
+                } else if (response.code() == 404) {
+                    // Repository has no readme.
+                    String html = Readme.getReadmeNotFoundHtml();
+                    mMarkdownHtmlTextView.setHtml(html, new HtmlHttpImageGetter(mMarkdownHtmlTextView));
                 } else {
-                    Log.w("RepositoryActivity: ", String.format(
-                            "getReadme: Error Response: Status code: %d, successful: %s, body: %s, headers: %s",
-                            response.code(), response.isSuccessful(), response.body(), response.headers())
-                    );
+                        Log.w("RepositoryActivity: ", String.format(
+                                "getReadme: Error Response: Status code: %d, successful: %s, body: %s, headers: %s",
+                                response.code(), response.isSuccessful(), response.body(), response.headers())
+                        );
 
-                    Log.w("RepositoryActivity: ", String.format(
-                            "getReadme: Error Request: headers: %s, request: %s",
-                            call.request().headers().toString(), call.request().toString())
-                    );
+                        Log.w("RepositoryActivity: ", String.format(
+                                "getReadme: Error Request: headers: %s, request: %s",
+                                call.request().headers().toString(), call.request().toString())
+                        );
+                    }
                 }
-            }
 
             @Override
             public void onFailure(Call<Readme> call, Throwable t) {
