@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:weightSum="1">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_weight="106"
+        card_view:cardCornerRadius="@dimen/card_corner_radius_mild"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardUseCompatPadding="true">
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_normal"
+            android:layout_marginEnd="@dimen/padding_normal"
+            android:layout_marginStart="@dimen/padding_normal"
+            android:layout_marginTop="@dimen/padding_normal"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/ownerUserNameText"
+                android:layout_width="119dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="1dp"
+                android:text="@string/placeholder_username"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                android:layout_marginRight="8dp"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginEnd="8dp" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/repositoryDescriptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_normal"
+                android:layout_marginTop="@dimen/padding_normal"
+                android:text="@string/placeholder_repository_description"
+                android:textAlignment="viewStart"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/repositoryNameText"
+                card_view:layout_constraintVertical_bias="0.0" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/forkImageView"
+                android:layout_width="22dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="28dp"
+                card_view:layout_constraintRight_toLeftOf="@+id/starImageView"
+                card_view:srcCompat="@drawable/ic_fork"
+                card_view:layout_constraintTop_toTopOf="@+id/languageCircleImageView"
+                android:layout_marginEnd="28dp" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/starImageView"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="@dimen/padding_normal"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:srcCompat="@drawable/ic_grade_48px"
+                card_view:layout_constraintTop_toTopOf="@+id/languageCircleImageView"
+                android:layout_marginEnd="@dimen/padding_normal" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/languageCircleImageView"
+                android:layout_width="16dp"
+                android:layout_height="17dp"
+                android:layout_marginStart="@dimen/padding_normal"
+                card_view:srcCompat="@drawable/circle"
+                card_view:layout_constraintTop_toTopOf="@+id/ownerUserNameText"
+                card_view:layout_constraintRight_toLeftOf="@+id/forkImageView"
+                card_view:layout_constraintLeft_toRightOf="@+id/ownerUserNameText"
+                card_view:layout_constraintHorizontal_bias="0.35" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/repositoryNameText"
+                android:layout_width="118dp"
+                android:layout_height="wrap_content"
+                android:text="@string/placeholder_reponame"
+                card_view:layout_constraintLeft_toLeftOf="@+id/ownerUserNameText"
+                android:layout_marginTop="8dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/ownerUserNameText" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/starCountText"
+                android:layout_width="37dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/placeholder_number"
+                android:textAlignment="center"
+                card_view:layout_constraintLeft_toLeftOf="@+id/starImageView"
+                card_view:layout_constraintRight_toRightOf="@+id/starImageView"
+                card_view:layout_constraintTop_toBottomOf="@+id/starImageView" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/forkCountText"
+                android:layout_width="37dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/placeholder_number"
+                android:textAlignment="center"
+                card_view:layout_constraintHorizontal_bias="0.466"
+                card_view:layout_constraintLeft_toLeftOf="@+id/forkImageView"
+                card_view:layout_constraintRight_toRightOf="@+id/forkImageView"
+                card_view:layout_constraintTop_toBottomOf="@+id/forkImageView" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/languageText"
+                android:layout_width="76dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/placeholder_text_small"
+                android:textAlignment="center"
+                card_view:layout_constraintLeft_toLeftOf="@+id/languageCircleImageView"
+                card_view:layout_constraintRight_toRightOf="@+id/languageCircleImageView"
+                card_view:layout_constraintTop_toBottomOf="@+id/languageCircleImageView" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

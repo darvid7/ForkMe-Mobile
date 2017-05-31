@@ -30,7 +30,7 @@ import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.model.Readme;
 import dlei.forkme.model.Repository;
-import dlei.forkme.state.LanguageColor;
+import dlei.forkme.helpers.LanguageColor;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -102,7 +102,7 @@ public class RepositoryViewActivity extends BaseActivity {
         Log.w("Access token: ", mOAuthToken);
 
         mRepoFullNameText = (AppCompatTextView) findViewById(R.id.repositoryViewFullNameText);
-        mRepoFullNameText.setText(mRepository.getFullname());
+        mRepoFullNameText.setText(mRepository.getFullName());
 
         String repoName = mRepository.getRepoName();
         String ownerName = mRepository.getOwnerName();
@@ -119,17 +119,28 @@ public class RepositoryViewActivity extends BaseActivity {
         // Picasso caches url and image automatically from SwipeDeckAdapter.
         Picasso.with(getBaseContext()).load(mRepository.getAvatarUrl()).into(mIconImageView);
 
-        mLanguageText.setText(mRepository.getLanguage());
-        mWatchCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getWathcherCount()));
+        Log.w("RepositoryActivity: ", "watchers: "  + mRepository.getSubscribersCount());
+        Log.w("RepositoryActivity: ", mRepository.toString());
+
+        mWatchCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getSubscribersCount()));
         mForkCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getForkCount()));
         mStarCountText.setText(String.format(Locale.getDefault(), "%d", mRepository.getStargazerCount()));
         mRepoDescriptionText.setText(mRepository.getDescription());
-        String languageColorAsHex = LanguageColor.getColor(mRepository.getLanguage());
-        if (languageColorAsHex != null) {
-            int languageColorAsInt = Color.parseColor(languageColorAsHex);
-            // TODO: Only draw on the inside of the circle.
-            mLanguageCircleImage.setColorFilter(languageColorAsInt);
+
+        String language = mRepository.getLanguage();
+        if (language != null) {
+            mLanguageText.setText(language);
+            String languageColorAsHex = LanguageColor.getColor(mRepository.getLanguage());
+            if (languageColorAsHex != null) {
+                int languageColorAsInt = Color.parseColor(languageColorAsHex);
+                // TODO: Only draw on the inside of the circle.
+                mLanguageCircleImage.setColorFilter(languageColorAsInt);
+            }
+        } else {
+            mLanguageText.setText(R.string.none);
         }
+
+
 
         // TODO: Fix common mark parsing of code blocks in <pre> tags or swap to a web view.
         mMarkdownHtmlTextView = (HtmlTextView) findViewById(markdownHtmlTextView);

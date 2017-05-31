@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ForkMe</string>
     <string name="title_activity_log_in">LogInActivity</string>
-    <string name="placeholder_text_small">Python</string>
+    <string name="placeholder_text_small">TypeScript</string>
     <string name="placeholder_text_med">Somebody once told me the world was macaroni, Mom\'s spaghetti</string>
     <string name="placeholder_repository_description">The go programming language https://golang.org</string>
     <string name="placeholder_date">2017/05/31T09:13:11Z</string>
@@ -27,6 +27,7 @@
     <string name="coming_soon">Coming soon</string>
 
     <string name="updated_at">Last updated:</string>
+    <string name="none">None</string>
 
 
 
