@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.BaseActivity;
@@ -18,7 +19,6 @@ import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.endpoints.GithubApi;
-import dlei.forkme.endpoints.ForkMeBackendApiTest;
 import link.fls.swipestack.SwipeStack;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -30,6 +30,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+// TODO: Fix bug, sometimes crashing when registering touch when swiping. https://github.com/flschweiger/SwipeStack/issues/46
+
 /**
  * Activity for displaying trending Github repositories retrieved from my backend in a SwipeStack.
  */
@@ -40,14 +42,15 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     private boolean mSwipeIsTouch = false;
     private Toast mToast = null;
     private String mOAuthToken;
+    private ProgressBar mProgressBarSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("TrendingActivity: ", "creating");
+        Log.d("TrendingActivity: ", "creating");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trending_repositories);
-        super.inflateNavDrawer(savedInstanceState);
-        Log.i("TrendingActivity: ", "created");
+        super.inflateNavDrawer(savedInstanceState, TrendingRepositoriesActivity.class.getSimpleName());
+        Log.d("TrendingActivity: ", "created");
 
         mSwipeDeck = (SwipeStack) findViewById(R.id.swipeStack);
         mSwipeDeckAdapter = new SwipeDeckAdapter(mDeck);
@@ -76,7 +79,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         mSwipeDeck.setAdapter(mSwipeDeckAdapter);
 
-        this.getTrendingRepositories();
+        mProgressBarSpinner = (ProgressBar)findViewById(R.id.progress_bar_spinner);
+
+
+        this.getTrendingRepositoriesArray();
 
         // Uncomment for first default repository to display to user.
 //        Repository r = new Repository();
@@ -104,6 +110,8 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     public void onTouch(int position) {
         Repository repository = mSwipeDeckAdapter.getItem(position);
         Intent i = new Intent(this, RepositoryViewActivity.class);
+        Log.w("onTouch: ", repository.toString());
+        Log.w("onTouch: ", "" + repository.getSubscribersCount());
         i.putExtra("repository", repository);
         startActivity(i);
     }
@@ -135,6 +143,8 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     public void onStackEmpty() {
         // TODO: Display better message to user, allow getting older trending repositories.
         this.makeToast("No more repositories! Come back again soon.", mToast);
+        mProgressBarSpinner.setVisibility(View.VISIBLE);
+        // TODO: Load new info, remove progressBarSpinner after.
     }
 
     /**
@@ -143,8 +153,14 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
      */
     @Override
     public void onViewSwipedToLeft(int position) {
+        if (position > mDeck.size()) {
+            // Shouldn't happen.
+            Log.w("TrendingActivity: ", "onViewSwipedToLeft: position out of range: " + position);
+            return;
+        }
+
         Repository repo = mSwipeDeckAdapter.getItem(position);
-        String msg = repo.getFullname() + " dismissed!";
+        String msg = repo.getFullName() + " dismissed!";
         this.makeToast(msg, mToast);
     }
 
@@ -154,6 +170,12 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
      */
     @Override
     public void onViewSwipedToRight(int position) {
+        if (position > mDeck.size()) {
+            // Shouldn't happen.
+            Log.w("TrendingActivity: ", "onViewSwipedToRight: position out of range: " + position);
+            return;
+        }
+
         Repository repo = mSwipeDeckAdapter.getItem(position);
         String user = repo.getUserName();
         String repoName = repo.getRepoName();
@@ -168,17 +190,16 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
      * HTTP request to backend hosted on Heroku which returns an array of repositories.
      */
     public void getTrendingRepositoriesArray() {
-        // TODO: Remove if not needed.
         OkHttpClient client = new OkHttpClient();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://forkme-backend-testjsonserver.herokuapp.com/")
+                .baseUrl("https://forkme-backend.herokuapp.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        ForkMeBackendApiTest endpoint = retrofit.create(ForkMeBackendApiTest.class);
+        ForkMeBackendApi endpoint = retrofit.create(ForkMeBackendApi.class);
 
-        Call<List<Repository>> call = endpoint.getRepositoriesLocal();
+        Call<List<Repository>> call = endpoint.getRepositoriesArray();
         call.enqueue(new Callback<List<Repository>>() {
             @Override
             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
@@ -187,6 +208,9 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 for (Repository r: repositories) {
                     mDeck.add(r);
                 }
+                // Get rid of mProgressBarSpinner
+                //.
+                mProgressBarSpinner.setVisibility(View.GONE);
                 // Let the adapter know data has changed.
                 mSwipeDeckAdapter.notifyDataSetChanged();
             }

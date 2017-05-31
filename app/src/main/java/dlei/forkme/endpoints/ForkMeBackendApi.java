@@ -1,5 +1,7 @@
 package dlei.forkme.endpoints;
 
+import java.util.List;
+
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import retrofit2.Call;
@@ -12,4 +14,8 @@ public interface ForkMeBackendApi {
 
     @GET("/all_repos/repositories/{id}")
     Call<Repository> getRepository(@Path("id") int id);
+
+    @GET("/repositories")
+    Call<List<Repository>> getRepositoriesArray();
+
 }
