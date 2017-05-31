@@ -54,7 +54,7 @@ public class YourRepositoriesActivity extends BaseActivity {
         // Set up components of RecyclerView.
         mRecyclerViewRepositories = (RecyclerView) findViewById(R.id.repositoryRecyclerView);
         mAdapterRepositories = new RepositoryRecyclerViewAdapter(mRepositories);
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mLayoutManager = new LinearLayoutManager(this);
 
         // Set up RecyclerView.
         mRecyclerViewRepositories.setLayoutManager(mLayoutManager);

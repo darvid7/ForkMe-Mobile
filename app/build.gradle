@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "dlei.forkme"
         minSdkVersion 23
@@ -19,21 +19,47 @@ android {
     }
 }
 
+
+
+
+
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.github.geniushkg:oauthLibGithub:1.0.2'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    //    // Issues with mavenCentral()/gradle so require all sub dependencies.
+    //    // https://github.com/mikepenz/MaterialDrawer/issues/1442
+    compile('com.mikepenz:materialdrawer:5.9.2@aar') {
+        transitive = true
+    }
+    // compile 'com.github.geniushkg:oauthLibGithub:1.0.2'
+    /// compile 'com.github.darvid7:SwipeStack:0.4.0'
+
+
     compile 'com.android.support:design:25.3.1'
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.mikepenz:materialize:1.0.2@aar'
+    compile 'com.mikepenz:iconics-core:2.8.5@aar'
+    compile 'com.mikepenz:fastadapter:2.5.3@aar'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.github.darvid7:github-oauth:1.0.5'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.google.code.gson:gson:2.8.0'
     compile 'link.fls:swipestack:0.3.0'
-    compile 'com.android.support:cardview-v7:25.+'
-    compile 'com.android.support:recyclerview-v7:25.+'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:support-annotations:25.3.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'org.sufficientlysecure:html-textview:3.4'
+    compile 'com.atlassian.commonmark:commonmark:0.9.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-autolink:0.9.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-gfm-strikethrough:0.9.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-gfm-tables:0.9.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-heading-anchor:0.9.0'
+    compile 'com.atlassian.commonmark:commonmark-ext-ins:0.9.0'
     testCompile 'junit:junit:4.12'
 }

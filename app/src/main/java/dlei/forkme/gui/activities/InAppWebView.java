@@ -26,7 +26,6 @@ public class InAppWebView extends BaseActivity {
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest url) {
             return false;
         }
-
     }
 
     @Override
@@ -56,7 +55,7 @@ public class InAppWebView extends BaseActivity {
         Log.d("WebViewActivity: ", "Back pressed");
         Log.d("WebViewActivity: ", "canGoBack: " + webview.canGoBack());
         // Prioritize navDrawerFirst.
-        if (navDrawer.isDrawerOpen()) {
+        if (mNavDrawer.isDrawerOpen()) {
             super.onBackPressed();
         } else if (webview.canGoBack()) {
             webview.goBack();

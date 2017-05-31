@@ -1,0 +1,9 @@
+Change icon to include a fork symbol?
+Change app bar title for each activity, prefix with fork symbol
+
+Put stuff in static class instead of always accessing shared preferences etc
+
+NavDrawer remember activity it came from, going into repo view from trending repos should remain on trending repos
+can either
+- pass in parent class to intent
+- keep state object (leaning towards this)

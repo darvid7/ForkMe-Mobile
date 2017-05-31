@@ -128,7 +128,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             prevToast.cancel();
         }
         Toast toastie = Toast.makeText(
-                getBaseContext(), message, Toast.LENGTH_SHORT
+                this, message, Toast.LENGTH_SHORT
         );
         toastie.show();
         mToast = toastie;

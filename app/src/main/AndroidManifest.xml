@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dlei.forkme">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/forkme_launcher"
+        android:icon="@mipmap/forkme_launcher_round"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/forkme_launcher_round"
         android:supportsRtl="true"
@@ -28,9 +30,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.hardikgoswami.oauthLibGithub.OauthActivity"/>
-        <activity android:name=".gui.activities.TrendingRepositoriesActivity" />
+        <activity android:name="com.hardikgoswami.oauthLibGithub.OauthActivity" />
+        <activity android:name=".gui.activities.github.TrendingRepositoriesActivity" />
         <activity android:name=".gui.activities.LogInActivity" />
+        <activity android:name=".gui.activities.github.RepositoryViewActivity" />
+        <activity android:name=".gui.activities.github.UserViewActivity" />
+        <activity android:name=".gui.activities.github.OrganizationViewActivity" />
+        <activity android:name=".gui.activities.InAppWebView" />
+        <activity android:name=".gui.activities.AboutActivity" />
+        <activity android:name=".gui.activities.BaseActivity" />
+        <activity android:name=".gui.activities.github.MergeMeActivity" />
+        <activity android:name=".gui.activities.github.YourStarsActivity" />
+        <activity android:name=".gui.activities.github.YourRepositoriesActivity" />
+        <activity android:name=".gui.activities.github.SettingsActivity"></activity>
     </application>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 </manifest>

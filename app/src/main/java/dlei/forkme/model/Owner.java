@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 public class Owner implements Parcelable {
     private int id;
     private String url;
-    @SerializedName("gravatar_id")  // Maybe be empty "".
+    @SerializedName("gravatar_id")  // Can be empty "".
     private String gravatarId;
     @SerializedName("organizations_url")
     private String organzationsUrl;
@@ -22,6 +22,8 @@ public class Owner implements Parcelable {
     private String avatarUrl;
     @SerializedName("html_url")
     private String htmlUrl;
+    // TODO: Some attributes overlap with User, but User shouldn't strictly be a subclass of Owner
+    // consider alternatives to model both.
 
     // Default constructor.
     public Owner() {}

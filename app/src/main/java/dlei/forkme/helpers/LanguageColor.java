@@ -1,4 +1,4 @@
-package dlei.forkme.state;
+package dlei.forkme.helpers;
 
 import android.util.Log;
 
@@ -1420,7 +1420,6 @@ public class LanguageColor {
         }
         JsonObject colorUrlObject = colorUrl.getAsJsonObject();
         String colorHex = colorUrlObject.get("color").getAsString();
-        Log.d("LanguageColor: ", String.format("Language %s is hex color %s", language, colorHex));
         return colorHex;
     }
 }

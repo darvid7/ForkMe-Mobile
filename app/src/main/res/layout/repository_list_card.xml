@@ -3,16 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:weightSum="1"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="0dp"
-    android:layout_marginStart="0dp"
-    android:layout_weight="106"
-    card_view:cardCornerRadius="@dimen/card_corner_radius_mild"
-    card_view:cardElevation="@dimen/card_elevation"
-
     >
 
     <android.support.constraint.ConstraintLayout
@@ -51,7 +44,7 @@
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintRight_toRightOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/repositoryNameText"
-            card_view:layout_constraintVertical_bias="0.0" />
+            />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/forkImageView"

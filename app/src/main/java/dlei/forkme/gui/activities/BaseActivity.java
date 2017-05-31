@@ -1,6 +1,9 @@
 package dlei.forkme.gui.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +45,15 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         Log.d("BaseActivity: ", "created");
+
+//        Context context = getApplicationContext();
+//        ConnectivityManager cm =
+//                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//
+//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+//        boolean isConnected = activeNetwork != null &&
+//                activeNetwork.isConnectedOrConnecting();
+
 
 
         mStars = new PrimaryDrawerItem()
@@ -144,8 +156,6 @@ public class BaseActivity extends AppCompatActivity {
             mSettings.withSelectable(false);
             mNavDrawer.setSelection(mSettings, false);
         }
-
-        Log.d("BaseActivity: ", "inflateNavDrawer: " + mNavDrawer);
     }
 
 

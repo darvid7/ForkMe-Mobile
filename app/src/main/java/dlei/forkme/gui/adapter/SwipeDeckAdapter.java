@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
 import dlei.forkme.R;
 import dlei.forkme.model.Repository;
-import dlei.forkme.state.LanguageColor;
+import dlei.forkme.helpers.LanguageColor;
 
 import java.util.List;
 import java.util.Locale;
@@ -82,13 +81,18 @@ public class SwipeDeckAdapter extends BaseAdapter {
         AppCompatTextView languageText = (AppCompatTextView) convertView.findViewById(R.id.languageText);
         AppCompatImageView languageCircleImage = (AppCompatImageView) convertView.findViewById(R.id.languageCircleImageView);
         String language = repo.getLanguage();
-        String languageColorAsHex = LanguageColor.getColor(language);
-        // TODO: Refactor this into a fragment as lots of duplicate code to set this up across different activities?
-        if (languageColorAsHex != null) {
-            int languageColorAsInt = Color.parseColor(languageColorAsHex);
-            // TODO: Only draw on the inside of the circle.
-            languageCircleImage.setColorFilter(languageColorAsInt);
+        if (language != null) {
+            String languageColorAsHex = LanguageColor.getColor(language);
+            // TODO: Refactor this into a fragment as lots of duplicate code to set this up across different activities?
+            if (languageColorAsHex != null) {
+                int languageColorAsInt = Color.parseColor(languageColorAsHex);
+                // TODO: Only draw on the inside of the circle.
+                languageCircleImage.setColorFilter(languageColorAsInt);
+            }
+        } else {
+            language = "None";
         }
+
         languageText.setText(language);
 
         // Set fork count.

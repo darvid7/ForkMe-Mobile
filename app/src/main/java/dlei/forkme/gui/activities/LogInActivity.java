@@ -9,9 +9,9 @@ import android.view.View;
 import com.hardikgoswami.oauthLibGithub.GithubOauth;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import dlei.forkme.R;
+
 // https://github.com/thephpleague/oauth2-github/issues/4
 public class  LogInActivity extends AppCompatActivity {
 
@@ -23,7 +23,6 @@ public class  LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-
         mLoginButton = (AppCompatButton) findViewById(R.id.loginButton);
         final ArrayList<String> scopeList = new ArrayList<String>();
         scopeList.add("user");  // Needed to follow people.
