@@ -204,13 +204,11 @@ public class Repository implements Parcelable {
     @SuppressWarnings("unused")
     public static final Creator<Repository> CREATOR = new Creator<Repository>() {
 
-        // Wrapper that allows you to create a Monster object from intent.
         @Override
         public Repository createFromParcel(Parcel in) {
             return new Repository(in);
         }
 
-        // Allows you to create a list of Monsters.
         @Override
         public Repository[] newArray(int size) {
             return new Repository[size];

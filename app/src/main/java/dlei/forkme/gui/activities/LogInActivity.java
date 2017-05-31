@@ -1,5 +1,11 @@
 package dlei.forkme.gui.activities;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -9,6 +15,7 @@ import android.view.View;
 import com.hardikgoswami.oauthLibGithub.GithubOauth;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import dlei.forkme.R;
 import dlei.forkme.helpers.NetworkAsyncCheck;
@@ -28,7 +35,6 @@ public class  LogInActivity extends AppCompatActivity {
 
         mLoginButton = (AppCompatButton) findViewById(R.id.loginButton);
 
-        //
         NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mLoginButton);
         if (n != null) {
             n.execute();

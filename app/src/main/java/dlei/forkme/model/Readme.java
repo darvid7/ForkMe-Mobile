@@ -34,6 +34,10 @@ public class Readme {
                 "<p>Maybe prompt the owner to make a readme?</p>";
     }
 
+    private static String getMarkdownExceptionReplacement() {
+        return "## Markdown could not be decoded" +
+                "<center><img src=" + renderFailImageUrl + " alt=:( ></center>";
+    }
 
     // Default constructor.
     public Readme() {
@@ -52,19 +56,13 @@ public class Readme {
     }
 
     public String getDecodedContent() {
-        Log.d("Readme: ", "getDecodedContent: Before: " + this.content.substring(0, this.content.length() > 201 ? 200 : 0));
         String decodedMarkdown;
-
         try {
             decodedMarkdown = new String(Base64.decode(this.content.getBytes("UTF-8"), Base64.NO_WRAP));
         } catch (UnsupportedEncodingException e) {
-            Log.w("Readme: ", "getDecodedContent: Decoding string: " + e.getMessage());
-            decodedMarkdown = "";
+            Log.w("Readme: ", "getDecodedContent: UnsupportedEncodingException error: " + e.getMessage());
+            decodedMarkdown = getMarkdownExceptionReplacement();
         }
-
-        Log.d("Readme: ", "getDecodedContent: After (should be markdown):\n" + decodedMarkdown);
-
         return decodedMarkdown;
-
     }
 }

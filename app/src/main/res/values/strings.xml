@@ -29,6 +29,9 @@
     <string name="updated_at">Last updated:</string>
     <string name="none">None</string>
 
+    <string name="title_location_permission">Hi</string>
+    <string name="text_location_permission">Bye</string>
+    <string name="ok">ok</string>
 
 
 </resources>
