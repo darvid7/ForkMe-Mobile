@@ -11,6 +11,8 @@ import com.hardikgoswami.oauthLibGithub.GithubOauth;
 import java.util.ArrayList;
 
 import dlei.forkme.R;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 
 // https://github.com/thephpleague/oauth2-github/issues/4
 public class  LogInActivity extends AppCompatActivity {
@@ -23,7 +25,15 @@ public class  LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
         mLoginButton = (AppCompatButton) findViewById(R.id.loginButton);
+
+        //
+        NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mLoginButton);
+        if (n != null) {
+            n.execute();
+        }
+
         final ArrayList<String> scopeList = new ArrayList<String>();
         scopeList.add("user");  // Needed to follow people.
         scopeList.add("public_repo");  // Needed to star repositories.

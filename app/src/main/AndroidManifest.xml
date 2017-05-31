@@ -3,6 +3,7 @@
     package="dlei.forkme">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,16 +12,6 @@
         android:roundIcon="@mipmap/forkme_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- <activity android:name=".gui.activities.LogInActivity"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-
         <activity
             android:name=".gui.activities.SplashScreenActivity"
             android:theme="@style/SplashTheme">
@@ -42,7 +33,7 @@
         <activity android:name=".gui.activities.github.MergeMeActivity" />
         <activity android:name=".gui.activities.github.YourStarsActivity" />
         <activity android:name=".gui.activities.github.YourRepositoriesActivity" />
-        <activity android:name=".gui.activities.github.SettingsActivity"></activity>
+        <activity android:name=".gui.activities.github.SettingsActivity" />
     </application>
 
 </manifest>

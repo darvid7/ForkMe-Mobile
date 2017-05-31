@@ -1,9 +1,6 @@
 package dlei.forkme.gui.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,6 +20,8 @@ import dlei.forkme.gui.activities.github.SettingsActivity;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourStarsActivity;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.state.Settings;
 
 /**
@@ -44,17 +43,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
         Log.d("BaseActivity: ", "created");
-
-//        Context context = getApplicationContext();
-//        ConnectivityManager cm =
-//                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-//
-//        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-//        boolean isConnected = activeNetwork != null &&
-//                activeNetwork.isConnectedOrConnecting();
-
-
 
         mStars = new PrimaryDrawerItem()
                 .withIdentifier(1)
@@ -86,6 +76,10 @@ public class BaseActivity extends AppCompatActivity {
         Log.d("BaseActivity: ", "inflateNavDrawer: called");
         Toolbar toolbar = (Toolbar) findViewById(R.id.nav_drawer_toolbar);
         setSupportActionBar(toolbar);
+        NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(toolbar);
+        if (n != null) {
+            n.execute();
+        }
 
         mNavDrawer = new DrawerBuilder()
                 .withActivity(this)
