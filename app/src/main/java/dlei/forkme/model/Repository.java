@@ -34,10 +34,11 @@ public class Repository implements Parcelable {
     private String url;
     @SerializedName("forks_count")
     private int forkCount;
-    @SerializedName("updated_at")
-    private String updatedAt; // TODO: Parse date time.
     @SerializedName("subscribers_count")
     private int subscribersCount;
+    @SerializedName("updated_at")
+    private String updatedAt; // TODO: Parse date time.
+
 
     // Default constructor.
     public Repository() {}
@@ -48,7 +49,7 @@ public class Repository implements Parcelable {
         return size;
     }
 
-    public String getFullname() {
+    public String getFullName() {
         return fullname;
     }
 
@@ -82,6 +83,7 @@ public class Repository implements Parcelable {
 
     // This is the same as watcher count on the web interface, watcher is the same as star in the API.
     public int getSubscribersCount() {
+        Log.w("Subscriber count: ", "" + this.subscribersCount);
         return this.subscribersCount;
     }
 
@@ -89,8 +91,8 @@ public class Repository implements Parcelable {
         this.subscribersCount = subscribersCount;
     }
 
-    public int getWathcherCount() {
-        return this.getStargazerCount();
+    public int getWatchCount() {
+        return this.getSubscribersCount();
     }
 
     public String getLanguage() {
@@ -101,6 +103,15 @@ public class Repository implements Parcelable {
         this.language = language;
 
     }
+
+    public String getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
     public int getId() {
         return id;
     }
@@ -117,7 +128,7 @@ public class Repository implements Parcelable {
     }
 
     public String toString() {
-        return "Repository: " + fullname + ", description: " + description + ", stars: " + stargazerCount;
+        return "Repository: " + fullname + ", description: " + description + ", stars: " + stargazerCount + ", watchers: " + subscribersCount;
     }
 
     public void setOwner(Owner owner) {
@@ -163,6 +174,7 @@ public class Repository implements Parcelable {
         this.openIssuesCount = in.readInt();
         this.url = in.readString();
         this.forkCount = in.readInt();
+        this.subscribersCount = in.readInt();
         this.updatedAt = in.readString();
     }
 
@@ -184,6 +196,7 @@ public class Repository implements Parcelable {
         dest.writeInt(this.openIssuesCount);
         dest.writeString(this.url);
         dest.writeInt(this.forkCount);
+        dest.writeInt(this.subscribersCount);
         dest.writeString(this.updatedAt);
 
     }

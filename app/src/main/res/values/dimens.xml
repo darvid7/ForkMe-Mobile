@@ -1,6 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
     <dimen name="padding_normal">8dp</dimen>
     <dimen name="padding_swipestack">64dp</dimen>
@@ -14,4 +13,14 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
+
+    <dimen name="med_icon">48dp</dimen>
+    <dimen name="small_icon">24dp</dimen>
+
+    <dimen name="small_text">10sp</dimen>
+
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_corner_radius_mild">1dp</dimen>
+    <dimen name="card_corner_radius_bold">3dp</dimen>
+
 </resources>

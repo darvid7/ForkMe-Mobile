@@ -32,7 +32,7 @@ public class RepositoryResponse {
             if (r == null) {
                 return s;
             }
-            String name = r.getFullname();
+            String name = r.getFullName();
             s = s + name + "\n";
         }
         return s;

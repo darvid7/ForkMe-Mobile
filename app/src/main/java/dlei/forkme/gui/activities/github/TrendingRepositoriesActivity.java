@@ -40,7 +40,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     private SwipeDeckAdapter mSwipeDeckAdapter;
     private List<Repository> mDeck = new ArrayList<Repository>();
     private boolean mSwipeIsTouch = false;
-    private Toast mToast = null;
+    private Toast mToast = null;  // Note: Toasts stay on screen even when app is exited, maybe change to snackbar.
     private String mOAuthToken;
     private ProgressBar mProgressBarSpinner;
 
@@ -208,8 +208,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 for (Repository r: repositories) {
                     mDeck.add(r);
                 }
-                // Get rid of mProgressBarSpinner
-                //.
+                // Get rid of mProgressBarSpinner.
                 mProgressBarSpinner.setVisibility(View.GONE);
                 // Let the adapter know data has changed.
                 mSwipeDeckAdapter.notifyDataSetChanged();
