@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class YourRepositoriesActivity extends BaseActivity {
     private ProgressBar mProgressBarSpinner;
     private RecyclerView mRecyclerViewRepositories;
     private RepositoryRecyclerViewAdapter mAdapterRepositories;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     private ArrayList<Repository> mRepositories = new ArrayList<Repository>();
 
     @Override
@@ -59,6 +60,11 @@ public class YourRepositoriesActivity extends BaseActivity {
         mRecyclerViewRepositories.setLayoutManager(mLayoutManager);
         mRecyclerViewRepositories.setItemAnimator(new DefaultItemAnimator());
         mRecyclerViewRepositories.setAdapter(mAdapterRepositories);
+
+        // Set up lines between items in list.
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewRepositories.getContext(),
+                mLayoutManager.getOrientation());
+        mRecyclerViewRepositories.addItemDecoration(dividerItemDecoration);
 
         this.getMyRepositories();
     }
