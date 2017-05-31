@@ -25,12 +25,12 @@ public class Readme {
         return "<h3>Error Loading readme</h3><p>url: <a href="
                 + this.getHtmlUrl() + ">" + this.getHtmlUrl() + "</a>" +
                 " could not be rendered properly :(</p><br/>" +
-                "<img src=" + renderFailImageUrl + "></img>";
+                "<center><img src=" + renderFailImageUrl + " alt=:( ></center>";
     }
 
     public static String getReadmeNotFoundHtml() {
         return "<h3>Readme not found for this repository</h3>" +
-                "<img src=" + readmeNotFoundImageUrl + "></img>" +
+                "<center><img src=" + readmeNotFoundImageUrl + " alt=:( ></center>" +
                 "<p>Maybe prompt the owner to make a readme?</p>";
     }
 
