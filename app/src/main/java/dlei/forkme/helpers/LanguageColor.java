@@ -1,5 +1,8 @@
 package dlei.forkme.helpers;
 
+import android.graphics.Color;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
@@ -1408,6 +1411,9 @@ public class LanguageColor {
             "}"
     );
 
+    private static final int noLanguageColor = Color.parseColor("#e5e5e5");
+
+
     private static final JsonObject languageColorLookup = new JsonParser().parse(colorJsonString).getAsJsonObject();
 
     public LanguageColor() {}
@@ -1421,5 +1427,19 @@ public class LanguageColor {
         JsonObject colorUrlObject = colorUrl.getAsJsonObject();
         String colorHex = colorUrlObject.get("color").getAsString();
         return colorHex;
+    }
+
+    public static void setLanguageOnView(String language, AppCompatImageView languageCircleImage, AppCompatTextView languageText) {
+        int languageColorAsInt = noLanguageColor;
+        if (language != null) {
+            String languageColorAsHex = LanguageColor.getColor(language);
+            if (languageColorAsHex != null) {
+                languageColorAsInt = Color.parseColor(languageColorAsHex);
+            }
+        } else {
+            language = "None";
+        }
+        languageCircleImage.setColorFilter(languageColorAsInt);
+        languageText.setText(language);
     }
 }

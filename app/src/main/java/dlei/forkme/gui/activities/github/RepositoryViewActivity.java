@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.squareup.picasso.Picasso;
 
@@ -57,6 +59,7 @@ public class RepositoryViewActivity extends BaseActivity {
     private AppCompatTextView mStarCountText;
     private AppCompatTextView mRepoDescriptionText;
     private AppCompatImageView mIconImageView;
+    private ProgressBar mProgressBarSpinner;
 
     private static void createParser() {
         // TODO: Move to singleton.
@@ -108,6 +111,8 @@ public class RepositoryViewActivity extends BaseActivity {
         String ownerName = mRepository.getOwnerName();
 
         // Set up UI elements.
+        mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
+
         mLanguageText = (AppCompatTextView) findViewById(R.id.languageText);
         mLanguageCircleImage = (AppCompatImageView) findViewById(R.id.languageCircleImageView);
         mWatchCountText = (AppCompatTextView) findViewById(R.id.watchCountText);
@@ -128,18 +133,7 @@ public class RepositoryViewActivity extends BaseActivity {
         mRepoDescriptionText.setText(mRepository.getDescription());
 
         String language = mRepository.getLanguage();
-        if (language != null) {
-            mLanguageText.setText(language);
-            String languageColorAsHex = LanguageColor.getColor(mRepository.getLanguage());
-            if (languageColorAsHex != null) {
-                int languageColorAsInt = Color.parseColor(languageColorAsHex);
-                // TODO: Only draw on the inside of the circle.
-                mLanguageCircleImage.setColorFilter(languageColorAsInt);
-            }
-        } else {
-            mLanguageText.setText(R.string.none);
-        }
-
+        LanguageColor.setLanguageOnView(language, mLanguageCircleImage, mLanguageText);
 
 
         // TODO: Fix common mark parsing of code blocks in <pre> tags or swap to a web view.
@@ -190,6 +184,8 @@ public class RepositoryViewActivity extends BaseActivity {
         call.enqueue(new Callback<Readme>() {
             @Override
             public void onResponse(Call<Readme> call, Response<Readme> response) {
+                mProgressBarSpinner.setVisibility(View.GONE);
+
                 if (response.code() == 200 && response.isSuccessful()) {
                     Log.d("RepositoryActivity: ", String.format("getReadme for owner: %s, repo %s", owner, repo));
                     Readme readme = response.body();

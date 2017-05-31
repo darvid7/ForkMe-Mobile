@@ -19,8 +19,8 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/ownerUserNameText"
-            android:layout_width="119dp"
-            android:layout_height="22dp"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="1dp"
             android:text="@string/placeholder_username"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
@@ -79,12 +79,13 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/repositoryNameText"
-            android:layout_width="118dp"
+            android:layout_width="125dp"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_reponame"
             card_view:layout_constraintLeft_toLeftOf="@+id/ownerUserNameText"
             android:layout_marginTop="8dp"
-            card_view:layout_constraintTop_toBottomOf="@+id/ownerUserNameText" />
+            card_view:layout_constraintTop_toBottomOf="@+id/ownerUserNameText"
+            android:layout_marginLeft="0dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/starCountText"

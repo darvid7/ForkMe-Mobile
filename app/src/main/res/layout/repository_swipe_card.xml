@@ -77,7 +77,6 @@
                 layout="@layout/repository_extra_information"
                 android:layout_width="252dp"
                 android:layout_height="176dp"
-                android:background="@color/colorPrimaryLight"
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintTop_toBottomOf="@+id/repositoryCardDescriptionText"
                 card_view:layout_constraintVertical_bias="0.142"
@@ -85,7 +84,8 @@
                 card_view:layout_constraintLeft_toLeftOf="@+id/repositoryCardDescriptionText"
                 android:layout_marginRight="0dp"
                 card_view:layout_constraintRight_toRightOf="@+id/repositoryCardDescriptionText"
-                card_view:layout_constraintHorizontal_bias="0.4" />
+                card_view:layout_constraintHorizontal_bias="0.4"
+                />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/updatedLabelText"

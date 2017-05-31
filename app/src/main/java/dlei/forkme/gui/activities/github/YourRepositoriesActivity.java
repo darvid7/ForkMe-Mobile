@@ -102,14 +102,15 @@ public class YourRepositoriesActivity extends BaseActivity {
                 if (response.code() == 200 && response.isSuccessful()) {
                     ArrayList<Repository> repositories = (ArrayList<Repository>) response.body();
 
-                    mProgressBarSpinner.setVisibility(View.GONE);
-
                     // Add starred repositories to array.
                     for (Repository r: repositories) {
                         mRepositories.add(r);
                     }
                     // Notify data set changed.
                     mAdapterRepositories.notifyDataSetChanged();
+
+                    mProgressBarSpinner.setVisibility(View.GONE);
+
                 } else {
                     Log.w("YourReposActivity: ", String.format(
                             "getMyRepositories: Error: Status code: %d, successful: %s," + "headers: %s",

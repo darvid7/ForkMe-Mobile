@@ -81,19 +81,7 @@ public class SwipeDeckAdapter extends BaseAdapter {
         AppCompatTextView languageText = (AppCompatTextView) convertView.findViewById(R.id.languageText);
         AppCompatImageView languageCircleImage = (AppCompatImageView) convertView.findViewById(R.id.languageCircleImageView);
         String language = repo.getLanguage();
-        if (language != null) {
-            String languageColorAsHex = LanguageColor.getColor(language);
-            // TODO: Refactor this into a fragment as lots of duplicate code to set this up across different activities?
-            if (languageColorAsHex != null) {
-                int languageColorAsInt = Color.parseColor(languageColorAsHex);
-                // TODO: Only draw on the inside of the circle.
-                languageCircleImage.setColorFilter(languageColorAsInt);
-            }
-        } else {
-            language = "None";
-        }
-
-        languageText.setText(language);
+        LanguageColor.setLanguageOnView(language, languageCircleImage, languageText);
 
         // Set fork count.
         AppCompatTextView forkCountText = (AppCompatTextView) convertView.findViewById(R.id.forkCountText);

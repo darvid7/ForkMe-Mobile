@@ -52,19 +52,7 @@ public class RepositoryViewHolder extends RecyclerView.ViewHolder {
      * @param language programming language for the Github repository.
      */
     public void setLanguage(String language) {
-        int languageColorAsInt = Color.parseColor("#ffffff");
-        if (language != null) {
-            String languageColorAsHex = LanguageColor.getColor(language);
-            // TODO: Refactor this into a fragment as lots of duplicate code to set this up across different activities?
-            if (languageColorAsHex != null) {
-                languageColorAsInt = Color.parseColor(languageColorAsHex);
-                // TODO: Only draw on the inside of the circle.
-            }
-        } else {
-            language = "None";
-        }
-        mLanguageCircleImage.setColorFilter(languageColorAsInt);
-        mLanguageText.setText(language);
+        LanguageColor.setLanguageOnView(language, mLanguageCircleImage, mLanguageText);
     }
 
     public void setForkCountText(int forkCount) {

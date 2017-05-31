@@ -31,7 +31,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 // TODO: Fix bug, sometimes crashing when registering touch when swiping. https://github.com/flschweiger/SwipeStack/issues/46
-
+// TODO: Fix landscape view, maybe only support portrait.
 /**
  * Activity for displaying trending Github repositories retrieved from my backend in a SwipeStack.
  */
@@ -79,7 +79,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         mSwipeDeck.setAdapter(mSwipeDeckAdapter);
 
-        mProgressBarSpinner = (ProgressBar)findViewById(R.id.progress_bar_spinner);
+        mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
 
 
         this.getTrendingRepositoriesArray();
@@ -208,10 +208,12 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 for (Repository r: repositories) {
                     mDeck.add(r);
                 }
-                // Get rid of mProgressBarSpinner.
-                mProgressBarSpinner.setVisibility(View.GONE);
+
                 // Let the adapter know data has changed.
                 mSwipeDeckAdapter.notifyDataSetChanged();
+
+                // Get rid of mProgressBarSpinner.
+                mProgressBarSpinner.setVisibility(View.GONE);
             }
 
             @Override
