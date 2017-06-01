@@ -35,10 +35,7 @@ dependencies {
         transitive = true
     }
     // compile 'com.github.geniushkg:oauthLibGithub:1.0.2'
-    /// compile 'com.github.darvid7:SwipeStack:0.4.0'
 
-
-    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.mikepenz:materialize:1.0.2@aar'
     compile 'com.mikepenz:iconics-core:2.8.5@aar'

@@ -24,6 +24,7 @@ import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.state.Settings;
 
+// TODO: Move network checks to onFail() Http calls.
 /**
  * BaseActivity for that application with a navigation drawer, all activities that require a navigation
  * drawer should extend BaseActivity.
