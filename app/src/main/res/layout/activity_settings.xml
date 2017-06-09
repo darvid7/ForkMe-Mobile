@@ -10,16 +10,41 @@
         android:id="@+id/toolbar_layout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="0dp"
+        android:layout_width="0dp" />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/textView4"
+    <ImageView
+        android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings: coming soon"
+        app:srcCompat="@drawable/ic_folder_48px"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintHorizontal_bias="0.152" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_trending_up_48px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:layout_constraintHorizontal_bias="0.152" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_group_48px"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintHorizontal_bias="0.152" />
 
 </android.support.constraint.ConstraintLayout>

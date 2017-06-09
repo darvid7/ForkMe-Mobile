@@ -25,8 +25,8 @@ import dlei.forkme.helpers.NetworkHelper;
 public class  LogInActivity extends AppCompatActivity {
 
     private AppCompatButton mLoginButton;
-    private static String clientId = "";
-    private static String clientSecret = "";
+    private static String clientId = "d34146c5bec6fe30be05";
+    private static String clientSecret = "caad4e8944b4800502f9e2d2e13910825b978ba1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class  LogInActivity extends AppCompatActivity {
         final ArrayList<String> scopeList = new ArrayList<String>();
         scopeList.add("user");  // Needed to follow people.
         scopeList.add("public_repo");  // Needed to star repositories.
+        scopeList.add("notifications");
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override

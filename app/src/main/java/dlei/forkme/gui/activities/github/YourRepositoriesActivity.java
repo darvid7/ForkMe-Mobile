@@ -93,9 +93,7 @@ public class YourRepositoriesActivity extends BaseActivity {
                 .build();
 
         GithubApi endpoint = retrofit.create(GithubApi.class);
-        Call<List<Repository>> call = endpoint.getMyRepositories();
-
-        call.enqueue(new Callback<List<Repository>>() {
+        endpoint.getMyRepositories().enqueue(new Callback<List<Repository>>() {
             @Override
             public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
 
@@ -125,6 +123,7 @@ public class YourRepositoriesActivity extends BaseActivity {
                 Log.i("YourReposActivity: ", "getGithubStars: Failed: " + t.getMessage());
             }
         });
+
     }
 
 }
