@@ -50,6 +50,13 @@ public class DeveloperContactViewHolder extends RecyclerView.ViewHolder {
         mDevMessage.setText(msg);
     }
 
+    /**
+     * Set up a listener on the email icon, when clicked prompts the user to open up an email
+     * client. The below fields are filled out to help the user, it can be edited in the email client.
+     * @param toEmailAddress email address to be sent to.
+     * @param subject subject of the email.
+     * @param body body of the email.
+     */
     public void setEmailIconOnClickListener(final String toEmailAddress, final String subject, final String body) {
         mEmailIcon.setOnClickListener(
                 new View.OnClickListener() {
