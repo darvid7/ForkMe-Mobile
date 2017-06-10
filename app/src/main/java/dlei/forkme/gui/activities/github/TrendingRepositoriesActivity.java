@@ -16,6 +16,7 @@ import java.util.Locale;
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapter.SwipeDeckAdapter;
+import dlei.forkme.gui.fragments.StarNotificationDialog;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
@@ -187,6 +188,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         Repository repo = mSwipeDeckAdapter.getItem(position);
         String user = repo.getUserName();
         String repoName = repo.getRepoName();
+        // Note: 91 character limit for repo.getFullName() before overflow.
+        StarNotificationDialog s = StarNotificationDialog.newInstance(repo.getFullName());
+        s.show(getFragmentManager(), "StarNotificationDialog-Tag");
+
         starGithubRepo(user, repoName);
     }
 

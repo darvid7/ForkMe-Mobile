@@ -127,5 +127,8 @@
 
     <string name="hours">Hours</string>
     <string name="dialog_star_notification_message">"Remind me to look at this later in"</string>
+    <string name="dialog_star_notification_message_first_half">"Remind me to look at "</string>
+    <string name="dialog_star_notification_message_second_half">" later in"</string>
+
 
 </resources>
