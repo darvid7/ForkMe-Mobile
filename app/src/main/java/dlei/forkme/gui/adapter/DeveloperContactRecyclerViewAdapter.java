@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import dlei.forkme.R;
-import dlei.forkme.gui.activities.github.RepositoryViewActivity;
 import dlei.forkme.gui.activities.github.UserViewActivity;
 import dlei.forkme.model.DeveloperContactInfo;
-import dlei.forkme.model.Repository;
 
 public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<DeveloperContactViewHolder>{
 
@@ -52,6 +50,10 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
         developerCard.setDevNameText(developerInfo.getName());
         developerCard.setDevMessage(developerInfo.getMsg());
 
+        developerCard.setEmailIconOnClickListener(developerInfo.getEmail(), "Hi from ForkMe",
+                "Hi " + developerInfo.getName() + ",\nI saw you on the App ForkMe!\n" +
+                "Regarding " + developerInfo.getMsg() + "\n");
+
         developerCard.itemView.setOnClickListener(new View.OnClickListener() {
             // TODO: Intent to user view??
             @Override
@@ -61,5 +63,6 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
                 v.getContext().startActivity(i);
             }
         });
+
     }
 }

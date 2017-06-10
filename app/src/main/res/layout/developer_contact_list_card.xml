@@ -66,15 +66,15 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/emailIconImageView"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            card_view:srcCompat="@drawable/ic_email_48px"
-            android:layout_marginTop="8dp"
-            card_view:layout_constraintTop_toBottomOf="@+id/devIconImageView"
-            android:layout_marginRight="0dp"
-            card_view:layout_constraintRight_toRightOf="@+id/devIconImageView"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginLeft="0dp"
-            card_view:layout_constraintLeft_toLeftOf="@+id/devIconImageView" />
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintLeft_toLeftOf="@+id/devIconImageView"
+            card_view:layout_constraintRight_toRightOf="@+id/devIconImageView"
+            card_view:layout_constraintTop_toBottomOf="@+id/devIconImageView"
+            card_view:srcCompat="@drawable/ic_email_48px" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/devIconImageView"

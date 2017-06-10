@@ -107,24 +107,10 @@ public class MergeMeActivity extends BaseActivity {
             mMainButton.setVisibility(View.GONE);
             mProgressBarSpinner.setVisibility(View.VISIBLE);
             mRecyclerViewDevContactInfo.setVisibility(View.VISIBLE);
-            // Set up merge me view.
-
-
-            // Set up components of RecyclerView.
-            mAdapterDevContactInfo = new DeveloperContactRecyclerViewAdapter(mDeveloperContactInfo);
-            mLayoutManager = new LinearLayoutManager(this);
-
-            // Set up RecyclerView.
-            mRecyclerViewDevContactInfo.setLayoutManager(mLayoutManager);
-            mRecyclerViewDevContactInfo.setItemAnimator(new DefaultItemAnimator());
-            mRecyclerViewDevContactInfo.setAdapter(mAdapterDevContactInfo);
-
-            // Set up lines between items in list.
-            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewDevContactInfo.getContext(),
-                    mLayoutManager.getOrientation());
-            mRecyclerViewDevContactInfo.addItemDecoration(dividerItemDecoration);
-
-            this.getDevelopers();
+            // If developer list not populated, populate it.
+            if (!(mDeveloperContactInfo.size() > 0)) {
+                this.getDevelopers();
+            }
         }
     }
 
@@ -141,6 +127,21 @@ public class MergeMeActivity extends BaseActivity {
         mMainButton = (AppCompatButton) findViewById(R.id.mergeMeMainButton);
         mMainTextView = (AppCompatTextView) findViewById(R.id.mergeMeMainText);
         mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
+
+        // Set up components of RecyclerView.
+        mAdapterDevContactInfo = new DeveloperContactRecyclerViewAdapter(mDeveloperContactInfo);
+        mLayoutManager = new LinearLayoutManager(this);
+
+        // Set up RecyclerView.
+        mRecyclerViewDevContactInfo.setLayoutManager(mLayoutManager);
+        mRecyclerViewDevContactInfo.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerViewDevContactInfo.setAdapter(mAdapterDevContactInfo);
+
+        // Set up lines between items in list.
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewDevContactInfo.getContext(),
+                mLayoutManager.getOrientation());
+        mRecyclerViewDevContactInfo.addItemDecoration(dividerItemDecoration);
+
     }
 
     /**
