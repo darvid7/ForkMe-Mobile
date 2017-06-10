@@ -21,4 +21,5 @@ public class LocationHelper {
                 ) == PackageManager.PERMISSION_GRANTED;
         return hasLocationPermissions;
     }
+
 }

@@ -36,13 +36,27 @@
     <string name="timeframe">Timeframe</string>
     <string name="choose_language">Choose language</string>
     <string name="sort_by">Sort by</string>
+    <string name="main_text">Main text</string>
+    <string name="main_button">Main button</string>
 
     <string name="find_people_allowed_label">Allowed</string>
     <string name="find_people_message_placeholder">Looking for Python dev.</string>
 
-    <string name="title_location_permission">Hi</string>
-    <string name="text_location_permission">Bye</string>
+    <string name="title_location_permission">Allow location access for finding other developers.</string>
+    <string name="text_location_permission">This will only get your location once.</string>
     <string name="ok">ok</string>
+    <string name="str_false">False</string>
+    <string name="str_true">True</string>
+    <string name="disabled">Disabled</string>
+
+    <string name="give_perms_in_app_text">This functionality requires location permissions so it can
+        group users by city. Allow locations permissions in application.</string>
+    <string name="give_perms_externally_text">This functionality requires location permissions so it can
+        group users by city. Permissions have been disabled forever. You need to allow permissions form
+        outside the application.</string>
+    <string name="give_perms_in_app_button">Give Permissions</string>
+    <string name="give_perms_externally_button">Give Location Permissions Externally</string>
+
 
     <string-array name="timeframe_array">
         <item>1 Week</item>

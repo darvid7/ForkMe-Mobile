@@ -16,7 +16,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.github.MergeMeActivity;
-import dlei.forkme.gui.activities.github.SettingsActivity;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourStarsActivity;

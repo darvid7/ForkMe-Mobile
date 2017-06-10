@@ -1,15 +1,13 @@
-package dlei.forkme.gui.activities.github;
+package dlei.forkme.gui.activities;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
@@ -28,7 +26,6 @@ import dlei.forkme.R;
 import dlei.forkme.datastore.DatabaseHelper;
 import dlei.forkme.datastore.NoDataException;
 import dlei.forkme.datastore.TooMuchDataException;
-import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.helpers.LocationHelper;
 import dlei.forkme.state.AppSettings;
 
@@ -45,7 +42,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
     private DatabaseHelper mDbHelper;
 
     /**
-     * Allows changes when chagning permission of application externally to be reflected.
+     * Allows changes when changing permission of application externally to be reflected.
      */
     @Override
     public void onResume() {
@@ -55,11 +52,15 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         // It is only clickable if it doesn't have location permissions.
         boolean hasLocationPermissions = LocationHelper.hasLocationPermissions(this);
 
+        boolean locationPermissionsDisabledForever = !shouldShowRequestPermissionRationale(
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        Log.d("onResume: ", "called");
+
         mLocationSwitch.setChecked(hasLocationPermissions);
 
         if (!hasLocationPermissions) {
             // Don't have location permissions.
-            if (AppSettings.sLocationDisabledForever != 1) {
+            if (!locationPermissionsDisabledForever) {
                 // Locations permissions not disabled forever, allow user to give them.
                 Log.d("Not has perms: ", "Setting up listener");
                 mLocationSwitch.setEnabled(true);
@@ -77,10 +78,15 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
                     }
                 });
             } else {
+                Log.d("Not has perms: ", "Disabled forever");
                 // Location permissions disabled forever, disable button.
                 mLocationSwitch.setEnabled(false);
+                mSwitchText.setText(getResources().getText(R.string.disabled));
+
             }
         } else {
+            Log.d("Has perms: ", "setClickable False");
+            mLocationSwitch.setEnabled(true); // Allows accent color after disabled and then enabled externally.
             mLocationSwitch.setClickable(false);
             mSwitchText.setText(getResources().getText(R.string.str_true));
         }
@@ -258,7 +264,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
                 } else {
                     // Permission denied.
                     Log.wtf("SettingsActivity: ", "onRequestPermissionsResult() " +
-                            "Location Permissions: denied");
+                            "Location Permissions: denied, test: " + permissions[0]);
+
                     boolean showRationale = shouldShowRequestPermissionRationale(permissions[0]);
                     if (!showRationale) {
                         // User also selected never show again.

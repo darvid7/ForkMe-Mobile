@@ -33,7 +33,7 @@
         <activity android:name=".gui.activities.github.MergeMeActivity" />
         <activity android:name=".gui.activities.github.YourStarsActivity" />
         <activity android:name=".gui.activities.github.YourRepositoriesActivity" />
-        <activity android:name=".gui.activities.github.SettingsActivity" />
+        <activity android:name=".gui.activities.SettingsActivity" />
     </application>
 
 </manifest>
