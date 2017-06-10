@@ -8,20 +8,47 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.ListViewCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dlei.forkme.R;
+import dlei.forkme.endpoints.ForkMeBackendApi;
+import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.activities.SettingsActivity;
+import dlei.forkme.gui.adapter.DeveloperContactRecyclerViewAdapter;
+import dlei.forkme.gui.adapter.RepositoryRecyclerViewAdapter;
 import dlei.forkme.helpers.LocationHelper;
-import dlei.forkme.state.AppSettings;
+import dlei.forkme.model.DeveloperContactInfo;
+import dlei.forkme.model.Repository;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MergeMeActivity extends BaseActivity {
-    private ListViewCompat mMergeMeListView;
+    private RecyclerView mRecyclerViewDevContactInfo;
+    private DeveloperContactRecyclerViewAdapter mAdapterDevContactInfo;
     private AppCompatTextView mMainTextView;
     private AppCompatButton mMainButton;
+    private ProgressBar mProgressBarSpinner;
+    private LinearLayoutManager mLayoutManager;
+    private ArrayList<DeveloperContactInfo> mDeveloperContactInfo = new ArrayList<>();
 
     @Override
     public void onResume() {
@@ -34,7 +61,8 @@ public class MergeMeActivity extends BaseActivity {
         Log.d("MergeMeActivity: ", "hasLocationPermissions: " + hasLocationPermissions);
         if (!hasLocationPermissions) {
             // Remove list view.
-            mMergeMeListView.setVisibility(View.GONE);
+            mRecyclerViewDevContactInfo.setVisibility(View.GONE);
+            mProgressBarSpinner.setVisibility(View.GONE);
 
             if (locationPermissionsDisabledForever) {
                 // Have to give permissions externally.
@@ -76,9 +104,25 @@ public class MergeMeActivity extends BaseActivity {
             // Remove views to handle not having permissions.
             mMainTextView.setVisibility(View.GONE);
             mMainButton.setVisibility(View.GONE);
-            // Set up merge me view.
-        }
 
+            // Set up merge me view.
+
+            // Set up components of RecyclerView.
+            mAdapterDevContactInfo = new DeveloperContactRecyclerViewAdapter(mDeveloperContactInfo);
+            mLayoutManager = new LinearLayoutManager(this);
+
+            // Set up RecyclerView.
+            mRecyclerViewDevContactInfo.setLayoutManager(mLayoutManager);
+            mRecyclerViewDevContactInfo.setItemAnimator(new DefaultItemAnimator());
+            mRecyclerViewDevContactInfo.setAdapter(mAdapterDevContactInfo);
+
+            // Set up lines between items in list.
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewDevContactInfo.getContext(),
+                    mLayoutManager.getOrientation());
+            mRecyclerViewDevContactInfo.addItemDecoration(dividerItemDecoration);
+
+            this.getDevelopers();
+        }
     }
 
     @Override
@@ -90,26 +134,56 @@ public class MergeMeActivity extends BaseActivity {
         Log.d("MergeMeActivity: ", "created");
 
         // Set up UI elements.
-        mMergeMeListView = (ListViewCompat) findViewById(R.id.mergeMeListView);
+        mRecyclerViewDevContactInfo = (RecyclerView) findViewById(R.id.mergeMeRecyclerView);
         mMainButton = (AppCompatButton) findViewById(R.id.mergeMeMainButton);
         mMainTextView = (AppCompatTextView) findViewById(R.id.mergeMeMainText);
+        mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
+    }
 
+    /**
+     * Get developers who have been aggregated together based on location.
+     */
+    public void getDevelopers() {
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpBuilder.build())
+                .baseUrl("https://forkme-backend.herokuapp.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-//        if (!functionalityAbled) {
-//            // https://stackoverflow.com/questions/32822101/how-to-programmatically-open-the-permission-screen-for-a-specific-app-on-android.
-//            Context context = this;
-//            final Intent i = new Intent();
-//            i.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-//            i.addCategory(Intent.CATEGORY_DEFAULT);
-//            i.setData(Uri.parse("package:" + context.getPackageName()));
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-//            i.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-//            context.startActivity(i);
-//
-//        } else {
-//
-//        }
+        ForkMeBackendApi endpoint = retrofit.create(ForkMeBackendApi.class);
+        Call<List<DeveloperContactInfo>> call = endpoint.getDevelopers();
+
+        call.enqueue(new Callback<List<DeveloperContactInfo>>() {
+            @Override
+            public void onResponse(Call<List<DeveloperContactInfo>> call, Response<List<DeveloperContactInfo>> response) {
+                if (response.code() == 200 && response.isSuccessful()) {
+                    ArrayList<DeveloperContactInfo> developerContactInfos = (ArrayList<DeveloperContactInfo>) response.body();
+
+                    // Add starred repositories to array.
+                    for (DeveloperContactInfo devInfo: developerContactInfos) {
+                        mDeveloperContactInfo.add(devInfo);
+                    }
+                    // Notify data set changed.
+                    mAdapterDevContactInfo.notifyDataSetChanged();
+
+                    mProgressBarSpinner.setVisibility(View.GONE);
+
+                } else {
+                    // Should not happen.
+                    Log.w("MergeMeActivity: ", String.format(
+                            "getDevelopers(): Error: Status code: %d, successful: %s," + "headers: %s",
+                            response.code(), response.isSuccessful(), response.headers())
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<DeveloperContactInfo>> call, Throwable t) {
+                // Failure to connect to endpoint.
+                Log.i("MergeMeActivity: ", "getDevelopers(): Failed: " + t.getMessage());
+            }
+        });
     }
 }

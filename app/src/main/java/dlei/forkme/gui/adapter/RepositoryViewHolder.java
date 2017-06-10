@@ -1,6 +1,5 @@
 package dlei.forkme.gui.adapter;
 
-import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;

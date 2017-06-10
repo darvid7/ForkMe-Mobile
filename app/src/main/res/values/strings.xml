@@ -20,7 +20,8 @@
     <string name="drawer_section_settings">Settings</string>
 
     <string name="placeholder_number">666</string>
-
+    <string name="john">John</string>
+    <string name="john_doe">JohnDoe</string>
     <string name="placeholder_username">darvid7/</string>
     <string name="placeholder_reponame">ForkMe-Mobile</string>
 

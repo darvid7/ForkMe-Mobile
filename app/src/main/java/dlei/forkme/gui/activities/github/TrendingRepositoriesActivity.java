@@ -100,6 +100,9 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
         mOAuthToken = sharedPreferences.getString("oauth_token", null);
 
+
+        // TODO: Move this to login?
+        // TODO: getAuthenticatedUser needs to be a precondition for this.
         this.getAuthenticatedUser();
         // this.getTrendingRepositoriesArray();
     }

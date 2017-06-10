@@ -2,6 +2,7 @@ package dlei.forkme.endpoints;
 
 import java.util.List;
 
+import dlei.forkme.model.DeveloperContactInfo;
 import dlei.forkme.model.LocationData;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
@@ -23,5 +24,9 @@ public interface ForkMeBackendApi {
 
     @POST("/locations")
     Call<LocationData> postLocation();
+
+    // TODO: Pass in location.
+    @GET("/developers")
+    Call<List<DeveloperContactInfo>> getDevelopers();
 
 }
