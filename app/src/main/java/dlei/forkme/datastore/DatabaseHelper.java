@@ -8,13 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import dlei.forkme.state.Settings;
+import dlei.forkme.state.AppSettings;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static DatabaseHelper sDbInstance = null;
 
-    public static final String sDatabaseName = "Settings";
+    public static final String sDatabaseName = "AppSettings";
     public static final int sDatabaseVersion = 1;
 
     private DatabaseHelper(Context context) {
@@ -32,18 +32,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         try {
-            sqLiteDatabase.execSQL(Settings.CREATE_TABLE_SQL);
+            sqLiteDatabase.execSQL(AppSettings.CREATE_TABLE_SQL);
             Log.d("DatabaseHelper: ", "onCreate() created db");
         } catch (SQLException e) {
             Log.wtf("Error: ", String.format("Create Table Statement: %s\nException: %s",
-                    Settings.CREATE_TABLE_SQL, e));
+                    AppSettings.CREATE_TABLE_SQL, e));
         }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         try {
-            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Settings.TABLE_NAME); // Drop table.
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + AppSettings.TABLE_NAME); // Drop table.
             onCreate(sqLiteDatabase); // Re make table.
         } catch (SQLException e) {
             // Shouldn't happen, if it does log what a terrible message.
@@ -53,23 +53,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void insertSettings() {
-        if (Settings.sUserLogin.equals("")) {
+        if (AppSettings.sUserLogin.equals("")) {
             Log.wtf("Error: ", "DatabaseHelper.insertSettings(): user log in is null");
             return;
         }
         Log.i("DatabaseHelper: ", "insertSettings(): inserting settings");
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Settings.USER_ID_COL, Settings.sUserLogin);
-        values.put(Settings.TIMEFRAME_COL, Settings.sTimeframe);
-        values.put(Settings.SORT_BY_COL, Settings.sSortBy);
-        values.put(Settings.LANGUAGE_COL, Settings.sLanguage);
-        values.put(Settings.FIND_PEOPLE_ALLOWED_COL, Settings.sFindPeopleAllowed);
-        values.put(Settings.FIND_PEOPLE_MESSAGE_COL, Settings.sFindPeopleMessage);
-        values.put(Settings.PRIVATE_REPOS_COL, Settings.sShowPrivateRepositories);
-        long result = db.insert(Settings.TABLE_NAME, null, values);
+        values.put(AppSettings.USER_ID_COL, AppSettings.sUserLogin);
+        values.put(AppSettings.TIMEFRAME_COL, AppSettings.sTimeframe);
+        values.put(AppSettings.SORT_BY_COL, AppSettings.sSortBy);
+        values.put(AppSettings.LANGUAGE_COL, AppSettings.sLanguage);
+        values.put(AppSettings.LOCATION_DISABLED_FOREVER_COL, AppSettings.sLocationDisabledForever);
+        values.put(AppSettings.FIND_PEOPLE_MESSAGE_COL, AppSettings.sFindPeopleMessage);
+        values.put(AppSettings.PRIVATE_REPOS_COL, AppSettings.sShowPrivateRepositories);
+        long result = db.insert(AppSettings.TABLE_NAME, null, values);
         if (result == -1) {
-            Log.w("Error: ", String.format("Adding settings for user %s", Settings.sUserLogin));
+            Log.w("Error: ", String.format("Adding settings for user %s", AppSettings.sUserLogin));
         }
 
     }
@@ -77,8 +77,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateLanguage() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Settings.LANGUAGE_COL, Settings.sLanguage);
-        db.update(Settings.TABLE_NAME, values, Settings.USER_ID_COL + "='" + Settings.sUserLogin +"'",
+        values.put(AppSettings.LANGUAGE_COL, AppSettings.sLanguage);
+        db.update(AppSettings.TABLE_NAME, values, AppSettings.USER_ID_COL + "='" + AppSettings.sUserLogin +"'",
                 null);
         db.close();
     }
@@ -86,8 +86,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateTimeframe() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Settings.TIMEFRAME_COL, Settings.sTimeframe);
-        db.update(Settings.TABLE_NAME, values, Settings.USER_ID_COL + "='" + Settings.sUserLogin +"'",
+        values.put(AppSettings.TIMEFRAME_COL, AppSettings.sTimeframe);
+        db.update(AppSettings.TABLE_NAME, values, AppSettings.USER_ID_COL + "='" + AppSettings.sUserLogin +"'",
                 null);
         db.close();
     }
@@ -95,8 +95,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateSortBy() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(Settings.SORT_BY_COL, Settings.sSortBy);
-        db.update(Settings.TABLE_NAME, values, Settings.USER_ID_COL + "='" + Settings.sUserLogin +"'",
+        values.put(AppSettings.SORT_BY_COL, AppSettings.sSortBy);
+        db.update(AppSettings.TABLE_NAME, values, AppSettings.USER_ID_COL + "='" + AppSettings.sUserLogin +"'",
                 null);
         db.close();
     }
@@ -112,13 +112,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String baseQuery = "SELECT %s, %s, %s, %s, %s, %s from %s WHERE %s=?";
 
         String query = String.format(baseQuery,
-                Settings.TIMEFRAME_COL, Settings.SORT_BY_COL, Settings.LANGUAGE_COL,
-                Settings.FIND_PEOPLE_ALLOWED_COL, Settings.FIND_PEOPLE_MESSAGE_COL, Settings.PRIVATE_REPOS_COL,
-                Settings.TABLE_NAME,
-                Settings.USER_ID_COL);
-        Log.i("UserLogin: ", Settings.sUserLogin);
+                AppSettings.TIMEFRAME_COL, AppSettings.SORT_BY_COL, AppSettings.LANGUAGE_COL,
+                AppSettings.LOCATION_DISABLED_FOREVER_COL, AppSettings.FIND_PEOPLE_MESSAGE_COL, AppSettings.PRIVATE_REPOS_COL,
+                AppSettings.TABLE_NAME,
+                AppSettings.USER_ID_COL);
+        Log.i("UserLogin: ", AppSettings.sUserLogin);
 
-        Cursor cursor = db.rawQuery(query, new String[]{Settings.sUserLogin});
+        Cursor cursor = db.rawQuery(query, new String[]{AppSettings.sUserLogin});
 
         cursor.moveToFirst();
         int rows = cursor.getCount();
@@ -126,23 +126,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
             db.close();
             throw new NoDataException(String.format(
-                    "User with login %s does not exist", Settings.sUserLogin));
+                    "User with login %s does not exist", AppSettings.sUserLogin));
         } else if (rows > 1) {
             cursor.close();
             db.close();
             throw new TooMuchDataException(String.format(
-                    "Only 1 row should be returned for user %s", Settings.sUserLogin));
+                    "Only 1 row should be returned for user %s", AppSettings.sUserLogin));
         } else {
             // Update settings for a user.
             Log.i("Check has data worked: ", "Language: " + cursor.getString(2));
             Log.i("Check has data worked: ", "Timeframe: " + cursor.getString(1));
 
-            Settings.setTimeframe(cursor.getString(0));
-            Settings.setSortBy(cursor.getString(1));
-            Settings.setLanguage(cursor.getString(2));
-            Settings.setFindPeopleAllowed(cursor.getInt(3));
-            Settings.setFindPeopleAllowedMessage(cursor.getString(4));
-            Settings.setShowPrivateRepositories(cursor.getInt(5));
+            AppSettings.setTimeframe(cursor.getString(0));
+            AppSettings.setSortBy(cursor.getString(1));
+            AppSettings.setLanguage(cursor.getString(2));
+            AppSettings.setLocationDisabledForever(cursor.getInt(3));
+            AppSettings.setFindPeopleAllowedMessage(cursor.getString(4));
+            AppSettings.setShowPrivateRepositories(cursor.getInt(5));
             cursor.close();
             db.close();
         }

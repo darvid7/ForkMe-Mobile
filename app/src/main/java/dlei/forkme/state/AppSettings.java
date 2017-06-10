@@ -2,19 +2,16 @@ package dlei.forkme.state;
 
 import android.util.Log;
 
-import java.util.Locale;
-
-import dlei.forkme.datastore.DatabaseHelper;
 import dlei.forkme.datastore.SqlSyntax;
 
 // Can either use this or shared preferences
-public class Settings {
+public class AppSettings {
     // Setting attributes.
     public static String sLanguage = "All";
     public static String sSortBy = "Stars";
     public static String sTimeframe = "1 Month";
     public static String sUserLogin = "";
-    public static int sFindPeopleAllowed = 0;
+    public static int sLocationDisabledForever = 0;
     public static String sFindPeopleMessage = "N/A";
     public static int sShowPrivateRepositories = 0;
 
@@ -23,7 +20,7 @@ public class Settings {
     public static final String TIMEFRAME_COL = "timeframe";
     public static final String SORT_BY_COL = "sort_by";
     public static final String LANGUAGE_COL = "language";
-    public static final String FIND_PEOPLE_ALLOWED_COL = "allowed";
+    public static final String LOCATION_DISABLED_FOREVER_COL = "location_disabled_forever";
     public static final String FIND_PEOPLE_MESSAGE_COL = "message";
     public static final String PRIVATE_REPOS_COL = "private_repos";
     public static final String USER_ID_COL = "user";
@@ -35,7 +32,7 @@ public class Settings {
             TIMEFRAME_COL + SqlSyntax.TYPE_STRING + SqlSyntax.NOT_NULL + ", " +
             SORT_BY_COL + SqlSyntax.TYPE_STRING + SqlSyntax.NOT_NULL + ", " +
             LANGUAGE_COL + SqlSyntax.TYPE_STRING + SqlSyntax.NOT_NULL + ", " +
-            FIND_PEOPLE_ALLOWED_COL + SqlSyntax.TYPE_INTEGER + SqlSyntax.NOT_NULL + ", " +
+            LOCATION_DISABLED_FOREVER_COL + SqlSyntax.TYPE_INTEGER + SqlSyntax.NOT_NULL + ", " +
             FIND_PEOPLE_MESSAGE_COL + SqlSyntax.TYPE_STRING + SqlSyntax.NOT_NULL + ", " +
             PRIVATE_REPOS_COL + SqlSyntax.TYPE_INTEGER + SqlSyntax.NOT_NULL +
             ")";
@@ -56,28 +53,28 @@ public class Settings {
         sUserLogin = userLogin;
     }
 
-    public static void setFindPeopleAllowed(int i) {
+    public static void setLocationDisabledForever(int i) {
         if (i > 1 || i < 0) {
-            Log.wtf("Settings: ", "setShowPrivateRepositories: Invalid value " + i);
+            Log.wtf("AppSettings: ", "setShowPrivateRepositories: Invalid value " + i);
             return;
         }
-        sFindPeopleAllowed = i;
+        sLocationDisabledForever = i;
     }
 
     public static void setFindPeopleAllowedMessage(String findPeopleAllowedMessage) {
-        //if (sFindPeopleAllowed == 1) {
+        //if (sLocationDisabledForever == 1) {
         sFindPeopleMessage = findPeopleAllowedMessage;
 //        } else {
-//            Log.wtf("Settings: ", String.format(Locale.getDefault(),
+//            Log.wtf("AppSettings: ", String.format(Locale.getDefault(),
 //                    "setFindPeopleAllowedMessage: Tried to set " +
-//                    "sFindPeopleMessage (%s) when sFindPeopleAllowed == 0",
+//                    "sFindPeopleMessage (%s) when sLocationDisabledForever == 0",
 //                    findPeopleAllowedMessage));
 //        }
     }
 
     public static void setShowPrivateRepositories(int i) {
         if (i > 1 || i < 0) {
-            Log.wtf("Settings: ", "setShowPrivateRepositories: Invalid value " + i);
+            Log.wtf("AppSettings: ", "setShowPrivateRepositories: Invalid value " + i);
             return;
         }
         sShowPrivateRepositories = i;
@@ -85,18 +82,26 @@ public class Settings {
 
     public static void updateLanguage(String language) {
         sLanguage = language;
-        Log.i("Settings: ", "updateLanguage(): " + language);
+        Log.i("AppSettings: ", "updateLanguage(): " + language);
     }
 
     public static void updateTimeframe(String timeframe) {
         sTimeframe = timeframe;
-        Log.i("Settings: ", "updateTimeframe(): " + timeframe);
+        Log.i("AppSettings: ", "updateTimeframe(): " + timeframe);
     }
 
     public static void updateSortBy(String sortBy) {
         sSortBy = sortBy;
-        Log.i("Settings: ", "updateSortBy(): " + sortBy);
+        Log.i("AppSettings: ", "updateSortBy(): " + sortBy);
+    }
 
+    public static void updateLocationDisabledForever(int i) {
+        if (i > 1 || i < 0) {
+            Log.wtf("AppSettings: ", "updateLocationDisabledForever(): Invalid value " + i);
+            return;
+        }
+        Log.i("AppSettings: ", "updateLocationDisabledForever(): " + i);
+        sLocationDisabledForever = i;
     }
 
 

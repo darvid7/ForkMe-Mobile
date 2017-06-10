@@ -41,7 +41,7 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintHorizontal_bias="0.285" />
 
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/timeframeSpinner"
         android:layout_width="@dimen/spinner_dropdown_width"
         android:layout_height="@dimen/spinner_dropdown_height"
@@ -52,7 +52,7 @@
         app:layout_constraintTop_toTopOf="@+id/timeframeText"
         />
 
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/sortBySpinner"
         android:layout_width="@dimen/spinner_dropdown_width"
         android:layout_height="@dimen/spinner_dropdown_height"
@@ -63,7 +63,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/timeframeSpinner" />
 
-    <Spinner
+    <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/languageSpinner"
         android:layout_width="@dimen/spinner_dropdown_width"
         android:layout_height="@dimen/spinner_dropdown_height"
@@ -73,7 +73,7 @@
         android:layout_marginTop="@dimen/padding_extra"
         app:layout_constraintTop_toBottomOf="@+id/sortBySpinner" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/timeframeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
         android:layout_marginTop="@dimen/padding_extra"
         app:layout_constraintTop_toBottomOf="@+id/trendingRepositoryImageView" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/sortByText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
         app:layout_constraintTop_toTopOf="@+id/sortBySpinner"
         android:layout_marginTop="0dp" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/languageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
     app:layout_constraintRight_toRightOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintHorizontal_bias="0.0"
-    android:layout_marginTop="@dimen/padding_normal"
+    android:layout_marginTop="@dimen/padding_extra"
     app:layout_constraintTop_toBottomOf="@+id/languageSpinner" />
 
     <!-- Find People settings -->
@@ -136,7 +136,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp" />
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/findPeopleAllowedText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -146,19 +146,34 @@
         app:layout_constraintLeft_toLeftOf="@+id/findPeopleImageView"
         />
 
-    <Switch
+    <android.support.v7.widget.SwitchCompat
         android:id="@+id/findPeopleAllowedSwitch"
-        android:layout_width="150dp"
+        android:layout_width="57dp"
         android:layout_height="27dp"
-        android:text="False"
         android:showText="false"
         app:layout_constraintTop_toTopOf="@+id/findPeopleAllowedText"
+
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="@dimen/padding_normal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/switchStatusText"
+        android:layout_marginBottom="0dp" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/switchStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/str_false"
+        app:layout_constraintRight_toLeftOf="@+id/findPeopleAllowedSwitch"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleAllowedText"
+        android:layout_marginLeft="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/timeframeSpinner"
-        android:fontFamily="sans-serif-condensed"
+        app:layout_constraintHorizontal_bias="0.0" />
 
-        />
-
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/publicMessageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -199,6 +214,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginStart="0dp"
         app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryText" />
+
 
 
 </android.support.constraint.ConstraintLayout>

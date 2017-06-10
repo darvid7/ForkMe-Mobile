@@ -23,7 +23,6 @@ public interface GithubApi {
     @GET("/repos/{owner}/{repo}/readme")
     Call<Readme> getReadme(@Path("owner") String owner, @Path("repo") String repo);
 
-
     // GET /user/starred for an authenticated user, returns list of repositories they have starred.
     @GET("/user/starred")
     Call<List<Repository>> getStarredRepositories();

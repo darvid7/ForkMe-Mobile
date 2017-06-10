@@ -22,7 +22,7 @@ import dlei.forkme.gui.activities.github.YourRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourStarsActivity;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
-import dlei.forkme.state.Settings;
+import dlei.forkme.state.AppSettings;
 
 // TODO: Move network checks to onFail() Http calls.
 /**
@@ -147,7 +147,7 @@ public class BaseActivity extends AppCompatActivity {
         } else if (currentActivity.equals(YourRepositoriesActivity.class.getSimpleName())) {
             mYourRepositories.withSelectable(false);
             mNavDrawer.setSelection(mYourRepositories, false);
-        } else if (currentActivity.equals(Settings.class.getSimpleName())) {
+        } else if (currentActivity.equals(AppSettings.class.getSimpleName())) {
             mSettings.withSelectable(false);
             mNavDrawer.setSelection(mSettings, false);
         }

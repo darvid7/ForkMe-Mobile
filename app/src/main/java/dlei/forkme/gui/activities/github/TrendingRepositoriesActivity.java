@@ -21,7 +21,7 @@ import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.model.User;
-import dlei.forkme.state.Settings;
+import dlei.forkme.state.AppSettings;
 import link.fls.swipestack.SwipeStack;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -220,7 +220,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200 && response.isSuccessful()) {
                     User u = response.body();
-                    Settings.setsUserLogin(u.getLogin());
+                    AppSettings.setsUserLogin(u.getLogin());
                     Log.d("TrendingActivity: ", "getAuthenticatedUser: " + u.getLogin());
                     getTrendingRepositoriesArray();
                 } else {

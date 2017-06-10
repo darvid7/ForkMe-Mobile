@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,11 +12,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatSpinner;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import android.widget.CompoundButton;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -25,19 +29,65 @@ import dlei.forkme.datastore.DatabaseHelper;
 import dlei.forkme.datastore.NoDataException;
 import dlei.forkme.datastore.TooMuchDataException;
 import dlei.forkme.gui.activities.BaseActivity;
-import dlei.forkme.state.Settings;
+import dlei.forkme.helpers.LocationHelper;
+import dlei.forkme.state.AppSettings;
 
 // Used to post location for now.
 public class SettingsActivity extends BaseActivity implements LocationListener {
-    LocationManager mLocationManager;
+    private LocationManager mLocationManager;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
-    private Spinner mLanguageSpinner;
-    private Spinner mSortBySpinner;
-    private Spinner mTimeframeSpinner;
+    private AppCompatSpinner mLanguageSpinner;
+    private AppCompatSpinner mSortBySpinner;
+    private AppCompatSpinner mTimeframeSpinner;
+    private SwitchCompat mLocationSwitch;
+    private AppCompatTextView mSwitchText;
     private DatabaseHelper mDbHelper;
 
-    //@SuppressWarnings (value="unchecked")
+    /**
+     * Allows changes when chagning permission of application externally to be reflected.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Set up switch.
+        // The switch should reflect is the app has been given location permissions.
+        // It is only clickable if it doesn't have location permissions.
+        boolean hasLocationPermissions = LocationHelper.hasLocationPermissions(this);
+
+        mLocationSwitch.setChecked(hasLocationPermissions);
+
+        if (!hasLocationPermissions) {
+            // Don't have location permissions.
+            if (AppSettings.sLocationDisabledForever != 1) {
+                // Locations permissions not disabled forever, allow user to give them.
+                Log.d("Not has perms: ", "Setting up listener");
+                mLocationSwitch.setEnabled(true);
+                mLocationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked) {
+                            askForLocationPermissions();
+                        } else {
+                            // This should not happen, should be disabled if perms granted
+                            // and only updated again if perms revoked (external to this app).
+                            // In which case this activity should be re-made and the listener will be
+                            // set to false.
+                            Log.wtf("SettingsActivity: ", "Switch.onCheckedChange(): Went to false");
+                        }
+                    }
+                });
+            } else {
+                // Location permissions disabled forever, disable button.
+                mLocationSwitch.setEnabled(false);
+            }
+        } else {
+            mLocationSwitch.setClickable(false);
+            mSwitchText.setText(getResources().getText(R.string.str_true));
+        }
+
+    }
+
+    @SuppressWarnings (value="unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("SettingsActivity: ", "creating");
@@ -48,28 +98,28 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
 
         mDbHelper = DatabaseHelper.getDbInstance(this);
         try {
-            // Loads settings from persistent storage to Settings attributes.
+            // Loads settings from persistent storage to AppSettings attributes.
             mDbHelper.loadSettings();
         } catch (NoDataException e) {
             Log.d("No data: ", "No data from db");
-            if (!Settings.sUserLogin.equals("")) {
+            if (!AppSettings.sUserLogin.equals("")) {
                 mDbHelper.insertSettings();
             } else {
                 // TODO: Potential async issue where user data is not loaded.
-                Log.wtf("SettingsActivity: ", "Settings.sUserLogin has no value");
+                Log.wtf("SettingsActivity: ", "AppSettings.sUserLogin has no value");
             }
         } catch (TooMuchDataException e) {
             // Should not ever happen.
             Log.d("Too much data: ", "Too much data from db");
         }
-        // Up to here: Settings will always have most up to date data.
+        // Up to here: AppSettings will always have most up to date data.
 
         // Load what is chosen from settings static attributes.
 
         // Set up spinners.
-        mLanguageSpinner = (Spinner) findViewById(R.id.languageSpinner);
-        mTimeframeSpinner = (Spinner) findViewById(R.id.timeframeSpinner);
-        mSortBySpinner = (Spinner) findViewById(R.id.sortBySpinner);
+        mLanguageSpinner = (AppCompatSpinner) findViewById(R.id.languageSpinner);
+        mTimeframeSpinner = (AppCompatSpinner) findViewById(R.id.timeframeSpinner);
+        mSortBySpinner = (AppCompatSpinner) findViewById(R.id.sortBySpinner);
 
         // Sort dropdown items for language spinner.
         String[] dropdownLanguageArray = getResources().getStringArray(R.array.language_array);
@@ -80,14 +130,14 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         mLanguageSpinner.setAdapter(languageDataAdapter);
 
         // Set selected values from settings.
-        mLanguageSpinner.setSelection(languageDataAdapter.getPosition(Settings.sLanguage), false);
+        mLanguageSpinner.setSelection(languageDataAdapter.getPosition(AppSettings.sLanguage), false);
         mTimeframeSpinner.setSelection(
                 ((ArrayAdapter<String>) mTimeframeSpinner.getAdapter())
-                        .getPosition(Settings.sTimeframe), false);
+                        .getPosition(AppSettings.sTimeframe), false);
 
         mSortBySpinner.setSelection(
                 ((ArrayAdapter<String>) mSortBySpinner.getAdapter())
-                .getPosition(Settings.sSortBy), false);
+                .getPosition(AppSettings.sSortBy), false);
 
         // Set up spinner listeners.
         mLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -95,7 +145,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.wtf("Here: ", "Language spinner item selected");
                 String item = (String) parent.getItemAtPosition(position);
-                Settings.updateLanguage(item);
+                AppSettings.updateLanguage(item);
                 mDbHelper.updateLanguage();
             }
 
@@ -108,9 +158,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         mTimeframeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.wtf("Here: ", "Timeframe spinner item selected");
                 String item = (String) parent.getItemAtPosition(position);
-                Settings.updateTimeframe(item);
+                AppSettings.updateTimeframe(item);
                 mDbHelper.updateTimeframe();
             }
 
@@ -123,9 +172,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         mSortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.wtf("Here: ", "Sort By spinner item selected");
                 String item = (String) parent.getItemAtPosition(position);
-                Settings.updateSortBy(item);
+                AppSettings.updateSortBy(item);
                 mDbHelper.updateSortBy();
             }
 
@@ -135,22 +183,28 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             }
         });
 
+        mLocationSwitch = (SwitchCompat) findViewById(R.id.findPeopleAllowedSwitch);
+        mSwitchText = (AppCompatTextView) findViewById(R.id.switchStatusText);
 
-        // Location.
+        // Set up Location.
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    }
 
-        Log.d("SettingActivity: ", " Locations has permissions: "
-                + (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED));
+    /**
+     * Ask user to grant application location permissions.
+     * precondition: Application doesn't already have location permissions.
+     */
+    public void askForLocationPermissions() {
+        boolean hasLocationPermissions = LocationHelper.hasLocationPermissions(this);
+        Log.d("SettingActivity: ", "askForLocationPermissions() has location permissions: "
+                + hasLocationPermissions);
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            Log.e("SettingActivity: ", " Locations setting up perms dialog");
-                    // Don't have permission.
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Log.e("SettingActivity: ", " Asking for perms dialog");
-
-                // Show an explanation to the user *asynchronously* -- don't block
+        if (!hasLocationPermissions) {
+            // Doesn't have permission.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d("SettingActivity: ", "askForLocationPermissions() Asking for perms dialog");
+                // Show an explanation to the user asynchronously don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
                 new AlertDialog.Builder(this)
@@ -159,7 +213,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
+                                // Prompt the user once explanation has been shown
+                                // Calls onRequestPermissionsResult() with result.
                                 ActivityCompat.requestPermissions(SettingsActivity.this,
                                         new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                         MY_PERMISSIONS_REQUEST_LOCATION);
@@ -174,45 +229,49 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
                         MY_PERMISSIONS_REQUEST_LOCATION);
             }
         } else {
-            Log.e("SettingActivity: ", " didnt ask for perms");
+            Log.wtf("SettingActivity: ", " askForLocationPermissions() Already have permissions.");
             getLocation();
         }
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
 
-
+    /**
+     * Called when the user responds to a permission request.
+     * @param requestCode code assigned to permission request.
+     * @param permissions permissions requested.
+     * @param grantResults results of permission requests.
+     */
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted.
+                    Log.d("SettingsActivity: ", "onRequestPermissionsResult() " +
+                            "Location Permissions: granted");
+                    String isCheckedStr = "True";
+                    mSwitchText.setText(isCheckedStr);
+                    mLocationSwitch.setClickable(false);
+                    // Only enable to turn of locations if locations permissions is revoked from outside.
                     this.getLocation();
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-
                 } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                    // Permission denied.
+                    Log.wtf("SettingsActivity: ", "onRequestPermissionsResult() " +
+                            "Location Permissions: denied");
+                    boolean showRationale = shouldShowRequestPermissionRationale(permissions[0]);
+                    if (!showRationale) {
+                        // User also selected never show again.
+                        Log.wtf("SettingsActivity: ", "onRequestPermissionsResultI() " +
+                                "Location Permissions: never show again clicked, disabled forever.");
+                        // Disable switch button.
+                        mLocationSwitch.setEnabled(false);
+                        mSwitchText.setText(getResources().getText(R.string.disabled));
+                        // Make LocationDisabledForever true.
+                        AppSettings.updateLocationDisabledForever(1);
+                    }
+                    // Update switch to be false.
+                    mLocationSwitch.setChecked(false);
                 }
                 return;
             }
@@ -253,6 +312,20 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
     public void onProviderDisabled(String arg0) {}
     public void onProviderEnabled(String arg0) {}
     public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
+
+    // Might do something with theses later.
+    @Override
+    public void onPause() { super.onPause(); }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
 
 
 //    public void sendPost(String title, String body) {
