@@ -56,13 +56,14 @@ public class MergeMeActivity extends BaseActivity {
         boolean locationPermissionsDisabledForever = !shouldShowRequestPermissionRationale(
                 Manifest.permission.ACCESS_FINE_LOCATION);;
         boolean hasLocationPermissions = LocationHelper.hasLocationPermissions(this);
-
         Log.d("MergeMeActivity: ", "locationsDisabledForever: " + locationPermissionsDisabledForever);
         Log.d("MergeMeActivity: ", "hasLocationPermissions: " + hasLocationPermissions);
         if (!hasLocationPermissions) {
-            // Remove list view.
+            // Set up views.
             mRecyclerViewDevContactInfo.setVisibility(View.GONE);
             mProgressBarSpinner.setVisibility(View.GONE);
+            mMainTextView.setVisibility(View.VISIBLE);
+            mMainButton.setVisibility(View.VISIBLE);
 
             if (locationPermissionsDisabledForever) {
                 // Have to give permissions externally.
@@ -101,11 +102,13 @@ public class MergeMeActivity extends BaseActivity {
                 );
             }
         } else {
-            // Remove views to handle not having permissions.
+            // Set up views.
             mMainTextView.setVisibility(View.GONE);
             mMainButton.setVisibility(View.GONE);
-
+            mProgressBarSpinner.setVisibility(View.VISIBLE);
+            mRecyclerViewDevContactInfo.setVisibility(View.VISIBLE);
             // Set up merge me view.
+
 
             // Set up components of RecyclerView.
             mAdapterDevContactInfo = new DeveloperContactRecyclerViewAdapter(mDeveloperContactInfo);
