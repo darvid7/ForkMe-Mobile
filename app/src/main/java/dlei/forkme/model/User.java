@@ -37,7 +37,7 @@ public class User {
     // Default constructor.
     public User() {}
 
-    public String getUsername() {
+    public String getLogin() {
         return this.login;
     }
 

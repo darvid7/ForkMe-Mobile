@@ -10,20 +10,34 @@ import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 import dlei.forkme.R;
+import dlei.forkme.datastore.DatabaseHelper;
+import dlei.forkme.datastore.NoDataException;
+import dlei.forkme.datastore.TooMuchDataException;
 import dlei.forkme.gui.activities.BaseActivity;
+import dlei.forkme.state.Settings;
 
 // Used to post location for now.
 public class SettingsActivity extends BaseActivity implements LocationListener {
     LocationManager mLocationManager;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
+    private Spinner mLanguageSpinner;
+    private Spinner mSortBySpinner;
+    private Spinner mTimeframeSpinner;
+    private DatabaseHelper mDbHelper;
+
+    //@SuppressWarnings (value="unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("SettingsActivity: ", "creating");
@@ -31,6 +45,96 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         setContentView(R.layout.activity_settings);
         super.inflateNavDrawer(savedInstanceState, SettingsActivity.class.getSimpleName());
         Log.d("SettingsActivity: ", "created");
+
+        mDbHelper = DatabaseHelper.getDbInstance(this);
+        try {
+            // Loads settings from persistent storage to Settings attributes.
+            mDbHelper.loadSettings();
+        } catch (NoDataException e) {
+            Log.d("No data: ", "No data from db");
+            if (!Settings.sUserLogin.equals("")) {
+                mDbHelper.insertSettings();
+            } else {
+                // TODO: Potential async issue where user data is not loaded.
+                Log.wtf("SettingsActivity: ", "Settings.sUserLogin has no value");
+            }
+        } catch (TooMuchDataException e) {
+            // Should not ever happen.
+            Log.d("Too much data: ", "Too much data from db");
+        }
+        // Up to here: Settings will always have most up to date data.
+
+        // Load what is chosen from settings static attributes.
+
+        // Set up spinners.
+        mLanguageSpinner = (Spinner) findViewById(R.id.languageSpinner);
+        mTimeframeSpinner = (Spinner) findViewById(R.id.timeframeSpinner);
+        mSortBySpinner = (Spinner) findViewById(R.id.sortBySpinner);
+
+        // Sort dropdown items for language spinner.
+        String[] dropdownLanguageArray = getResources().getStringArray(R.array.language_array);
+        Arrays.sort(dropdownLanguageArray);
+        ArrayAdapter<String> languageDataAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, dropdownLanguageArray);
+        languageDataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mLanguageSpinner.setAdapter(languageDataAdapter);
+
+        // Set selected values from settings.
+        mLanguageSpinner.setSelection(languageDataAdapter.getPosition(Settings.sLanguage), false);
+        mTimeframeSpinner.setSelection(
+                ((ArrayAdapter<String>) mTimeframeSpinner.getAdapter())
+                        .getPosition(Settings.sTimeframe), false);
+
+        mSortBySpinner.setSelection(
+                ((ArrayAdapter<String>) mSortBySpinner.getAdapter())
+                .getPosition(Settings.sSortBy), false);
+
+        // Set up spinner listeners.
+        mLanguageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.wtf("Here: ", "Language spinner item selected");
+                String item = (String) parent.getItemAtPosition(position);
+                Settings.updateLanguage(item);
+                mDbHelper.updateLanguage();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mTimeframeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.wtf("Here: ", "Timeframe spinner item selected");
+                String item = (String) parent.getItemAtPosition(position);
+                Settings.updateTimeframe(item);
+                mDbHelper.updateTimeframe();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        mSortBySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.wtf("Here: ", "Sort By spinner item selected");
+                String item = (String) parent.getItemAtPosition(position);
+                Settings.updateSortBy(item);
+                mDbHelper.updateSortBy();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         // Location.
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -75,6 +179,24 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         }
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+
 
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

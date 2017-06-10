@@ -24,14 +24,63 @@
     <string name="placeholder_username">darvid7/</string>
     <string name="placeholder_reponame">ForkMe-Mobile</string>
 
+    <string name="trending_repositories_heading">Trending Repositories</string>
+    <string name="your_repositories_heading">Your Repositories</string>
+    <string name="find_people_heading">Merge Me</string>
+
     <string name="coming_soon">Coming soon</string>
 
     <string name="updated_at">Last updated:</string>
     <string name="none">None</string>
 
+    <string name="timeframe">Timeframe</string>
+    <string name="choose_language">Choose language</string>
+    <string name="sort_by">Sort by</string>
+
+    <string name="find_people_allowed_label">Allowed</string>
+    <string name="find_people_message_placeholder">Looking for Python dev.</string>
+
     <string name="title_location_permission">Hi</string>
     <string name="text_location_permission">Bye</string>
     <string name="ok">ok</string>
 
+    <string-array name="timeframe_array">
+        <item>1 Week</item>
+        <item>1 Month</item>
+        <item>2 Months</item>
+        <item>3 Months</item>
+    </string-array>
+
+    <string-array name="language_array">
+        <item>All</item>
+        <item>None</item>
+        <item>Fake Really long name language</item>
+        <item>Python</item>
+        <item>Java</item>
+        <item>C</item>
+        <item>C++</item>
+        <item>Php</item>
+        <item>Bash</item>
+        <item>Perl</item>
+        <item>Swift</item>
+        <item>Objective C</item>
+        <item>Rust</item>
+        <item>Ruby</item>
+        <item>JavaScript</item>
+        <item>TypeScript</item>
+        <item>XSLT</item>
+        <item>Visual Basic</item>
+        <item>Prolog</item>
+        <item>Pascal</item>
+        <item>Kotlin</item>
+        <item>Clojure</item>
+        <item>Scala</item>
+        <item>Haskell</item>
+    </string-array>
+
+    <string-array name="sort_by_array">
+        <item>Stars</item>
+        <item>Forks</item>
+    </string-array>
 
 </resources>

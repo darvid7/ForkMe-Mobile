@@ -11,39 +11,194 @@
 
     <include layout="@layout/nav_drawer_toolbar"
         android:id="@+id/toolbar_layout"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp" />
 
+    <!-- Trending Repositories settings -->
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/repositoriesImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:srcCompat="@drawable/ic_folder_48px"
-        tools:layout_editor_absoluteY="402dp"
-        tools:layout_editor_absoluteX="44dp" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/peopleImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:srcCompat="@drawable/ic_group_48px"
-        tools:layout_editor_absoluteY="296dp"
-        tools:layout_editor_absoluteX="34dp" />
-
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/trendImageView"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:id="@+id/trendingRepositoryImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         app:srcCompat="@drawable/ic_trending_up_48px"
-        tools:layout_editor_absoluteY="86dp"
-        tools:layout_editor_absoluteX="34dp" />
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/padding_extra"/>
 
-    <TextView
-        android:id="@+id/textView6"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/trendingRepositoryText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="121dp"
-        tools:layout_editor_absoluteY="86dp" />
+        android:text="@string/trending_repositories_heading"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        app:layout_constraintTop_toTopOf="@+id/trendingRepositoryImageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/trendingRepositoryImageView"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.285" />
+
+    <Spinner
+        android:id="@+id/timeframeSpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        android:entries="@array/timeframe_array"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        app:layout_constraintTop_toTopOf="@+id/timeframeText"
+        />
+
+    <Spinner
+        android:id="@+id/sortBySpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        android:entries="@array/sort_by_array"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/timeframeSpinner" />
+
+    <Spinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/sortBySpinner" />
+
+    <TextView
+        android:id="@+id/timeframeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timeframe"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryImageView"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/trendingRepositoryImageView" />
+
+    <TextView
+        android:id="@+id/sortByText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sort_by"
+        app:layout_constraintLeft_toLeftOf="@+id/timeframeText"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintTop_toTopOf="@+id/sortBySpinner"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/languageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_language"
+        app:layout_constraintLeft_toLeftOf="@+id/sortByText"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintTop_toTopOf="@+id/languageSpinner"
+        />
+
+    <View
+    android:layout_width="0dp"
+    android:layout_height="2dp"
+    android:background="?android:attr/dividerHorizontal"
+    android:id="@+id/viewTrendingBottomSeperator"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    android:layout_marginTop="@dimen/padding_normal"
+    app:layout_constraintTop_toBottomOf="@+id/languageSpinner" />
+
+    <!-- Find People settings -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/findPeopleImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_group_48px"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/viewTrendingBottomSeperator"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryImageView"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/findPeopleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:text="@string/find_people_heading"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryText"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleImageView"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:id="@+id/findPeopleAllowedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_people_allowed_label"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/findPeopleImageView"
+        app:layout_constraintLeft_toLeftOf="@+id/findPeopleImageView"
+        />
+
+    <Switch
+        android:id="@+id/findPeopleAllowedSwitch"
+        android:layout_width="150dp"
+        android:layout_height="27dp"
+        android:text="False"
+        android:showText="false"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleAllowedText"
+        app:layout_constraintLeft_toLeftOf="@+id/timeframeSpinner"
+        android:fontFamily="sans-serif-condensed"
+
+        />
+
+    <TextView
+        android:id="@+id/publicMessageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_people_message_placeholder"
+        android:layout_marginTop="28dp"
+        app:layout_constraintTop_toBottomOf="@+id/findPeopleAllowedText"
+        app:layout_constraintLeft_toLeftOf="@+id/findPeopleAllowedText" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/dividerHorizontal"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/publicMessageText"
+        android:id="@+id/viewFindPeopleBottomSeparator"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <!-- You Repository settings -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/repositoriesImageView"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        app:srcCompat="@drawable/ic_folder_48px"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@id/viewFindPeopleBottomSeparator"
+        app:layout_constraintStart_toStartOf="@id/trendingRepositoryImageView"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/yourRepositoriesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/your_repositories_heading"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        app:layout_constraintStart_toStartOf="@id/trendingRepositoryText"
+        app:layout_constraintTop_toTopOf="@+id/repositoriesImageView"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryText" />
+
 
 </android.support.constraint.ConstraintLayout>

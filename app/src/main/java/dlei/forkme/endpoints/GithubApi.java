@@ -32,5 +32,8 @@ public interface GithubApi {
     @GET("/user/repos")
     Call<List<Repository>> getMyRepositories();
 
+    @GET("/user")
+    Call<User> getAuthenticatedUser();
+
 
 }

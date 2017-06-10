@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.BaseActivity;
@@ -19,6 +20,8 @@ import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.endpoints.GithubApi;
+import dlei.forkme.model.User;
+import dlei.forkme.state.Settings;
 import link.fls.swipestack.SwipeStack;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -52,6 +55,8 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         super.inflateNavDrawer(savedInstanceState, TrendingRepositoriesActivity.class.getSimpleName());
         Log.d("TrendingActivity: ", "created");
 
+
+
         mSwipeDeck = (SwipeStack) findViewById(R.id.swipeStack);
         mSwipeDeckAdapter = new SwipeDeckAdapter(mDeck);
         mSwipeDeck.setListener(this);
@@ -81,9 +86,6 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
 
-
-        this.getTrendingRepositoriesArray();
-
         // Uncomment for first default repository to display to user.
 //        Repository r = new Repository();
 //        Owner o = new Owner();
@@ -97,6 +99,9 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         // TODO: Double check sharedPreferences are stored on disk and it is better to read once and store in memory.
         SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
         mOAuthToken = sharedPreferences.getString("oauth_token", null);
+
+        this.getAuthenticatedUser();
+        // this.getTrendingRepositoriesArray();
     }
 
     /**
@@ -185,6 +190,58 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     // HTTP request methods.
     // TODO: Maybe move off Heroku to something that is faster in Australia.
     // TODO: Check network status on failures and notify user instead of just logging.
+
+    public void getAuthenticatedUser() {
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        okHttpBuilder.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                // Manipulate request to add headers.
+                // Can't mutate the request but can make a new one.
+                Request request = chain.request();
+                Request.Builder newRequest = request.newBuilder()
+                        // Add in user access token.
+                        .addHeader("Authorization", "token " + mOAuthToken);
+                // Pass on our request to execute.
+                return chain.proceed(newRequest.build());
+            }
+        });
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpBuilder.build())
+                .baseUrl("https://api.github.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        GithubApi endpoint = retrofit.create(GithubApi.class);
+        Call<User> call = endpoint.getAuthenticatedUser();
+
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.code() == 200 && response.isSuccessful()) {
+                    User u = response.body();
+                    Settings.setsUserLogin(u.getLogin());
+                    Log.d("TrendingActivity: ", "getAuthenticatedUser: " + u.getLogin());
+                    getTrendingRepositoriesArray();
+                } else {
+                    Log.wtf("TrendingActivity: ", String.format(Locale.getDefault(),
+                            "getAuthenticatedUser: Error: Status code: %d, successful: %s," + "headers: %s",
+                            response.code(), response.isSuccessful(), response.headers())
+                    );
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                // Failure to connect to endpoint.
+                Log.i("TrendingActivity: ", "getAuthenticatedUser: Failed: " + t.getMessage());
+
+            }
+        });
+
+
+
+    }
 
     /**
      * HTTP request to backend hosted on Heroku which returns an array of repositories.
