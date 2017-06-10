@@ -24,10 +24,9 @@ import dlei.forkme.state.AppSettings;
  */
 
 /**
- * Fragment to set a notification.
+ * Fragment to set a notification, allows the user to set the notification for some time within 24 hours.
  */
 public class StarNotificationDialog extends DialogFragment {
-    private int times[] = {1, 2, 3};
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,7 +36,6 @@ public class StarNotificationDialog extends DialogFragment {
         final Spinner s = (Spinner) dialogSpinnerView.findViewById(R.id.dialogTimeSpinner);
 
         builder
-                .setTitle("Remind me to look at this again later in:")
                 .setView(dialogSpinnerView)
                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

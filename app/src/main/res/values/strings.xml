@@ -126,5 +126,6 @@
     </string-array>
 
     <string name="hours">Hours</string>
+    <string name="dialog_star_notification_message">"Remind me to look at this later in"</string>
 
 </resources>
