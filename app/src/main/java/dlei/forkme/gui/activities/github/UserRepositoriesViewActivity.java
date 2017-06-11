@@ -23,7 +23,7 @@ import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
-import dlei.forkme.gui.adapter.RepositoryRecyclerViewAdapter;
+import dlei.forkme.gui.adapters.RepositoryRecyclerViewAdapter;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.User;
 import dlei.forkme.state.AppSettings;

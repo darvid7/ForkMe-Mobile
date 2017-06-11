@@ -1,4 +1,4 @@
-package dlei.forkme.gui.adapter;
+package dlei.forkme.gui.adapters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;

@@ -16,7 +16,7 @@ import java.util.Locale;
 import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.gui.activities.BaseActivity;
-import dlei.forkme.gui.adapter.SwipeDeckAdapter;
+import dlei.forkme.gui.adapters.SwipeDeckAdapter;
 import dlei.forkme.gui.fragments.StarNotificationDialog;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
