@@ -7,3 +7,6 @@ NavDrawer remember activity it came from, going into repo view from trending rep
 can either
 - pass in parent class to intent
 - keep state object (leaning towards this)
+
+okhttp3 passing params
+https://stackoverflow.com/questions/34791244/retrofit2-modifying-request-body-in-okhttp-interceptor

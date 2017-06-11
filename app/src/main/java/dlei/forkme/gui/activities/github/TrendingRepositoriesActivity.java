@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dlei.forkme.R;
+import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapter.SwipeDeckAdapter;
 import dlei.forkme.gui.fragments.StarNotificationDialog;
@@ -217,7 +218,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BaseUrls.githubApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         GithubApi endpoint = retrofit.create(GithubApi.class);
@@ -258,7 +259,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         OkHttpClient client = new OkHttpClient();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://forkme-backend.herokuapp.com/")
+                .baseUrl(BaseUrls.forkMeBackendApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -298,7 +299,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("https://forkme-backend.herokuapp.com/")
+                .baseUrl(BaseUrls.forkMeBackendApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -349,7 +350,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BaseUrls.githubApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

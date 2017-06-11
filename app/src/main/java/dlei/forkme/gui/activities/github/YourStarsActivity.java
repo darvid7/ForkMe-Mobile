@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dlei.forkme.R;
+import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapter.RepositoryRecyclerViewAdapter;
@@ -93,7 +94,7 @@ public class YourStarsActivity extends BaseActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BaseUrls.githubApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

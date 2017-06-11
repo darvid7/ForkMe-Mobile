@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dlei.forkme.R;
+import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
@@ -152,7 +153,7 @@ public class MergeMeActivity extends BaseActivity {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
-                .baseUrl("https://forkme-backend.herokuapp.com/")
+                .baseUrl(BaseUrls.forkMeBackendApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

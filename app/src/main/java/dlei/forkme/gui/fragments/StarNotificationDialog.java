@@ -24,28 +24,30 @@ import dlei.forkme.R;
 public class StarNotificationDialog extends DialogFragment {
 
     /**
-     * Create a new instance of MyDialogFragment, providing "num"
-     * as an argument.
+     * Create a new instance of StarNotificationDialog, providing "repositoryFullName" as an argument.
+     * This is called before OnCreateDialog().
      */
-    public static StarNotificationDialog newInstance(String s) {
-        StarNotificationDialog f = new StarNotificationDialog();
-        Log.wtf("NewInstance: ", "HERE");
-        // Supply num input as an argument.
-        Bundle args = new Bundle();
-        args.putString("str", s);
-        Log.wtf("NewInstance: ", "put arg");
+    public static StarNotificationDialog newInstance(String repositoryFullName) {
+        Log.d("StarNotifiDialog: ", "newInstance() called, param: " + repositoryFullName);
 
+        StarNotificationDialog f = new StarNotificationDialog();
+        // Supply repositoryFullName input as an argument.
+        Bundle args = new Bundle();
+        args.putString("repositoryFullName", repositoryFullName);
         f.setArguments(args);
         return f;
     }
 
+    /**
+     * Creates new StarNotificationDialog.
+     * This is called after newInstance() so it has access to args.
+     * @param savedInstanceState bundle passed in from newInstance containing args.
+     * @return built Dialog.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log.wtf("NewInstance: ", "There");
-
-        String str = getArguments().getString("str");
-        Log.wtf("NewInstance: ", "Got Arg: " + str);
-
+        String repositoryFullName = getArguments().getString("repositoryFullName");
+        Log.d("StarNotifiDialog: ", "onCreateDialog() Got Arg: " + repositoryFullName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -53,7 +55,7 @@ public class StarNotificationDialog extends DialogFragment {
         AppCompatTextView t = (AppCompatTextView) dialogSpinnerView.findViewById(R.id.messageText);
         // Concatenate new string with repo name.
         t.setText(getResources().getText(R.string.dialog_star_notification_message_first_half) +
-                str +
+                repositoryFullName +
                 getResources().getText(R.string.dialog_star_notification_message_second_half));
         final Spinner s = (Spinner) dialogSpinnerView.findViewById(R.id.dialogTimeSpinner);
 

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Locale;
 
 import dlei.forkme.R;
+import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.model.Readme;
@@ -173,7 +174,7 @@ public class RepositoryViewActivity extends BaseActivity {
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpBuilder.build())
-                .baseUrl("https://api.github.com/")
+                .baseUrl(BaseUrls.githubApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
