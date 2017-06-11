@@ -3,8 +3,13 @@ package dlei.forkme.gui.fragments;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +17,8 @@ import android.view.View;
 import android.widget.Spinner;
 
 import dlei.forkme.R;
+import dlei.forkme.gui.activities.SettingsActivity;
+import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
 
 /** Just need this to show
  * StarNotificationDialog s = new StarNotificationDialog();
@@ -46,7 +53,7 @@ public class StarNotificationDialog extends DialogFragment {
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String repositoryFullName = getArguments().getString("repositoryFullName");
+        final String repositoryFullName = getArguments().getString("repositoryFullName");
         Log.d("StarNotifiDialog: ", "onCreateDialog() Got Arg: " + repositoryFullName);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -67,6 +74,7 @@ public class StarNotificationDialog extends DialogFragment {
                         Log.wtf("Selected: ", selected);
                         Log.wtf("index selected: ", "" +s.getSelectedItemPosition());
                         Log.wtf("Selected: ", (String) s.getSelectedItem());
+                        AddNotification(repositoryFullName);
 
                     }
                 })
@@ -78,4 +86,25 @@ public class StarNotificationDialog extends DialogFragment {
         // Create the AlertDialog object and return it.
         return builder.create();
     }
+
+    private void AddNotification(String repositoryFullName) {
+        Context context = getContext();
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(context)
+                        .setSmallIcon(R.drawable.ic_fork)
+                        .setContentTitle("ForkMe Reminder!")
+                        .setContentText("Reminder to look at " + repositoryFullName);
+        // This is the activity started from the notification.
+        //Intent notificationIntent = new Intent(this, SettingsActivity.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+    }
+
+
+
 }
