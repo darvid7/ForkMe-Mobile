@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/David/Desktop/ForkMe/ForkMe/ForkMe-Mobile/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3f720ed75f77975464b56845ef2c6fe59055a86f">
+        <dex dex="/Users/David/Desktop/ForkMe/ForkMe/ForkMe-Mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_b498511997f7bb29a8ac446ec8c8a77dd24444bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/David/Desktop/ForkMe/ForkMe/ForkMe-Mobile/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/David/Desktop/ForkMe/ForkMe/ForkMe-Mobile/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_686a237c38146ccd5bb956319ddf2f7057f96038/classes.dex" />
+    </item>
+
+</items>

@@ -1,7 +1,0 @@
-Change icon to include a fork symbol?
-Change app bar title for each activity, prefix with fork symbol
-
-Put stuff in static class instead of always accessing shared preferences etc
-
-okhttp3 passing params
-https://stackoverflow.com/questions/34791244/retrofit2-modifying-request-body-in-okhttp-interceptor
