@@ -23,6 +23,8 @@ import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapters.RepositoryRecyclerViewAdapter;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.Repository;
 import dlei.forkme.state.AppSettings;
 import okhttp3.Interceptor;
@@ -156,6 +158,10 @@ public class UserStarsActivity extends BaseActivity {
             public void onFailure(Call<List<Repository>> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("UserStarsActivity: ", "getGithubStars: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mRecyclerViewRepositories);
+                if (n != null) {
+                    n.execute();
+                }
             }
         });
     }

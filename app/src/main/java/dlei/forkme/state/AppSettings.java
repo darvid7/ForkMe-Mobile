@@ -19,6 +19,7 @@ public class AppSettings {
     public static String sOAuthToken = "";
     public static String sUserName = "";
     public static String sUserAvatarUrl = "";
+    public static String sUserEmail;
 
     // Database attributes.
     public static final String TABLE_NAME = "settings";
@@ -102,17 +103,19 @@ public class AppSettings {
         sOAuthToken = token;
     }
 
-    public static void setsUserLogin(String userLogin) {
+    public static void setUserLogin(String userLogin) {
         sUserLogin = userLogin;
     }
 
-    public static void setsUserName(String userName) {
+    public static void setUserName(String userName) {
         sUserName = userName;
     }
 
-    public static void setsUserAvatarUrl(String userAvatarUrl) {
+    public static void setUserAvatarUrl(String userAvatarUrl) {
         sUserAvatarUrl  = userAvatarUrl;
     }
+
+    public static void setUserEmail(String email) { sUserEmail = email; }
 
 
 }

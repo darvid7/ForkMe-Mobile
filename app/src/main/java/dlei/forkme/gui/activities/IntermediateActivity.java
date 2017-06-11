@@ -1,5 +1,6 @@
 package dlei.forkme.gui.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -14,6 +15,8 @@ import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.User;
 import dlei.forkme.state.AppSettings;
 import okhttp3.Interceptor;
@@ -25,6 +28,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+// Retrofit tutorials:
+// http://www.vogella.com/tutorials/Retrofit/article.html
+// https://github.com/codepath/android_guides/wiki/Consuming-APIs-with-Retrofit
+// https://www.youtube.com/watch?v=R4XU8yPzSx0
+// http://square.github.io/retrofit/
 /**
  * Due to restrictions in OAuth Library, need this activity to load in the user token into a
  * static string which is better than shared preferences. Also ensures no events can happen before
@@ -86,9 +94,10 @@ public class IntermediateActivity extends AppCompatActivity {
                 if (response.code() == 200 && response.isSuccessful()) {
                     User u = response.body();
                     // Initalize user details.
-                    AppSettings.setsUserLogin(u.getLogin());
-                    AppSettings.setsUserName(u.getName());
-                    AppSettings.setsUserAvatarUrl(u.getAvatarUrl());
+                    AppSettings.setUserLogin(u.getLogin());
+                    AppSettings.setUserName(u.getName());
+                    AppSettings.setUserAvatarUrl(u.getAvatarUrl());
+                    AppSettings.setUserEmail(u.getEmail());
                     Log.d("IntermediateActivity: ", "getAuthenticatedUser: " + u.getLogin());
                     Intent intent = new Intent(getApplicationContext(), TrendingRepositoriesActivity.class);
                     startActivity(intent);
@@ -105,6 +114,12 @@ public class IntermediateActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("TrendingActivity: ", "getAuthenticatedUser: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(
+                        findViewById(R.id.progress_bar_spinner)
+                );
+                if (n != null) {
+                    n.execute();
+                }
 
 
             }

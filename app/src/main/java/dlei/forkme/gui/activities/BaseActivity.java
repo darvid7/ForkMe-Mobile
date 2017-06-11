@@ -20,11 +20,12 @@ import dlei.forkme.gui.activities.github.MergeMeActivity;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
 import dlei.forkme.gui.activities.github.UserRepositoriesViewActivity;
 import dlei.forkme.gui.activities.github.UserStarsActivity;
-import dlei.forkme.helpers.NetworkAsyncCheck;
-import dlei.forkme.helpers.NetworkHelper;
+
 import dlei.forkme.state.AppSettings;
 
-// TODO: Move network checks to onFail() Http calls.
+// Drawer code adapted from: https://github.com/mikepenz/MaterialDrawer
+// Inheritance of drawer inspired from: https://stackoverflow.com/questions/21405958/how-to-display-navigation-drawer-in-all-activities
+
 /**
  * BaseActivity for that application with a navigation drawer, all activities that require a navigation
  * drawer should extend BaseActivity.
@@ -86,10 +87,7 @@ public class BaseActivity extends AppCompatActivity {
         Log.d("BaseActivity: ", "inflateNavDrawer: called");
         Toolbar toolbar = (Toolbar) findViewById(R.id.nav_drawer_toolbar);
         setSupportActionBar(toolbar);
-        NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(toolbar);
-        if (n != null) {
-            n.execute();
-        }
+
         mNavDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -172,7 +170,6 @@ public class BaseActivity extends AppCompatActivity {
             mNavDrawer.setSelection(mAbout, false);
         }
     }
-
 
     /**
      * Save state of the NabDrawer.

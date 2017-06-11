@@ -24,6 +24,8 @@ import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapters.RepositoryRecyclerViewAdapter;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.User;
 import dlei.forkme.state.AppSettings;
@@ -204,6 +206,10 @@ public class UserRepositoriesViewActivity extends BaseActivity {
             public void onFailure(Call<User> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("UserActivity: ", "getGithubUser: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mAvatarIconImage);
+                if (n != null) {
+                    n.execute();
+                }
 
             }
         });
@@ -269,6 +275,10 @@ public class UserRepositoriesViewActivity extends BaseActivity {
             public void onFailure(Call<List<Repository>> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("UserReposViewActivity: ", "getGithubStars: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mAvatarIconImage);
+                if (n != null) {
+                    n.execute();
+                }
             }
         });
 

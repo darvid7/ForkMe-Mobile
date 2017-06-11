@@ -30,6 +30,8 @@ import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.Readme;
 import dlei.forkme.model.Repository;
 import dlei.forkme.helpers.LanguageColor;
@@ -219,6 +221,10 @@ public class RepositoryViewActivity extends BaseActivity {
             public void onFailure(Call<Readme> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("RepositoryActivity: ", "getReadme: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mMarkdownHtmlTextView);
+                if (n != null) {
+                    n.execute();
+                }
 
             }
         });

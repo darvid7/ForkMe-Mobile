@@ -7,9 +7,13 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.SwitchCompat;
@@ -21,13 +25,27 @@ import android.widget.CompoundButton;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Locale;
 
 import dlei.forkme.R;
 import dlei.forkme.datastore.DatabaseHelper;
 import dlei.forkme.datastore.NoDataException;
 import dlei.forkme.datastore.TooMuchDataException;
+import dlei.forkme.endpoints.BaseUrls;
+import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.helpers.LocationHelper;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
+import dlei.forkme.model.LocationData;
+import dlei.forkme.model.json.PostLocationDataBody;
 import dlei.forkme.state.AppSettings;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 // Used to post location for now.
 
@@ -44,6 +62,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
     private SwitchCompat mLocationSwitch;
     private AppCompatTextView mSwitchText;
     private DatabaseHelper mDbHelper;
+    private TextInputEditText mDevMessage;
+    private AppCompatButton mMergeMeButton;
 
     /**
      * Allows changes when changing permission of application externally to be reflected.
@@ -63,6 +83,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         mLocationSwitch.setChecked(hasLocationPermissions);
 
         if (!hasLocationPermissions) {
+            mDevMessage.setEnabled(false);
+            mMergeMeButton.setEnabled(false);
             // Don't have location permissions.
             if (!locationPermissionsDisabledForever) {
                 // Locations permissions not disabled forever, allow user to give them.
@@ -93,6 +115,9 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             mLocationSwitch.setEnabled(true); // Allows accent color after disabled and then enabled externally.
             mLocationSwitch.setClickable(false);
             mSwitchText.setText(getResources().getText(R.string.str_true));
+            mDevMessage.setEnabled(true);
+            mMergeMeButton.setEnabled(true);
+
         }
 
     }
@@ -115,7 +140,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             if (!AppSettings.sUserLogin.equals("")) {
                 mDbHelper.insertSettings();
             } else {
-                // TODO: Potential async issue where user data is not loaded.
+                // Should never happen.
                 Log.wtf("SettingsActivity: ", "AppSettings.sUserLogin has no value");
             }
         } catch (TooMuchDataException e) {
@@ -196,8 +221,19 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         mLocationSwitch = (SwitchCompat) findViewById(R.id.findPeopleAllowedSwitch);
         mSwitchText = (AppCompatTextView) findViewById(R.id.switchStatusText);
 
-        // Set up Location.
+        // Set up Location/MergeMe UI elements.
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mDevMessage = (TextInputEditText) findViewById(R.id.publicMessageText);
+        mMergeMeButton = (AppCompatButton) findViewById(R.id.mergeMeButton);
+        mMergeMeButton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Post location information.
+                        getLocation();
+                    }
+                }
+        );
     }
 
     /**
@@ -264,7 +300,6 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
                     mSwitchText.setText(isCheckedStr);
                     mLocationSwitch.setClickable(false);
                     // Only enable to turn of locations if locations permissions is revoked from outside.
-                    this.getLocation();
                 } else {
                     // Permission denied.
                     Log.wtf("SettingsActivity: ", "onRequestPermissionsResult() " +
@@ -290,72 +325,116 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         }
 
     }
-    // TODO: HERE
+
+    // Location code adapted from:
+    // https://stackoverflow.com/questions/10524381/gps-android-get-positioning-only-once
+    // https://stackoverflow.com/questions/40142331/how-to-request-location-permission-on-android-6/40142454
+
+    /**
+     * Determine if location should be asked from GPS. We only want to get location once so we can determine
+     * what city the user is in. Only get new location if the old location if more than 2 days old.
+     */
     public void getLocation() {
         try {
             Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             // location time retrieved > time in milliseconds - 2000 (less than 2 days old).
             if (location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
-                // Do something with the recent location fix
-                //  otherwise wait for the update below
-                Log.d("SettingActivity: ", "Location old - lat: " + location.getLatitude() +
-                        ", long: " + location.getLongitude() + ", time: " + location.getTime());
+                // Use olg location.
+                Log.d("SettingActivity: ", "getLocation(): Old location, latitude: " + location.getLatitude() +
+                        ", longitude: " + location.getLongitude() + ", time: " + location.getTime());
+                postLocationInformation(location);
             } else {
-                // Updates location.
-                Log.d("SettingActivity: ", "Set updates");
+                // Ask for location updates.
+                Log.d("SettingActivity: ", "getLocation(): Request location updates.");
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             }
         } catch (SecurityException e) {
-            Log.d("SettingActivity: ", "Failed " + e.getMessage());
-
+            Log.wtf("SettingActivity: ", "Failed " + e.getMessage());
             return;
         }
     }
 
+    /**
+     * Location updates have been requested, this is triggered when we get a location update.
+     * We stop updates after this one update.
+     * @param location new location.
+     */
     public void onLocationChanged(Location location) {
         if (location != null) {
-            Log.d("SettingActivity: ", "Location update - lat: " + location.getLatitude() +
-                    ", long: " + location.getLongitude());
-            mLocationManager.removeUpdates(this);   // Stop updates
+            Log.d("SettingActivity: ", "onLocationChanged(): Location update, latitude: "
+                    + location.getLatitude() + ", longitude: " + location.getLongitude());
+            mLocationManager.removeUpdates(this);   // Stop updates.
+            postLocationInformation(location);
+
         }
     }
 
-    // Required functions
+    // Required functions for location.
     public void onProviderDisabled(String arg0) {}
     public void onProviderEnabled(String arg0) {}
     public void onStatusChanged(String arg0, int arg1, Bundle arg2) {}
 
-    // Might do something with theses later.
-    @Override
-    public void onPause() { super.onPause(); }
+    /**
+     * Post location along with user information to ForkMe backend.
+     * @param location retrieved from GPS.
+     */
+    public void postLocationInformation(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        PostLocationDataBody dataBody = new PostLocationDataBody(
+                AppSettings.sUserLogin,
+                latitude,
+                longitude,
+                mDevMessage.getText().toString(),
+                AppSettings.sUserEmail,
+                AppSettings.sUserName,
+                AppSettings.sUserAvatarUrl
+        );
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpBuilder.build())
+                .baseUrl(BaseUrls.forkMeBackendApi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ForkMeBackendApi endpoint = retrofit.create(ForkMeBackendApi.class);
+        Call<ResponseBody> call = endpoint.postLocation(dataBody);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                if (response.code() == 200 && response.isSuccessful()) {
+                    Log.d("SettingActivity: ", "postLocationInformation() successfully posted");
+                    Snackbar.make(mLocationSwitch, String.format(Locale.getDefault(),
+                            "Successfully posted your information and the message to ForkMe!"), Snackbar.LENGTH_LONG)
+                            .setAction("CLOSE", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {}
+                            })
+                            .setActionTextColor(ContextCompat.getColor(mLocationSwitch.getContext(), R.color.colorPrimary))
+                            .show();
+
+                } else {
+                    Log.wtf("SettingActivity: ", "postLocationInformation(): " + response.code() + ", " + response.isSuccessful());
+                    Log.wtf("Response message: ", "" + response.message());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.wtf("SettingActivity: ", "postLocationInformation(): onFailure()" + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mDevMessage);
+                if (n != null) {
+                    n.execute();
+                }
+
+            }
+        });
+
+
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-
-//    public void sendPost(String title, String body) {
-//        mAPIService.savePost(title, body, 1).enqueue(new Callback<Post>() {
-//            @Override
-//            public void onResponse(Call<Post> call, Response<Post> response) {
-//
-//                if(response.isSuccessful()) {
-//                    showResponse(response.body().toString());
-//                    Log.i(TAG, "post submitted to API." + response.body().toString());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Post> call, Throwable t) {
-//                Log.e(TAG, "Unable to submit post to API.");
-//            }
-//        });
 }
 
-// https://stackoverflow.com/questions/40142331/how-to-request-location-permission-on-android-6/40142454

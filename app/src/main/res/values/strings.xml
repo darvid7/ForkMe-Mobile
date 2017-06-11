@@ -149,4 +149,9 @@
     <string name="about_text">ForkMe is an application made for FIT3027 Android and iOS at
         Monash University by David Lei. Is is a GitHub Trending repository viewer!
         In making ForkMe I made use of the following libraries.</string>
+
+    <string name="merge_me_button">Send data</string>
+    <string name="dev_msg_hint">Public message, what are ypu after?</string>
+    <string name="dev_msg_example">Eg: Looking for a Python dev for Unihack!</string>
+
 </resources>

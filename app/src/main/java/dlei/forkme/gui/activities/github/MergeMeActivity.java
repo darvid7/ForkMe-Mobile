@@ -26,6 +26,8 @@ import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.activities.SettingsActivity;
 import dlei.forkme.gui.adapters.DeveloperContactRecyclerViewAdapter;
 import dlei.forkme.helpers.LocationHelper;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.DeveloperContactInfo;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
@@ -186,6 +188,10 @@ public class MergeMeActivity extends BaseActivity {
             public void onFailure(Call<List<DeveloperContactInfo>> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("MergeMeActivity: ", "getDevelopers(): Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mMainButton);
+                if (n != null) {
+                    n.execute();
+                }
             }
         });
     }

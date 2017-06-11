@@ -20,13 +20,14 @@
     <!-- Trending Repositories settings -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/trendingRepositoryImageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_trending_up_48px"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="@dimen/padding_extra"
         android:layout_marginTop="@dimen/padding_extra"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="@dimen/padding_extra"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:srcCompat="@drawable/ic_trending_up_48px"
+        tools:layout_editor_absoluteX="16dp" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/trendingRepositoryText"
@@ -38,8 +39,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toRightOf="@+id/trendingRepositoryImageView"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.285" />
+        android:layout_marginLeft="@dimen/padding_normal"
+        app:layout_constraintHorizontal_bias="0.07" />
 
     <android.support.v7.widget.AppCompatSpinner
         android:id="@+id/timeframeSpinner"
@@ -60,7 +61,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="@dimen/padding_extra"
         android:layout_marginEnd="@dimen/padding_extra"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/padding_normal"
         app:layout_constraintTop_toBottomOf="@+id/timeframeSpinner" />
 
     <android.support.v7.widget.AppCompatSpinner
@@ -116,13 +117,12 @@
     <!-- Find People settings -->
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/findPeopleImageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_group_48px"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginTop="@dimen/padding_extra"
-        app:layout_constraintTop_toBottomOf="@+id/viewTrendingBottomSeperator"
         app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryImageView"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/viewTrendingBottomSeperator"
+        app:srcCompat="@drawable/ic_group_48px" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/findPeopleText"
@@ -164,7 +164,7 @@
         android:id="@+id/switchStatusText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="@dimen/padding_normal"
         android:layout_marginTop="0dp"
         android:text="@string/str_false"
         app:layout_constraintRight_toLeftOf="@+id/findPeopleAllowedSwitch"
@@ -173,48 +173,50 @@
         app:layout_constraintLeft_toLeftOf="@+id/timeframeSpinner"
         app:layout_constraintHorizontal_bias="0.0" />
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/publicMessageText"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/publicMessageContainer"
+        android:layout_width="291dp"
         android:layout_height="wrap_content"
-        android:text="@string/find_people_message_placeholder"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="@dimen/padding_normal"
         android:layout_marginTop="28dp"
-        app:layout_constraintTop_toBottomOf="@+id/findPeopleAllowedText"
-        app:layout_constraintLeft_toLeftOf="@+id/findPeopleAllowedText" />
+        app:layout_constraintLeft_toLeftOf="@+id/findPeopleAllowedText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPeopleAllowedText">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/publicMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dev_msg_hint"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
 
     <View
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="?android:attr/dividerHorizontal"
-        android:layout_marginTop="@dimen/padding_extra"
-        app:layout_constraintTop_toBottomOf="@+id/publicMessageText"
         android:id="@+id/viewFindPeopleBottomSeparator"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/mergeMeButton" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/mergeMeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/merge_me_button"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/publicMessageContainer"
+        android:layout_marginRight="@dimen/padding_normal"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/padding_normal"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <!-- You Repository settings -->
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/repositoriesImageView"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        app:srcCompat="@drawable/ic_folder_48px"
-        android:layout_marginTop="@dimen/padding_extra"
-        app:layout_constraintTop_toBottomOf="@id/viewFindPeopleBottomSeparator"
-        app:layout_constraintStart_toStartOf="@id/trendingRepositoryImageView"/>
-
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/yourRepositoriesText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/your_repositories_heading"
-        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
-        app:layout_constraintStart_toStartOf="@id/trendingRepositoryText"
-        app:layout_constraintTop_toTopOf="@+id/repositoriesImageView"
-        android:layout_marginTop="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="0dp"
-        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryText" />
-
 
 
 </android.support.constraint.ConstraintLayout>

@@ -18,6 +18,8 @@ import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapters.SwipeDeckAdapter;
 import dlei.forkme.gui.fragments.StarNotificationDialog;
+import dlei.forkme.helpers.NetworkAsyncCheck;
+import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
@@ -213,6 +215,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             @Override
             public void onFailure(Call<List<Repository>> call, Throwable t) {
                 Log.i("TrendingActivity: ", "getTrendingRepositoriesArray: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mSwipeDeck);
+                if (n != null) {
+                    n.execute();
+                }
             }
         });
     }
@@ -249,6 +255,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             @Override
             public void onFailure(Call<RepositoryResponse> call, Throwable t) {
                 Log.i("TrendingActivity: ", "getTrendingRepositories: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mSwipeDeck);
+                if (n != null) {
+                    n.execute();
+                }
             }
         });
     }
@@ -308,6 +318,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 // Failure to connect to endpoint.
                 Log.i("TrendingActivity: ", "starGithubRepo: Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mSwipeDeck);
+                if (n != null) {
+                    n.execute();
+                }
 
             }
         });

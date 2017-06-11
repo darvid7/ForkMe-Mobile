@@ -50,6 +50,8 @@ public class User {
         return String.format("%s - login: %s, id: %s", super.toString(), this.login, this.id);
     }
 
+    public String getEmail() { return this.email; }
+
     public String getName() {
         return this.name;
     }
