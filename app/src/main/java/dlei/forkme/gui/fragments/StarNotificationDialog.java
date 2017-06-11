@@ -4,10 +4,8 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.AppCompatTextView;
@@ -17,8 +15,7 @@ import android.view.View;
 import android.widget.Spinner;
 
 import dlei.forkme.R;
-import dlei.forkme.gui.activities.SettingsActivity;
-import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
+
 
 /** Just need this to show
  * StarNotificationDialog s = new StarNotificationDialog();
@@ -48,7 +45,7 @@ public class StarNotificationDialog extends DialogFragment {
     }
 
     /**
-     * Creates new StarNotificationDialog.
+     * Creates new StarNotificationDialog, opens when the user stars a repository.
      * This is called after newInstance() so it has access to args.
      * @param savedInstanceState bundle passed in from newInstance containing args.
      * @return built Dialog.
@@ -89,6 +86,10 @@ public class StarNotificationDialog extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Makes a new notification.
+     * @param repositoryFullName name of the repository starred.
+     */
     private void AddNotification(String repositoryFullName) {
         Context context = getContext();
         NotificationCompat.Builder builder =

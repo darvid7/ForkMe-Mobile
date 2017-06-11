@@ -11,26 +11,32 @@ import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
-
+/**
+ * Endpoints for GitHub's API v3.
+ */
 public interface GithubApi {
+
+    // Star a repository.
     @PUT("/user/starred/{user}/{repo}")
     Call<ResponseBody> starRepository(@Path("user") String user, @Path("repo") String repo);
 
+    // Get user information for userLogin.
     @GET("/users/{userLogin}")
     Call<User> getUser(@Path("userLogin")  String userLogin);
 
-    // GET /repos/:owner/:repo/readme
+    // Get README for a repository.
     @GET("/repos/{owner}/{repo}/readme")
     Call<Readme> getReadme(@Path("owner") String owner, @Path("repo") String repo);
 
-    // Get starred repos for a user.
+    // Get starred repositories for user.
     @GET("/users/{user}/starred")
     Call<List<Repository>> getStarredRepositories(@Path("user") String user);
 
-    // GET /user/repos for an authenticated user, returns list of repositories. Default is all.
+    // GET repositories for an authenticated user, returns list of repositories. Default is all.
     @GET("/users/{user}/repos")
     Call<List<Repository>> getMyRepositories(@Path("user") String user);
 
+    // Get user details (for the user who is logged in and supplies the OAuth Token.
     @GET("/user")
     Call<User> getAuthenticatedUser();
 

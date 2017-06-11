@@ -34,6 +34,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Activity that shows the repositories a usher has starred.
+ */
 public class UserStarsActivity extends BaseActivity {
 
     private ProgressBar mProgressBarSpinner;
@@ -93,7 +96,12 @@ public class UserStarsActivity extends BaseActivity {
 
     // Note: Response from Github API won't have subscribers_count even though the docs said it does.
     // TODO: Double check that having the field @SerializedName("subscribers_count") in Repository
-    // won't break anything if it doesn't exist in the json response. Pretty sure it doensn't as it just returns 0 now.
+    // won't break anything if it doesn't exist in the json response. Pretty sure it doesn't as it just returns 0 now.
+
+    /**
+     * Get starred repositories for a GitHub user.
+     * @param user login of a GitHub user.
+     */
     public void getGithubStars(String user) {
         // Goes into the network level of OkHttp.
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();

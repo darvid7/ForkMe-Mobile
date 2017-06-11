@@ -6,11 +6,10 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.regex.Pattern;
 
-// TODO: Should they be private?
-// Annoyance of getters and setters.
-
+/**
+ * Data model class for a GitHub Repositoriy.
+ * */
 public class Repository implements Parcelable {
     private int size;
     @SerializedName("full_name")
@@ -43,7 +42,7 @@ public class Repository implements Parcelable {
     // Default constructor.
     public Repository() {}
 
-    // Getters and setters.
+    // Getters and Setters.
 
     public int getSize() {
         return size;
@@ -168,7 +167,6 @@ public class Repository implements Parcelable {
         this.score = in.readInt();
         this.createdAt = in.readString();
         this.htmlUrl = in.readString();
-        // TODO: Understand this.
         this.owner = (Owner) in.readValue(Owner.class.getClassLoader());
         this.hasWiki = in.readByte() != 0;  // Stored boolean as 0 and 1.
         this.openIssuesCount = in.readInt();
@@ -190,8 +188,7 @@ public class Repository implements Parcelable {
         dest.writeInt(this.score);
         dest.writeString(this.createdAt);
         dest.writeString(this.htmlUrl);
-        // dest.writeParcelable(this.owner);
-        dest.writeValue(this.owner);  // TODO: Check if it is write paracelable.
+        dest.writeValue(this.owner);
         dest.writeByte((byte) (this.hasWiki ? 1 : 0));  // Represent bool in a byte using 1 or 0.
         dest.writeInt(this.openIssuesCount);
         dest.writeString(this.url);

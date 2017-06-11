@@ -15,12 +15,16 @@ import java.util.Locale;
 
 import dlei.forkme.R;
 
+/**
+ * Helps check for network status.
+ */
 public class NetworkHelper {
 
     static String noConnectionMessage = "Please connect to %s, this app requires internet access.";
 
     /**
      * Return null if not connected to a network, else returns an async task to check the network has internet connection.
+     * Note: This checks for both valid network and valid internet connection.
      * @param view any view in the activity that called this, used to make snackbar.
      * @return null or NetworkHelper.NetworkAsyncCheck.
      */

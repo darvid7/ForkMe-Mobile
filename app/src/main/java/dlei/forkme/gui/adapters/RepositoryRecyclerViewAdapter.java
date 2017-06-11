@@ -13,13 +13,16 @@ import dlei.forkme.gui.activities.github.RepositoryViewActivity;
 import dlei.forkme.model.Repository;
 
 public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<RepositoryViewHolder> {
-    // TODO: Implement filterable? Would be nice but not 100% needed.
     private ArrayList<Repository> mRepositoryList;
 
     public RepositoryRecyclerViewAdapter(ArrayList<Repository> repositories) {
         mRepositoryList = repositories; // Just a pointer, not a deep copy.
     }
 
+    /**
+     * Get number of items in mRepositoryList.
+     * @return size of mRepositoryList.
+     */
     @Override
     public int getItemCount() {
         return mRepositoryList.size();
@@ -39,6 +42,13 @@ public class RepositoryRecyclerViewAdapter extends RecyclerView.Adapter<Reposito
         return repositoryCard;
     }
 
+    /**
+     * For each view item displayed by the adapter, this is called to bind the repository data to the view
+     * so the view item displays the right information.
+     * Also sets listener for clicking on the repository.
+     * @param repositoryCard, RepositoryViewHolder view to display for each Repository in mRepositoryList.
+     * @param position, int position of Repository.
+     */
     @Override
     public void onBindViewHolder(RepositoryViewHolder repositoryCard, int position) {
 

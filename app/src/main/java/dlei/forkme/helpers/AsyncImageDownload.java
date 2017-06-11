@@ -9,6 +9,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+// Note: Don't need this anymore due to Picasso, but i'll leave this here as it is a good reference.
+// Code adapted from: https://stackoverflow.com/questions/3090650/android-loading-an-image-from-the-web-with-asynctask
+
 public class AsyncImageDownload extends AsyncTask<Void, Void, Bitmap> {
 
     private String url;

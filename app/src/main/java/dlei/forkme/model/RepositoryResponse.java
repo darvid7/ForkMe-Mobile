@@ -7,6 +7,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for HTTP response as a list of Repository objects. Alternative is to expect a List<Repository>
+ */
 public class RepositoryResponse {
 
     @SerializedName("repositories")
@@ -23,9 +26,8 @@ public class RepositoryResponse {
         return repositoryResponse;
     }
 
-
+    // Stringiy method.
     public String toString() {
-        // TODO: More efficient string concat.
         String s = "";
         for (int i = 0; i < repositoryList.size(); i++) {
             Repository r = repositoryList.get(i);
@@ -38,6 +40,7 @@ public class RepositoryResponse {
         return s;
     }
 
+    // Getters.
     public Repository getRepository(int i) {
         return repositoryList.get(i);
     }

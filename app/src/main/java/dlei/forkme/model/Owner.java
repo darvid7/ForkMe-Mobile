@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Data model for a GitHub repository owner.
+ */
 public class Owner implements Parcelable {
     private int id;
     private String url;

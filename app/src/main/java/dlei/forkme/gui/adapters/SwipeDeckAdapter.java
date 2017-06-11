@@ -17,6 +17,9 @@ import dlei.forkme.helpers.LanguageColor;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Adapter for swipe deck in TrendingRepositoryActivity.
+ */
 public class SwipeDeckAdapter extends BaseAdapter {
 
     private List<Repository> mDeck;
@@ -25,25 +28,47 @@ public class SwipeDeckAdapter extends BaseAdapter {
         mDeck = deck;
     }
 
+    /**
+     * Get number of items in mDeck.
+     * @return size of mDeck.
+     */
     @Override
     public int getCount() {
         return mDeck.size();
     }
 
+    /**
+     * Get Repository object from mDeck at index position.
+     * @param position position deck is currently up to (an index)
+     * @return Repository at that position.
+     */
     @Override
     public Repository getItem(int position) {
         if (position > mDeck.size()) {
-            Log.w("SwipeDeckAdapater: ", "position: " + position);
+            // Should not happen.
+            Log.w("SwipeDeckAdapter: ", "position: " + position);
             return null;
         }
         return mDeck.get(position);
     }
 
+    /**
+     * Get it of an item at index position.
+     * @param position position the deck is currently up to.
+     * @return id of item at index position.
+     */
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Set view for the topmost cards on the deck.
+     * @param position position deck is up to.
+     * @param convertView view to inflate.
+     * @param parent parent view group.
+     * @return inflated view.
+     */
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
@@ -57,7 +82,6 @@ public class SwipeDeckAdapter extends BaseAdapter {
         String repoDescription = repo.getDescription();
 
         // Set repo full name.
-        // TODO: Split up into ownername/reponame and make it clickable?
         AppCompatTextView repoCardFullNameText = (AppCompatTextView) convertView.findViewById(R.id.repositoryCardFullNameText);
         repoCardFullNameText.setText(repoFullName);
 

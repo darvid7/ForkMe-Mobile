@@ -11,6 +11,9 @@ import java.util.Locale;
 
 import dlei.forkme.R;
 
+/**
+ * Asynchronously checks for internet connection.
+ */
 public class NetworkAsyncCheck extends AsyncTask<Void, Void, Boolean> {
     private View view;
 

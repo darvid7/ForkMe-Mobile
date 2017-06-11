@@ -3,7 +3,6 @@ package dlei.forkme.helpers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-// https://code.tutsplus.com/tutorials/getting-started-with-retrofit-2--cms-27792
 /*
   OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
 
@@ -27,6 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
  */
+
+// TODO: Future improvement to refactor HTTP calls.
+// Inspired by: https://code.tutsplus.com/tutorials/getting-started-with-retrofit-2--cms-27792
 
 public class ServiceGenerator {
     public static String apiBaseUrl = "http://futurestud.io/api";

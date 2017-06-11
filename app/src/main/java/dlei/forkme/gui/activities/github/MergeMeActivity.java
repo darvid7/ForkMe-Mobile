@@ -34,6 +34,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Activity that allows user to contact other developers, must enable location.
+ */
 public class MergeMeActivity extends BaseActivity {
     private RecyclerView mRecyclerViewDevContactInfo;
     private DeveloperContactRecyclerViewAdapter mAdapterDevContactInfo;
@@ -43,6 +46,9 @@ public class MergeMeActivity extends BaseActivity {
     private LinearLayoutManager mLayoutManager;
     private ArrayList<DeveloperContactInfo> mDeveloperContactInfo = new ArrayList<>();
 
+    /**
+     * Get latest information about location permissions.
+     */
     @Override
     public void onResume() {
         super.onResume();

@@ -30,6 +30,10 @@ import dlei.forkme.helpers.LocationHelper;
 import dlei.forkme.state.AppSettings;
 
 // Used to post location for now.
+
+/**
+ * Settings activity, used to configure how application behaves/location permissions.
+ */
 public class SettingsActivity extends BaseActivity implements LocationListener {
     private LocationManager mLocationManager;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
@@ -286,6 +290,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         }
 
     }
+    // TODO: HERE
     public void getLocation() {
         try {
             Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);

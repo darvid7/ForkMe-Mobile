@@ -26,10 +26,10 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             card_view:layout_constraintLeft_toLeftOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            android:layout_marginRight="8dp"
+            android:layout_marginRight="@dimen/padding_normal"
             card_view:layout_constraintRight_toRightOf="parent"
             card_view:layout_constraintHorizontal_bias="0.0"
-            android:layout_marginEnd="8dp" />
+            android:layout_marginEnd="@dimen/padding_normal" />
 
 
         <android.support.v7.widget.AppCompatTextView
@@ -68,7 +68,7 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/languageCircleImageView"
-            android:layout_width="16dp"
+            android:layout_width="@dimen/padding_extra"
             android:layout_height="17dp"
             android:layout_marginStart="@dimen/padding_normal"
             card_view:srcCompat="@drawable/circle"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text="@string/placeholder_reponame"
             card_view:layout_constraintLeft_toLeftOf="@+id/ownerUserNameText"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/padding_normal"
             card_view:layout_constraintTop_toBottomOf="@+id/ownerUserNameText"
             android:layout_marginLeft="0dp" />
 
@@ -91,7 +91,7 @@
             android:id="@+id/starCountText"
             android:layout_width="37dp"
             android:layout_height="18dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/padding_normal"
             android:text="@string/placeholder_number"
             android:textAlignment="center"
             card_view:layout_constraintLeft_toLeftOf="@+id/starImageView"
@@ -101,8 +101,8 @@
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/forkCountText"
             android:layout_width="37dp"
-            android:layout_height="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="@dimen/padding_extra"
+            android:layout_marginTop="@dimen/padding_normal"
             android:text="@string/placeholder_number"
             android:textAlignment="center"
             card_view:layout_constraintHorizontal_bias="0.466"
@@ -114,7 +114,7 @@
             android:id="@+id/languageText"
             android:layout_width="76dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/padding_normal"
             android:text="@string/placeholder_text_small"
             android:textAlignment="center"
             card_view:layout_constraintLeft_toLeftOf="@+id/languageCircleImageView"

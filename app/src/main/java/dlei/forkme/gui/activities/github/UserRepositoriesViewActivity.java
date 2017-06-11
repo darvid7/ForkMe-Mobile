@@ -36,6 +36,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Shows a user info (name, username, bio) and their repositories, can click on star to view starred repositories.
+ */
 public class UserRepositoriesViewActivity extends BaseActivity {
     private ProgressBar mProgressBarSpinner;
     private RecyclerView mRecyclerViewRepositories;
@@ -113,6 +116,11 @@ public class UserRepositoriesViewActivity extends BaseActivity {
         toogleViews(mHeaderViews, View.GONE);
     }
 
+    /**
+     * Used to hide and unhide views when waiting for HTTP calls.
+     * @param views List of views to change visibility of.
+     * @param visability to set for ech view in views.
+     */
     private void toogleViews(List<View> views, int visability) {
         for (View v: views) {
             v.setVisibility(visability);
@@ -200,6 +208,11 @@ public class UserRepositoriesViewActivity extends BaseActivity {
             }
         });
     }
+
+    /**
+     * Get a user's GitHub repositories (restricted to public if the user is not the authenticated user.
+     * @param userLogin GitHub login for the user.
+     */
     public void getUserRepositories(final String userLogin) {
         // Goes into the network level of OkHttp.
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();

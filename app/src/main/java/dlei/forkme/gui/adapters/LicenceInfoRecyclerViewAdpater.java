@@ -19,7 +19,7 @@ public class LicenceInfoRecyclerViewAdpater extends RecyclerView.Adapter<Licence
     }
 
     /**
-     * Get number of intems in mLicenceList.
+     * Get number of items in mLicenceList.
      * @return size of mLicenceList.
      */
     @Override
@@ -41,6 +41,13 @@ public class LicenceInfoRecyclerViewAdpater extends RecyclerView.Adapter<Licence
         return licenceCard;
     }
 
+    /**
+     * For each view item displayed by the adapter, this is called to bind the licence data to the view
+     * so the view item displays the right information.
+     * Also sets listener for buttons by calling methods in LicenceInfoViewHolder.
+     * @param licenceCard, LicenceInfoViewHolder view to display for each Licence in mLicenceList.
+     * @param position, int position of Licence.
+     */
     @Override
     public void onBindViewHolder(LicenceInfoViewHolder licenceCard, int position) {
 

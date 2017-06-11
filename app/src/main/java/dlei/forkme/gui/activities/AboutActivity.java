@@ -14,7 +14,7 @@ import dlei.forkme.gui.adapters.LicenceInfoRecyclerViewAdpater;
 import dlei.forkme.model.Licence;
 
 /**
- * About activity, shows infromation about the application and libraries used to make it.
+ * About activity, shows information about the application and libraries used to make it.
  */
 public class AboutActivity extends BaseActivity {
     ArrayList<Licence> mLicences = new ArrayList<>();

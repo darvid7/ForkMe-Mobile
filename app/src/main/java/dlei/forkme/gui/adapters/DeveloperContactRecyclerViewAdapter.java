@@ -12,6 +12,9 @@ import dlei.forkme.R;
 import dlei.forkme.gui.activities.github.UserRepositoriesViewActivity;
 import dlei.forkme.model.DeveloperContactInfo;
 
+/**
+ * RecyclerViewAdapter for developer contact information used in MergeMeActivity.
+ */
 public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<DeveloperContactViewHolder> {
 
     private ArrayList<DeveloperContactInfo> mDeveloperList;
@@ -20,6 +23,10 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
         mDeveloperList = developers; // Just a pointer, not a deep copy.
     }
 
+    /**
+     * Get number of items in mDeveloperList.
+     * @return size of mDeveloperList.
+     */
     @Override
     public int getItemCount() {
         return mDeveloperList.size();
@@ -29,7 +36,7 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
      * Inflate a view to be used to display an item in the adapter.
      * @param parent parent view.
      * @param viewType type of view.
-     * @return LicenceInfoViewHolder, the view to display.
+     * @return DeveloperContactViewHolder, the view to display.
      */
     @Override
     public DeveloperContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -39,6 +46,13 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
         return developerCard;
     }
 
+    /**
+     * For each view item displayed by the adapter, this is called to bind the developer data to the view
+     * so the view item displays the right information.
+     * Also sets listener for clicks to transition to UserRepositoriesViewActivity.
+     * @param developerCard, DeveloperContactViewHolder view to display for each DeveloperContactInfo in mDeveloperList.
+     * @param position, int position of DeveloperContactInfo.
+     */
     @Override
     public void onBindViewHolder(DeveloperContactViewHolder developerCard, int position) {
 

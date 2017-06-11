@@ -12,8 +12,13 @@ import com.squareup.picasso.Picasso;
 
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.InAppWebView;
-import dlei.forkme.gui.activities.github.RepositoryViewActivity;
 
+
+/**
+ * ViewHolder for Licence cards shown in RecyclerView.
+ * Shows the licence, the library, the owner and has buttons that when pressed takes the user to
+ * the licence or library.
+ */
 public class LicenceInfoViewHolder extends RecyclerView.ViewHolder {
     private AppCompatImageView mPublisherIcon;
     private AppCompatTextView mLibraryText;
@@ -32,6 +37,8 @@ public class LicenceInfoViewHolder extends RecyclerView.ViewHolder {
         mLibraryButton = (AppCompatButton) view.findViewById(R.id.viewLibraryButton);
         mLicenceButton = (AppCompatButton) view.findViewById(R.id.viewLicenceButton);
     }
+
+    // Setters.
 
     public void setUsedForText(String usedFor) {
         mUsedForText.setText(usedFor);
@@ -53,6 +60,7 @@ public class LicenceInfoViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    // OnCLickMethods for buttons.
     public void setLibraryButtonOnClick(final String libraryUrl) {
         mLibraryButton.setOnClickListener(
                 new View.OnClickListener() {

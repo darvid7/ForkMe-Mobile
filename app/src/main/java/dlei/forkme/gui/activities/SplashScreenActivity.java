@@ -10,6 +10,7 @@ import dlei.forkme.R;
 // however it will return null if the referenced resource is not instantiated.
 // Having two activities with resources with the same name will never conflict, findViewById()
 // will only look in the view tree for the current activity.
+// Code adapted from: https://www.bignerdranch.com/blog/splash-screens-the-right-way/
 
 /**
  * Splash screen for application.
@@ -19,8 +20,6 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // setContentView(R.layout.activity_splash_screen);
-        // TODO: Might move some network calls here.
         Intent intent = new Intent(this, LogInActivity.class);
         startActivity(intent);
         finish();

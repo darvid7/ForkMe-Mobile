@@ -33,6 +33,7 @@ import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.model.Readme;
 import dlei.forkme.model.Repository;
 import dlei.forkme.helpers.LanguageColor;
+import dlei.forkme.state.AppSettings;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -44,12 +45,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static dlei.forkme.R.id.markdownHtmlTextView;
 
+/**
+ * View a repository, shows rendered README markdown.
+ */
 public class RepositoryViewActivity extends BaseActivity {
     private static Parser sParser;
     private static HtmlRenderer sRender;
     private Repository mRepository;
     private AppCompatTextView mRepoFullNameText;
-    private String mOAuthToken;
 
     private HtmlTextView mMarkdownHtmlTextView;
     private AppCompatTextView mLanguageText;
@@ -62,7 +65,6 @@ public class RepositoryViewActivity extends BaseActivity {
     private ProgressBar mProgressBarSpinner;
 
     private static void createParser() {
-        // TODO: Move to singleton.
         sParser = Parser.builder()
                 .build();
 
@@ -98,11 +100,6 @@ public class RepositoryViewActivity extends BaseActivity {
         // There will always be a repository when this activity is started.
         Intent i = getIntent();
         mRepository = i.getParcelableExtra("repository");
-
-        SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
-        mOAuthToken = sharedPreferences.getString("oauth_token", null);
-
-        Log.w("Access token: ", mOAuthToken);
 
         mRepoFullNameText = (AppCompatTextView) findViewById(R.id.repositoryViewFullNameText);
         mRepoFullNameText.setText(mRepository.getFullName());
@@ -165,8 +162,7 @@ public class RepositoryViewActivity extends BaseActivity {
             public okhttp3.Response intercept(Chain chain) throws IOException {
                 Request request = chain.request();
                 Request.Builder newRequest = request.newBuilder()
-                        //.addHeader("Authorization", "token " + mOAuthToken);
-                        .addHeader("Authorization", "token " + mOAuthToken)
+                        .addHeader("Authorization", "token " + AppSettings.sOAuthToken)
                         .addHeader("Content-Length", "0");
                 return chain.proceed(newRequest.build());
             }

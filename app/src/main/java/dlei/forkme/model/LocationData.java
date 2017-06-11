@@ -1,5 +1,8 @@
 package dlei.forkme.model;
 
+/**
+ * Data model class for location data to be posted.
+ */
 public class LocationData {
 
     private Double latitude;

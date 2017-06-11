@@ -1,6 +1,7 @@
 package dlei.forkme.gui.activities;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,8 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_base);
 
         Log.d("BaseActivity: ", "created");
@@ -170,20 +173,11 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void hideNavBar() {
-        Log.wtf("HERE: ", "" + mNavDrawer);
-        mNavDrawer.closeDrawer();
-        Log.wtf("THERE: ", "" + mNavDrawer);
 
-    }
-
-    public void showNavBar() {
-        Log.wtf("HAI: ", "" + mNavDrawer);
-
-        //mNavDrawer.getContent().setVisibility(View.VISIBLE);
-    }
-
-
+    /**
+     * Save state of the NabDrawer.
+     * @param outState state saved.
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         Log.d("BaseActivity: ", "onSavedInstanceState: called");
@@ -192,6 +186,9 @@ public class BaseActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * Prioritise the NavDrawer for back button events if it is opened.
+     */
     @Override
     public void onBackPressed() {
         Log.d("BaseActivity: ", "Back");

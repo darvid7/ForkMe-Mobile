@@ -6,6 +6,9 @@ import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+/**
+ * Helps check for location permissions.
+ */
 public class LocationHelper {
 
     /**

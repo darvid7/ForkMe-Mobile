@@ -10,6 +10,9 @@ import android.util.Log;
 
 import dlei.forkme.state.AppSettings;
 
+/**
+ * Helper to access data persistence layer.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static DatabaseHelper sDbInstance = null;
@@ -21,6 +24,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, sDatabaseName, null, sDatabaseVersion);
     }
 
+    /**
+     * Singleton pattern so only 1 object of DatabaseHelper exists.
+     * @param context activity context.
+     * @return instance of DatabaseHelper.
+     */
     public static synchronized DatabaseHelper getDbInstance(Context context) {
         if (sDbInstance == null) {
             sDbInstance = new DatabaseHelper(context);
@@ -52,6 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // db.close();  // Close database connection.
     }
 
+    /**
+     * Insert settings for a user into persistant storage.
+     */
     public void insertSettings() {
         if (AppSettings.sUserLogin.equals("")) {
             Log.wtf("Error: ", "DatabaseHelper.insertSettings(): user log in is null");
@@ -71,9 +82,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (result == -1) {
             Log.w("Error: ", String.format("Adding settings for user %s", AppSettings.sUserLogin));
         }
-
     }
 
+    /**
+     * Update language for a user in persistant storage.
+     */
     public void updateLanguage() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -83,6 +96,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Update timeframe preference for a user in persistant storage.
+     */
     public void updateTimeframe() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -92,6 +108,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    /**
+     * Update stort by preference for a user in persistant storage.
+     */
     public void updateSortBy() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

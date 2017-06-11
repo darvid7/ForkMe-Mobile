@@ -6,13 +6,12 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONObject;
-
-
+/**
+ * Helper class to assign a color to a programming language.
+ */
 public class LanguageColor {
     // Color Json from https://github.com/ozh/github-colors/blob/master/colors.json
     private static final String colorJsonString = (
@@ -1415,11 +1414,15 @@ public class LanguageColor {
     private static final int noLanguageColor = Color.parseColor("#e5e5e5");
     private static final String noLanguageColorHex = "#e5e5e5";
 
-
     private static final JsonObject languageColorLookup = new JsonParser().parse(colorJsonString).getAsJsonObject();
 
     public LanguageColor() {}
 
+    /**
+     * Return color as a hex string of a programming langiuage.
+     * @param language programming language to query for.
+     * @return hex string representing the color, or #e5e5e5 if not found.
+     */
     public static String getColor(String language) {
         JsonElement colorUrl = languageColorLookup.get(language);
         if (colorUrl == null) {
@@ -1436,6 +1439,12 @@ public class LanguageColor {
         return colorHex;
     }
 
+    /**
+     * Sets the language text and tints the language circle of a view.
+     * @param language programming language to query for.
+     * @param languageCircleImage language circle view, will set to a pale grey if not found.
+     * @param languageText language text view, will set to None if not found.
+     */
     public static void setLanguageOnView(String language, AppCompatImageView languageCircleImage, AppCompatTextView languageText) {
         int languageColorAsInt = noLanguageColor;
         if (language != null) {

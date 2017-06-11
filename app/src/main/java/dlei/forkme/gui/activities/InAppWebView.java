@@ -21,7 +21,7 @@ public class InAppWebView extends BaseActivity {
      */
     private class InAppWebViewClient extends WebViewClient {
 
-        // Allows links to be processed in app instead of opening an extrnal browser.
+        // Allows links to be processed in app instead of opening an external browser.
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest url) {
             return false;

@@ -70,7 +70,7 @@
                 card_view:layout_constraintRight_toLeftOf="@+id/repositoryCardFullNameText"
                 android:layout_marginTop="0dp"
                 card_view:layout_constraintBottom_toBottomOf="@+id/repositoryCardFullNameText"
-                android:layout_marginBottom="8dp" />
+                android:layout_marginBottom="@dimen/padding_normal" />
 
             <include
                 android:id="@+id/include"
@@ -108,7 +108,7 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/include"
                 card_view:layout_constraintVertical_bias="0.162"
                 card_view:layout_constraintLeft_toRightOf="@+id/updatedLabelText"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="@dimen/padding_normal"
                 android:layout_marginEnd="0dp"
                 card_view:layout_constraintRight_toRightOf="@+id/include" />
 
@@ -128,9 +128,9 @@
                 card_view:layout_constraintRight_toLeftOf="@+id/languageText"
                 card_view:layout_constraintTop_toTopOf="@+id/languageText"
                 card_view:srcCompat="@drawable/circle"
-                android:layout_marginRight="1dp"
+                android:layout_marginRight="0dp"
                 card_view:layout_constraintLeft_toLeftOf="@+id/include"
-                android:layout_marginEnd="1dp" />
+                android:layout_marginEnd="0dp" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/starImageView"

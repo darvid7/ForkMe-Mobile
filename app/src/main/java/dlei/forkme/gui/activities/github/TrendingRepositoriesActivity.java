@@ -35,8 +35,6 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-// TODO: Fix bug, sometimes crashing when registering touch when swiping. https://github.com/flschweiger/SwipeStack/issues/46
-// TODO: Fix landscape view, maybe only support portrait.
 /**
  * Activity for displaying trending Github repositories retrieved from my backend in a SwipeStack.
  */
@@ -62,6 +60,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         mSwipeDeckAdapter = new SwipeDeckAdapter(mDeck);
         mSwipeDeck.setListener(this);
 
+        // Make new listener so can emulate an onClick() event.
         SwipeStack.SwipeProgressListener swipeProgressListener = new SwipeStack.SwipeProgressListener() {
 
             // Called when user starts interacting with the repository card.
@@ -228,7 +227,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(BaseUrls.forkMeBackendApi)
+                .baseUrl(BaseUrls.forkMeBackendApiDeprecated)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -282,9 +281,6 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 .baseUrl(BaseUrls.githubApi)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
-        // Note: ResponseBody will bypass parsing the response so don't need to make a json serializable class.
-        // http://stackoverflow.com/questions/33228126/how-can-i-handle-empty-response-body-with-retrofit-2
 
         GithubApi endpoint = retrofit.create(GithubApi.class);
         Call<ResponseBody> call = endpoint.starRepository(repoUserName, repoName);

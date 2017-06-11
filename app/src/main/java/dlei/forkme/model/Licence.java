@@ -1,5 +1,8 @@
 package dlei.forkme.model;
 
+/**
+ * Data model class for a software licence and library, used in AboutActivity.
+ */
 public class Licence {
     private String iconUrl;
     private String licenceUrl;

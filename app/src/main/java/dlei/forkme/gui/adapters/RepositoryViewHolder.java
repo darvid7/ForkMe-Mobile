@@ -12,6 +12,7 @@ import dlei.forkme.helpers.LanguageColor;
 
 /**
  * ViewHolder for Repositories shown in RecyclerView.
+ * Shows language, name, owner, description, number of forks, number of stars.
  */
 public class RepositoryViewHolder extends RecyclerView.ViewHolder {
     private AppCompatImageView mLanguageCircleImage;
@@ -34,6 +35,8 @@ public class RepositoryViewHolder extends RecyclerView.ViewHolder {
         mStarCountText = (AppCompatTextView) view.findViewById(R.id.starCountText);
     }
 
+    // Setters
+
     public void setOwnerUserNameText(String owner) {
         mOwnerUserNameText.setText(owner + "/");
     }
@@ -48,7 +51,7 @@ public class RepositoryViewHolder extends RecyclerView.ViewHolder {
 
     /**
      * Sets the language and the languageCircleImage color.
-     * @param language programming language for the Github repository.
+     * @param language programming language for the GitHub repository.
      */
     public void setLanguage(String language) {
         LanguageColor.setLanguageOnView(language, mLanguageCircleImage, mLanguageText);

@@ -5,6 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Data model class for a developer's contact info used in MergeMeActivity.
+ */
 public class DeveloperContactInfo implements Parcelable {
     @SerializedName("login")
     private String login;
@@ -24,6 +27,8 @@ public class DeveloperContactInfo implements Parcelable {
     private String bio;
     @SerializedName("msg")
     private String msg;
+
+    // Getters and Setters.
 
     public String getLogin() {
         return login;
@@ -110,6 +115,7 @@ public class DeveloperContactInfo implements Parcelable {
         this.msg = in.readString();
     }
 
+    // Parcelable methods.
     @Override
     public int describeContents() {
         return 0;

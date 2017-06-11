@@ -12,6 +12,10 @@ import com.squareup.picasso.Picasso;
 
 import dlei.forkme.R;
 
+/**
+ * ViewHolder for DeveloperInfo cards shown in RecyclerView.
+ * Shows the Developer's name message and has their email.
+ */
 public class DeveloperContactViewHolder extends RecyclerView.ViewHolder {
     private AppCompatImageView mDevIconImage;
     private AppCompatTextView mDevNameText;
@@ -28,6 +32,8 @@ public class DeveloperContactViewHolder extends RecyclerView.ViewHolder {
         mEmailIcon = (AppCompatImageView) view.findViewById(R.id.emailIconImageView);
 
     }
+
+    // Setters.
 
     public void setDevIconImage(String avatarUrl) {
         if (avatarUrl != null) {

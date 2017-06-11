@@ -2,6 +2,9 @@ package dlei.forkme.model;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+* Data model a GitHub user.
+ * */
 public class User {
     private int id;
     private String url;
@@ -36,6 +39,8 @@ public class User {
 
     // Default constructor.
     public User() {}
+
+    // Getters and Setters.
 
     public String getLogin() {
         return this.login;

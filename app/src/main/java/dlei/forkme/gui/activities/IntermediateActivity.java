@@ -2,6 +2,7 @@ package dlei.forkme.gui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,22 +25,37 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Due to restrictions in OAuth Library, need this activity to load in the user token into a
+ * static string which is better than shared preferences. Also ensures no events can happen before
+ * user details are retrieved from getAuthenticatedUser().
+ */
 public class IntermediateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intermediate);
+        setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Safer to have OAuth token as static variable.
+
+        // Safer to have OAuth token as static variable as afaik shared preferences is just XML.
         SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
         AppSettings.setOAuthToken(sharedPreferences.getString("oauth_token", null));
 
-        this.getAuthenticatedUser();
+        // Remove OAuth token from shared preferences.
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("github_prefs", "");
+        editor.apply();
+        editor.commit();
 
+        this.getAuthenticatedUser();
     }
 
 
+    /**
+     * Get a GitHub user who logged in via OAuthToken.
+     */
     public void getAuthenticatedUser() {
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         okHttpBuilder.addInterceptor(new Interceptor() {

@@ -4,7 +4,9 @@ import android.util.Log;
 
 import dlei.forkme.datastore.SqlSyntax;
 
-// Can either use this or shared preferences
+/**
+ * Static setting class to use rather than repeated writes to database/access to shared preferences (slow).
+ */
 public class AppSettings {
     // Setting attributes.
     public static String sLanguage = "All";
@@ -61,14 +63,7 @@ public class AppSettings {
     }
 
     public static void setFindPeopleAllowedMessage(String findPeopleAllowedMessage) {
-        //if (sLocationDisabledForever == 1) {
         sFindPeopleMessage = findPeopleAllowedMessage;
-//        } else {
-//            Log.wtf("AppSettings: ", String.format(Locale.getDefault(),
-//                    "setFindPeopleAllowedMessage: Tried to set " +
-//                    "sFindPeopleMessage (%s) when sLocationDisabledForever == 0",
-//                    findPeopleAllowedMessage));
-//        }
     }
 
     public static void setShowPrivateRepositories(int i) {

@@ -9,18 +9,18 @@
         android:id="@+id/avatarIconImage"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/forkme_launcher_round"
-        android:layout_marginStart="8dp" />
+        android:layout_marginStart="@dimen/padding_normal" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/viewStatusText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/padding_normal"
         android:text="@string/placeholder_text_small"
         app:layout_constraintLeft_toRightOf="@+id/avatarIconImage"
         app:layout_constraintRight_toRightOf="parent"
