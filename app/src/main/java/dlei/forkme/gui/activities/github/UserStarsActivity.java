@@ -41,6 +41,7 @@ public class UserStarsActivity extends BaseActivity {
     private RepositoryRecyclerViewAdapter mAdapterRepositories;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<Repository> mRepositories = new ArrayList<Repository>();
+
     private AppCompatImageView mAvatarIconImage;
     private AppCompatTextView mUserNameText;
     private AppCompatTextView mViewStatusText;

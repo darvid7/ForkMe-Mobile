@@ -17,7 +17,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import dlei.forkme.R;
 import dlei.forkme.gui.activities.github.MergeMeActivity;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
-import dlei.forkme.gui.activities.github.YourRepositoriesActivity;
+import dlei.forkme.gui.activities.github.UserRepositoriesViewActivity;
 import dlei.forkme.gui.activities.github.UserStarsActivity;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
@@ -99,25 +99,26 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem == mStars) {
-                            Intent intent = new Intent(getBaseContext(), UserStarsActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), UserStarsActivity.class);
                             intent.putExtra("userLogin", AppSettings.sUserLogin);
                             intent.putExtra("userName", AppSettings.sUserName);
                             intent.putExtra("userAvatarUrl", AppSettings.sUserAvatarUrl);
                             startActivity(intent);
                         } else if (drawerItem == mTrending) {
-                            Intent intent = new Intent(getBaseContext(), TrendingRepositoriesActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), TrendingRepositoriesActivity.class);
                             startActivity(intent);
 
                         } else if (drawerItem == mFindPeople) {
-                            Intent intent = new Intent(getBaseContext(), MergeMeActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), MergeMeActivity.class);
                             startActivity(intent);
 
                         } else if (drawerItem == mYourRepositories) {
-                            Intent intent = new Intent(getBaseContext(), YourRepositoriesActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), UserRepositoriesViewActivity.class);
+                            intent.putExtra("userLogin", AppSettings.sUserLogin);
                             startActivity(intent);
 
                         } else if (drawerItem == mSettings) {
-                            Intent intent = new Intent(getBaseContext(), SettingsActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                             startActivity(intent);
 
                         }
@@ -146,7 +147,7 @@ public class BaseActivity extends AppCompatActivity {
         } else if (currentActivity.equals(MergeMeActivity.class.getSimpleName())) {
             mFindPeople.withSelectable(false);
             mNavDrawer.setSelection(mFindPeople, false);
-        } else if (currentActivity.equals(YourRepositoriesActivity.class.getSimpleName())) {
+        } else if (currentActivity.equals(UserRepositoriesViewActivity.class.getSimpleName())) {
             mYourRepositories.withSelectable(false);
             mNavDrawer.setSelection(mYourRepositories, false);
         } else if (currentActivity.equals(AppSettings.class.getSimpleName())) {

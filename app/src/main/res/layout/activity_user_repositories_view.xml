@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context="dlei.forkme.gui.activities.github.UserRepositoriesViewActivity">
+
+    <include layout="@layout/nav_drawer_toolbar"
+        android:id="@+id/toolbar_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="58dp"
+        android:layout_width="0dp" />
+
+
+
+    <include layout="@layout/progress_bar_spinner"
+        android:id="@+id/progress_bar_spinner_layout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/dividerHorizontal"
+        android:id="@+id/viewHeaderSeparator"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/repositoryCountText" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/repositoryRecyclerView"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginStart="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.965"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewHeaderSeparator"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/userAvatarIconImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/padding_extra"
+        android:layout_marginStart="@dimen/padding_extra"
+
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:srcCompat="@mipmap/forkme_clear_launcher" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/userNameLoginText"
+        android:layout_width="192dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/placeholder_username"
+        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintLeft_toRightOf="@+id/userAvatarIconImage"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userAvatarIconImage" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/userBioText"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/bio"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="@+id/userNameLoginText"
+        app:layout_constraintRight_toRightOf="@+id/userStarredIconImage"
+        app:layout_constraintTop_toBottomOf="@+id/userNameLoginText" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/userRepositoryIconImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_folder_48px"
+        app:layout_constraintRight_toLeftOf="@+id/userFollowingText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/userFollowingText"
+        />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/userStarredIconImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_grade_48px"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/userNameLoginText"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintTop_toTopOf="@+id/userNameLoginText"
+        app:layout_constraintHorizontal_bias="0.454" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/userFollowingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/following"
+        app:layout_constraintRight_toLeftOf="@+id/userFollowerText"
+        app:layout_constraintLeft_toRightOf="@+id/userRepositoryIconImage"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/userBioText" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/userFollowerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/followers"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/userFollowingText"
+        app:layout_constraintTop_toTopOf="@+id/userFollowingText" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/followingCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_number"
+        app:layout_constraintLeft_toLeftOf="@+id/userFollowingText"
+        app:layout_constraintRight_toRightOf="@+id/userFollowingText"
+        app:layout_constraintTop_toTopOf="@+id/repositoryCountText"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/followersCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_number"
+        app:layout_constraintLeft_toLeftOf="@+id/userFollowerText"
+        app:layout_constraintRight_toRightOf="@+id/userFollowerText"
+        app:layout_constraintTop_toTopOf="@+id/repositoryCountText"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/repositoryCountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholder_number"
+        app:layout_constraintRight_toRightOf="@+id/userRepositoryIconImage"
+        app:layout_constraintLeft_toLeftOf="@+id/userRepositoryIconImage"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/userRepositoryIconImage" />
+
+</android.support.constraint.ConstraintLayout>

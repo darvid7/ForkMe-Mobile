@@ -133,5 +133,7 @@
 
     <string name="starred_repositories">"Starred Repositories"</string>
 
-
+    <string name="bio">Something About me :) Show and tell and stuff! YAY :)</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
 </resources>

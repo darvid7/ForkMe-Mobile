@@ -16,8 +16,8 @@ public interface GithubApi {
     @PUT("/user/starred/{user}/{repo}")
     Call<ResponseBody> starRepository(@Path("user") String user, @Path("repo") String repo);
 
-    @GET("/user/{username}")
-    Call<User> getUser(@Path("username")  String username);
+    @GET("/users/{userLogin}")
+    Call<User> getUser(@Path("userLogin")  String userLogin);
 
     // GET /repos/:owner/:repo/readme
     @GET("/repos/{owner}/{repo}/readme")
@@ -28,8 +28,8 @@ public interface GithubApi {
     Call<List<Repository>> getStarredRepositories(@Path("user") String user);
 
     // GET /user/repos for an authenticated user, returns list of repositories. Default is all.
-    @GET("/user/repos")
-    Call<List<Repository>> getMyRepositories();
+    @GET("/users/{user}/repos")
+    Call<List<Repository>> getMyRepositories(@Path("user") String user);
 
     @GET("/user")
     Call<User> getAuthenticatedUser();

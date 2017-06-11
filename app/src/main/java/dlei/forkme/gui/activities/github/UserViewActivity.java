@@ -33,7 +33,7 @@ public class UserViewActivity extends BaseActivity {
         super.inflateNavDrawer(savedInstanceState);
         Log.i("UserActivity: ", "created");
 
-        // There will always be a repository when this activity is started.
+        // There will always e a repository when this activity is started.
         Intent i = getIntent();
         mUsername = i.getExtras().getString("username");
 

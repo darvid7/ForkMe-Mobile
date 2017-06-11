@@ -52,4 +52,20 @@ public class User {
     public String getAvatarUrl() {
         return this.avatarUrl;
     }
+
+    public String getBio() {
+        return this.bio;
+    }
+
+    public int getFollowers() {
+        return this.followers;
+    }
+
+    public int getFollowing() {
+        return this.following;
+    }
+
+    public int getPublicRepositories() {
+        return this.publicRepositories;
+    }
 }
