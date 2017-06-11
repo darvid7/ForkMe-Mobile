@@ -1,8 +1,9 @@
 package dlei.forkme.gui.activities.github;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapter.RepositoryRecyclerViewAdapter;
 import dlei.forkme.model.Repository;
+import dlei.forkme.state.AppSettings;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,28 +36,30 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserStarsActivity extends BaseActivity {
 
-    private String mOAuthToken;
     private ProgressBar mProgressBarSpinner;
     private RecyclerView mRecyclerViewRepositories;
     private RepositoryRecyclerViewAdapter mAdapterRepositories;
     private LinearLayoutManager mLayoutManager;
     private ArrayList<Repository> mRepositories = new ArrayList<Repository>();
+    private AppCompatImageView mAvatarIconImage;
+    private AppCompatTextView mUserNameText;
+    private AppCompatTextView mViewStatusText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("UserStarsActivity: ", "creating");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_stars);
+        setContentView(R.layout.activity_user_stars);
         super.inflateNavDrawer(savedInstanceState, UserStarsActivity.class.getSimpleName());
         Log.d("UserStarsActivity: ", "created");
+        // setTitle("Starred Repositories");
 
         mProgressBarSpinner = (ProgressBar)findViewById(R.id.progress_bar_spinner);
 
         Intent i = getIntent();
         String userLogin = i.getStringExtra("userLogin");
-        // TODO: Refactor this out.
-        SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
-        mOAuthToken = sharedPreferences.getString("oauth_token", null);
+        String userName = i.getStringExtra("userName");
+        String userAvatarUrl = i.getStringExtra("userAvatarUrl");
 
         // Set up components of RecyclerView.
         mRecyclerViewRepositories = (RecyclerView) findViewById(R.id.repositoryRecyclerView);
@@ -69,6 +75,17 @@ public class UserStarsActivity extends BaseActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerViewRepositories.getContext(),
                 mLayoutManager.getOrientation());
         mRecyclerViewRepositories.addItemDecoration(dividerItemDecoration);
+
+        // Set up header view.
+        mAvatarIconImage = (AppCompatImageView) findViewById(R.id.avatarIconImage);
+        mUserNameText = (AppCompatTextView) findViewById(R.id.userNameText);
+        mViewStatusText = (AppCompatTextView) findViewById(R.id.viewStatusText);
+
+        mViewStatusText.setText(getResources().getText(R.string.starred_repositories));
+        mUserNameText.setText(userName + " (" + userLogin + ")");
+        if (userAvatarUrl != null && !userAvatarUrl.equals("")) {
+            Picasso.with(this).load(userAvatarUrl).into(mAvatarIconImage);
+        }
 
         this.getGithubStars(userLogin);
     }
@@ -87,7 +104,7 @@ public class UserStarsActivity extends BaseActivity {
                 Request request = chain.request();
                 Request.Builder newRequest = request.newBuilder()
                         // Add in user access token.
-                        .addHeader("Authorization", "token " + mOAuthToken);
+                        .addHeader("Authorization", "token " + AppSettings.sOAuthToken);
                 // Pass on our request to execute.
                 return chain.proceed(newRequest.build());
             }

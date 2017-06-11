@@ -14,6 +14,9 @@ public class AppSettings {
     public static int sLocationDisabledForever = 0;
     public static String sFindPeopleMessage = "N/A";
     public static int sShowPrivateRepositories = 0;
+    public static String sOAuthToken = "";
+    public static String sUserName = "";
+    public static String sUserAvatarUrl = "";
 
     // Database attributes.
     public static final String TABLE_NAME = "settings";
@@ -47,10 +50,6 @@ public class AppSettings {
 
     public static void setTimeframe(String timeframe) {
         sTimeframe = timeframe;
-    }
-
-    public static void setsUserLogin(String userLogin) {
-        sUserLogin = userLogin;
     }
 
     public static void setLocationDisabledForever(int i) {
@@ -102,6 +101,22 @@ public class AppSettings {
         }
         Log.i("AppSettings: ", "updateLocationDisabledForever(): " + i);
         sLocationDisabledForever = i;
+    }
+
+    public static void setOAuthToken(String token) {
+        sOAuthToken = token;
+    }
+
+    public static void setsUserLogin(String userLogin) {
+        sUserLogin = userLogin;
+    }
+
+    public static void setsUserName(String userName) {
+        sUserName = userName;
+    }
+
+    public static void setsUserAvatarUrl(String userAvatarUrl) {
+        sUserAvatarUrl  = userAvatarUrl;
     }
 
 

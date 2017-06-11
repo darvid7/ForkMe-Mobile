@@ -101,6 +101,8 @@ public class BaseActivity extends AppCompatActivity {
                         if (drawerItem == mStars) {
                             Intent intent = new Intent(getBaseContext(), UserStarsActivity.class);
                             intent.putExtra("userLogin", AppSettings.sUserLogin);
+                            intent.putExtra("userName", AppSettings.sUserName);
+                            intent.putExtra("userAvatarUrl", AppSettings.sUserAvatarUrl);
                             startActivity(intent);
                         } else if (drawerItem == mTrending) {
                             Intent intent = new Intent(getBaseContext(), TrendingRepositoriesActivity.class);

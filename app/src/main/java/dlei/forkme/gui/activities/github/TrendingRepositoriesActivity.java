@@ -46,7 +46,6 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     private List<Repository> mDeck = new ArrayList<Repository>();
     private boolean mSwipeIsTouch = false;
     private Toast mToast = null;  // Note: Toasts stay on screen even when app is exited, maybe change to snackbar.
-    private String mOAuthToken;
     private ProgressBar mProgressBarSpinner;
 
     @Override
@@ -100,8 +99,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
 
         // TODO: Double check sharedPreferences are stored on disk and it is better to read once and store in memory.
         SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
-        mOAuthToken = sharedPreferences.getString("oauth_token", null);
-
+        AppSettings.setOAuthToken(sharedPreferences.getString("oauth_token", null));
 
         // TODO: Move this to login?
         // TODO: getAuthenticatedUser needs to be a precondition for this.
@@ -210,7 +208,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 Request request = chain.request();
                 Request.Builder newRequest = request.newBuilder()
                         // Add in user access token.
-                        .addHeader("Authorization", "token " + mOAuthToken);
+                        .addHeader("Authorization", "token " + AppSettings.sOAuthToken);
                 // Pass on our request to execute.
                 return chain.proceed(newRequest.build());
             }
@@ -229,7 +227,10 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.code() == 200 && response.isSuccessful()) {
                     User u = response.body();
+                    // Initalize user details.
                     AppSettings.setsUserLogin(u.getLogin());
+                    AppSettings.setsUserName(u.getName());
+                    AppSettings.setsUserAvatarUrl(u.getAvatarUrl());
                     Log.d("TrendingActivity: ", "getAuthenticatedUser: " + u.getLogin());
                     getTrendingRepositoriesArray();
                 } else {
@@ -341,7 +342,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
                 Request request = chain.request();
                 Request.Builder newRequest = request.newBuilder()
                         // Add in user access token.
-                        .addHeader("Authorization", "token " + mOAuthToken)
+                        .addHeader("Authorization", "token " + AppSettings.sOAuthToken)
                         .addHeader("Content-Length", "0");
                 // Pass on our request to execute.
                 return chain.proceed(newRequest.build());

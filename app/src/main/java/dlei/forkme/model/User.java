@@ -44,4 +44,12 @@ public class User {
     public String toString() {
         return String.format("%s - login: %s, id: %s", super.toString(), this.login, this.id);
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getAvatarUrl() {
+        return this.avatarUrl;
+    }
 }
