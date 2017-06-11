@@ -38,6 +38,7 @@ public class BaseActivity extends AppCompatActivity {
     private PrimaryDrawerItem mFindPeople;
     private PrimaryDrawerItem mYourRepositories;
     private PrimaryDrawerItem mSettings;
+    private PrimaryDrawerItem mAbout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,12 @@ public class BaseActivity extends AppCompatActivity {
                 .withIdentifier(5)
                 .withName("Settings")
                 .withIcon(ActivityCompat.getDrawable(this, R.drawable.ic_settings_48px));
+
+        mAbout = new PrimaryDrawerItem()
+                .withIdentifier(6)
+                .withName("About")
+                .withIcon(ActivityCompat.getDrawable(this, R.drawable.ic_info_outline_48px));
+
     }
 
     public void inflateNavDrawer(Bundle savedInstanceState) {
@@ -92,8 +99,10 @@ public class BaseActivity extends AppCompatActivity {
                         mYourRepositories,
                         new SectionDrawerItem().withName(R.string.drawer_section_people),
                         mFindPeople,
-                        new SectionDrawerItem().withName(R.string.action_settings),
-                        mSettings
+                        new SectionDrawerItem().withName(R.string.drawer_settings),
+                        mSettings,
+                        new SectionDrawerItem().withName(R.string.drawer_about),
+                        mAbout
                 )
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
@@ -121,6 +130,9 @@ public class BaseActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                             startActivity(intent);
 
+                        } else if (drawerItem == mAbout) {
+                            Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
+                            startActivity(intent);
                         }
                         Log.d("Menu clicked: ", "position: " + position + " item: " + drawerItem);
                         return true;
@@ -153,6 +165,9 @@ public class BaseActivity extends AppCompatActivity {
         } else if (currentActivity.equals(AppSettings.class.getSimpleName())) {
             mSettings.withSelectable(false);
             mNavDrawer.setSelection(mSettings, false);
+        } else if (currentActivity.equals(AboutActivity.class.getSimpleName())) {
+            mAbout.withSelectable(false);
+            mNavDrawer.setSelection(mAbout, false);
         }
     }
 

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <android.support.constraint.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginBottom="@dimen/padding_normal"
+        android:layout_marginEnd="@dimen/padding_normal"
+        android:layout_marginStart="@dimen/padding_normal"
+        android:layout_marginTop="@dimen/padding_normal">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/licencePublisherImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            card_view:srcCompat="@drawable/background_splash"
+            tools:layout_constraintTop_creator="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            tools:layout_constraintLeft_creator="1"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/libraryLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/library_label"
+            tools:layout_constraintTop_creator="1"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="16dp"
+            tools:layout_constraintLeft_creator="1"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/libraryText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/library_placeholder"
+            card_view:layout_constraintBaseline_toBaselineOf="@+id/libraryLabelText"
+            card_view:layout_constraintLeft_toRightOf="@+id/licenceLabelText"
+            card_view:layout_constraintRight_toRightOf="@+id/licenceText"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/licenceLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/licence_label"
+            tools:layout_constraintTop_creator="1"
+            android:layout_marginTop="16dp"
+            tools:layout_constraintLeft_creator="1"
+            card_view:layout_constraintLeft_toLeftOf="@+id/libraryLabelText"
+            card_view:layout_constraintTop_toTopOf="@+id/libraryLabelText" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/licenceText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:text="@string/licence_placeholder"
+            card_view:layout_constraintBaseline_toBaselineOf="@+id/licenceLabelText"
+            card_view:layout_constraintLeft_toRightOf="@+id/libraryLabelText"
+            card_view:layout_constraintRight_toRightOf="parent"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            tools:layout_constraintRight_creator="1" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/usedForLabelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/used_for_label"
+            tools:layout_constraintTop_creator="1"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/licencePublisherImage"
+            tools:layout_constraintLeft_creator="1"
+            card_view:layout_constraintLeft_toLeftOf="parent" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/usedForText"
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:text="@string/used_for_placeholder"
+            tools:layout_constraintRight_creator="1"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintBaseline_toBaselineOf="@+id/usedForLabelText"
+            tools:layout_constraintBaseline_creator="1"
+            tools:layout_constraintLeft_creator="1"
+            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/viewLicenceButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/licence_button_label"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintRight_toLeftOf="@+id/viewLibraryButton"
+            card_view:layout_constraintTop_toTopOf="@+id/viewLibraryButton"
+            android:layout_marginTop="0dp" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/viewLibraryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/library_button_label"
+            tools:layout_constraintTop_creator="1"
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintLeft_toRightOf="@+id/viewLicenceButton"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/usedForText" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>

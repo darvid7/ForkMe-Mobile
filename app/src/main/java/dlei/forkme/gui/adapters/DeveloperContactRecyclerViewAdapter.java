@@ -12,7 +12,7 @@ import dlei.forkme.R;
 import dlei.forkme.gui.activities.github.UserRepositoriesViewActivity;
 import dlei.forkme.model.DeveloperContactInfo;
 
-public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<DeveloperContactViewHolder>{
+public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<DeveloperContactViewHolder> {
 
     private ArrayList<DeveloperContactInfo> mDeveloperList;
 
@@ -29,7 +29,7 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
      * Inflate a view to be used to display an item in the adapter.
      * @param parent parent view.
      * @param viewType type of view.
-     * @return DeveloperContactViewHolder, the view to display.
+     * @return LicenceInfoViewHolder, the view to display.
      */
     @Override
     public DeveloperContactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
