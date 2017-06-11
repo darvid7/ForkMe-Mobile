@@ -14,6 +14,7 @@ import dlei.forkme.R;
 import dlei.forkme.model.Repository;
 import dlei.forkme.helpers.LanguageColor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -78,6 +79,42 @@ public class SwipeDeckAdapter extends BaseAdapter {
         }
 
         Repository repo = mDeck.get(position);
+
+        // Set up topics.
+        // Bullet from: https://stackoverflow.com/questions/4992794/how-to-add-bulleted-list-to-android-application
+
+        ArrayList<String> topics = repo.getTopics();
+
+        AppCompatTextView topic1 = (AppCompatTextView) convertView.findViewById(R.id.topic1);
+        String bullet = (String) convertView.getResources().getText(R.string.bullet);
+
+        if (topics.size() > 1) {
+            topic1.setText(String.format("%s %s", bullet, topics.get(0)));
+        } else {
+            topic1.setText(String.format("%s %s", bullet,
+                    convertView.getResources().getText(R.string.no_topics)));
+        }
+
+        if (topics.size() > 2) {
+            AppCompatTextView topic2 = (AppCompatTextView) convertView.findViewById(R.id.topic2);
+            topic2.setText(String.format("%s %s", bullet, topics.get(1)));
+        }
+
+        if (topics.size() > 3) {
+            AppCompatTextView topic3 = (AppCompatTextView) convertView.findViewById(R.id.topic3);
+            topic3.setText(String.format("%s %s", bullet, topics.get(2)));
+        }
+
+        if (topics.size() > 4) {
+            AppCompatTextView topic4 = (AppCompatTextView) convertView.findViewById(R.id.topic4);
+            topic4.setText(String.format("%s %s", bullet, topics.get(3)));
+        }
+
+        if (topics.size() > 5) {
+            AppCompatTextView topic5 = (AppCompatTextView) convertView.findViewById(R.id.topic5);
+            topic5.setText(String.format("%s %s", bullet, topics.get(4)));
+        }
+
         String repoFullName = repo.getFullName();
         String repoDescription = repo.getDescription();
 
@@ -98,7 +135,8 @@ public class SwipeDeckAdapter extends BaseAdapter {
 
         // Set updated date time.
         AppCompatTextView datetimeText = (AppCompatTextView) convertView.findViewById(R.id.updatedAtText);
-        datetimeText.setText(repo.getUpdatedAt());
+        String nicerDate = repo.getUpdatedAt().substring(0, 10);
+        datetimeText.setText(nicerDate);
 
         // Set language and language circle color.
         AppCompatTextView languageText = (AppCompatTextView) convertView.findViewById(R.id.languageText);

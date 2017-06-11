@@ -73,7 +73,7 @@
                 android:layout_marginBottom="@dimen/padding_normal" />
 
             <include
-                android:id="@+id/include"
+                android:id="@+id/topics_card"
                 layout="@layout/repository_extra_information"
                 android:layout_width="252dp"
                 android:layout_height="176dp"
@@ -93,7 +93,7 @@
                 android:layout_height="22dp"
                 android:text="@string/updated_at"
                 android:layout_marginStart="0dp"
-                card_view:layout_constraintLeft_toLeftOf="@+id/include"
+                card_view:layout_constraintLeft_toLeftOf="@+id/topics_card"
                 android:layout_marginLeft="0dp"
                 card_view:layout_constraintTop_toTopOf="@+id/updatedAtText"
                 android:layout_marginTop="0dp" />
@@ -105,12 +105,12 @@
                 android:layout_height="22dp"
                 android:text="@string/placeholder_date"
                 card_view:layout_constraintBottom_toBottomOf="parent"
-                card_view:layout_constraintTop_toBottomOf="@+id/include"
+                card_view:layout_constraintTop_toBottomOf="@+id/topics_card"
                 card_view:layout_constraintVertical_bias="0.162"
                 card_view:layout_constraintLeft_toRightOf="@+id/updatedLabelText"
                 android:layout_marginStart="@dimen/padding_normal"
                 android:layout_marginEnd="0dp"
-                card_view:layout_constraintRight_toRightOf="@+id/include" />
+                card_view:layout_constraintRight_toRightOf="@+id/topics_card" />
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/forkImageView"
@@ -123,13 +123,13 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/languageCircleImageView"
-                android:layout_width="19dp"
-                android:layout_height="18dp"
+                android:layout_width="@dimen/padding_extra"
+                android:layout_height="@dimen/padding_extra"
                 card_view:layout_constraintRight_toLeftOf="@+id/languageText"
                 card_view:layout_constraintTop_toTopOf="@+id/languageText"
                 card_view:srcCompat="@drawable/circle"
                 android:layout_marginRight="0dp"
-                card_view:layout_constraintLeft_toLeftOf="@+id/include"
+                card_view:layout_constraintLeft_toLeftOf="@+id/topics_card"
                 android:layout_marginEnd="0dp" />
 
             <android.support.v7.widget.AppCompatImageView
@@ -147,7 +147,7 @@
                 android:layout_height="23dp"
                 android:text="@string/placeholder_number"
                 card_view:layout_constraintLeft_toRightOf="@+id/forkImageView"
-                card_view:layout_constraintRight_toRightOf="@+id/include"
+                card_view:layout_constraintRight_toRightOf="@+id/topics_card"
                 android:layout_marginTop="24dp"
                 card_view:layout_constraintTop_toBottomOf="@+id/updatedAtText"
                 card_view:layout_constraintBottom_toBottomOf="parent"

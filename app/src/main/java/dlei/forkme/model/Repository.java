@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 
 /**
  * Data model class for a GitHub Repositoriy.
@@ -37,6 +39,7 @@ public class Repository implements Parcelable {
     private int subscribersCount;
     @SerializedName("updated_at")
     private String updatedAt; // TODO: Parse date time.
+    private ArrayList<String> topics;
 
 
     // Default constructor.
@@ -130,6 +133,10 @@ public class Repository implements Parcelable {
         return "Repository: " + fullname + ", description: " + description + ", stars: " + stargazerCount + ", watchers: " + subscribersCount;
     }
 
+    public ArrayList<String> getTopics() {
+        return this.topics;
+    }
+
     public void setOwner(Owner owner) {
         this.owner = owner;
     }
@@ -174,6 +181,7 @@ public class Repository implements Parcelable {
         this.forkCount = in.readInt();
         this.subscribersCount = in.readInt();
         this.updatedAt = in.readString();
+        this.topics = (ArrayList<String>) in.readSerializable();
     }
 
     @Override
@@ -195,6 +203,7 @@ public class Repository implements Parcelable {
         dest.writeInt(this.forkCount);
         dest.writeInt(this.subscribersCount);
         dest.writeString(this.updatedAt);
+        dest.writeSerializable(this.topics);
 
     }
 

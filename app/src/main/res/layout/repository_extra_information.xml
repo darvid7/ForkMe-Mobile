@@ -2,23 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/colorPrimaryLight"
+    android:paddingStart="@dimen/padding_extra"
+
+    android:paddingEnd="@dimen/padding_extra"
     >
-    <TextView
-        android:id="@+id/textView"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic0"
+        android:paddingTop="@dimen/padding_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/coming_soon" />
+        android:text="@string/topics"
+        />
 
-    <TextView
-        android:id="@+id/textView2"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic1"
+        android:paddingTop="@dimen/padding_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/coming_soon" />
+        />
 
-    <TextView
-        android:id="@+id/textView3"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic2"
+        android:paddingTop="@dimen/padding_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/coming_soon" />
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic3"
+        android:paddingTop="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic4"
+        android:paddingTop="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/topic5"
+        android:paddingTop="@dimen/padding_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>
