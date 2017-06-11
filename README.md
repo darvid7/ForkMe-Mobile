@@ -1,6 +1,6 @@
 # ForkMe 
 
-Is a GitHub :octocat: Trending Repository viewer Android app!
+Is a GitHub :octocat: Trending 📈 Repository viewer Android app!
 
 You can browse trending repositories, star repositories and connect with other devs.
 
@@ -24,7 +24,9 @@ It makes use of:
  <img src="/Screens/TrendingRepositories_2.png" width="200">
  <img src="/Screens/TrendingRepositories_3.png" width="200">
  <img src="/Screens/RepositoryView_1.png" width="200">
+ <img src="/Screens/RepositoryView_2.png" width="200">
  <img src="/Screens/UserView_1.png" width="200">
+ <img src="/Screens/MergeMeView.png" width="200">
  <img src="/Screens/ContactEmail.png" width="200">
 </div>
 
@@ -32,10 +34,10 @@ More screen shots can be found in `/Screens`
 
 ## Where to now
 
-I will probably work on this occasionally when I have time and use it as an excuse to learn Kotlin/get better at android :fire:
+I will plan on working on this occasionally when I have time and use it as an excuse to learn Kotlin/get better at android :fire:
 
 ## Contributing
 
-If you feel like contributing please Fork Me :wink: 🎉
+If you feel like contributing please **Fork Me** :wink: 🎉
 
 Note: This application is not associated with GitHub in any way.
