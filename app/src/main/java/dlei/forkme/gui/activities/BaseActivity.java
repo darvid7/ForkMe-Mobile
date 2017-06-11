@@ -87,7 +87,6 @@ public class BaseActivity extends AppCompatActivity {
         if (n != null) {
             n.execute();
         }
-
         mNavDrawer = new DrawerBuilder()
                 .withActivity(this)
                 .withToolbar(toolbar)
@@ -171,6 +170,18 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    public void hideNavBar() {
+        Log.wtf("HERE: ", "" + mNavDrawer);
+        mNavDrawer.closeDrawer();
+        Log.wtf("THERE: ", "" + mNavDrawer);
+
+    }
+
+    public void showNavBar() {
+        Log.wtf("HAI: ", "" + mNavDrawer);
+
+        //mNavDrawer.getContent().setVisibility(View.VISIBLE);
+    }
 
 
     @Override

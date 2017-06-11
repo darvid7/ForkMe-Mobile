@@ -64,7 +64,6 @@ public class UserRepositoriesViewActivity extends BaseActivity {
         setContentView(R.layout.activity_user_repositories_view);
         super.inflateNavDrawer(savedInstanceState, UserRepositoriesViewActivity.class.getSimpleName());
         Log.d("UserReposViewActivity: ", "created");
-
         mProgressBarSpinner = (ProgressBar)findViewById(R.id.progress_bar_spinner);
 
         Intent i = getIntent();

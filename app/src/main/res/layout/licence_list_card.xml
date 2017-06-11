@@ -11,7 +11,7 @@
     <android.support.constraint.ConstraintLayout
 
         android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/padding_normal"
         android:layout_marginEnd="@dimen/padding_normal"
         android:layout_marginStart="@dimen/padding_normal"
@@ -28,31 +28,32 @@
             android:layout_marginTop="16dp"
             tools:layout_constraintLeft_creator="1"
             card_view:layout_constraintLeft_toLeftOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="16dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/libraryLabelText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="@string/library_label"
             tools:layout_constraintTop_creator="1"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/padding_extra"
             tools:layout_constraintLeft_creator="1"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage" />
+            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage"
+            card_view:layout_constraintTop_toBottomOf="@+id/licenceText" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/libraryText"
-            android:layout_width="0dp"
+            android:layout_width="202dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="0dp"
             android:text="@string/library_placeholder"
-            card_view:layout_constraintBaseline_toBaselineOf="@+id/libraryLabelText"
-            card_view:layout_constraintLeft_toRightOf="@+id/licenceLabelText"
-            card_view:layout_constraintRight_toRightOf="@+id/licenceText"
-            tools:layout_constraintBaseline_creator="1"
-            tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintRight_creator="1" />
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintLeft_toLeftOf="@+id/libraryLabelText"
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/libraryLabelText" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/licenceLabelText"
@@ -60,21 +61,22 @@
             android:layout_height="wrap_content"
             android:text="@string/licence_label"
             tools:layout_constraintTop_creator="1"
-            android:layout_marginTop="16dp"
             tools:layout_constraintLeft_creator="1"
             card_view:layout_constraintLeft_toLeftOf="@+id/libraryLabelText"
-            card_view:layout_constraintTop_toTopOf="@+id/libraryLabelText" />
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintTop_toTopOf="@+id/licencePublisherImage"
+            android:layout_marginTop="0dp" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/licenceText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="0dp"
             android:text="@string/licence_placeholder"
-            card_view:layout_constraintBaseline_toBaselineOf="@+id/licenceLabelText"
-            card_view:layout_constraintLeft_toRightOf="@+id/libraryLabelText"
+            card_view:layout_constraintLeft_toLeftOf="@+id/licenceLabelText"
             card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/licenceLabelText"
             tools:layout_constraintBaseline_creator="1"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1" />
@@ -86,24 +88,25 @@
             android:text="@string/used_for_label"
             tools:layout_constraintTop_creator="1"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            card_view:layout_constraintTop_toBottomOf="@+id/licencePublisherImage"
             tools:layout_constraintLeft_creator="1"
-            card_view:layout_constraintLeft_toLeftOf="parent" />
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/libraryText" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/usedForText"
             android:layout_width="0dp"
-            android:layout_height="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding_extra"
+            android:layout_marginStart="@dimen/padding_extra"
             android:text="@string/used_for_placeholder"
-            tools:layout_constraintRight_creator="1"
-            android:layout_marginStart="15dp"
-            android:layout_marginEnd="15dp"
-            card_view:layout_constraintRight_toRightOf="parent"
             card_view:layout_constraintBaseline_toBaselineOf="@+id/usedForLabelText"
+            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage"
+            card_view:layout_constraintRight_toRightOf="parent"
             tools:layout_constraintBaseline_creator="1"
             tools:layout_constraintLeft_creator="1"
-            card_view:layout_constraintLeft_toRightOf="@+id/licencePublisherImage" />
+            tools:layout_constraintRight_creator="1" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/viewLicenceButton"

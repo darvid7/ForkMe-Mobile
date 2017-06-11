@@ -29,7 +29,9 @@ public class AboutActivity extends BaseActivity {
         setContentView(R.layout.activity_about);
         super.inflateNavDrawer(savedInstanceState, SettingsActivity.class.getSimpleName());
         Log.d("AboutActivity: ", "created");
+        setTitle("About & Licences");
         this.populateLicences();
+
 
         // Set up components of RecyclerView.
         mRecyclerViewLicences = (RecyclerView) findViewById(R.id.licenceRecyclerView);
