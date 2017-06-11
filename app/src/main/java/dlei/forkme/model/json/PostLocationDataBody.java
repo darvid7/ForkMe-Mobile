@@ -1,5 +1,8 @@
 package dlei.forkme.model.json;
 
+/**
+ * Class representing Json body in a POST method.
+ */
 public class PostLocationDataBody {
     String login;
     double latitude;

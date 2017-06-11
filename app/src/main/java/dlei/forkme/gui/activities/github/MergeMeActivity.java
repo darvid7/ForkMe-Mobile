@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,6 +20,7 @@ import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
@@ -29,6 +32,7 @@ import dlei.forkme.helpers.LocationHelper;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.DeveloperContactInfo;
+import dlei.forkme.state.AppSettings;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -158,7 +162,8 @@ public class MergeMeActivity extends BaseActivity {
                 .build();
 
         ForkMeBackendApi endpoint = retrofit.create(ForkMeBackendApi.class);
-        Call<List<DeveloperContactInfo>> call = endpoint.getDevelopers();
+
+        Call<List<DeveloperContactInfo>> call = endpoint.getDevelopers(AppSettings.sUserLogin);
 
         call.enqueue(new Callback<List<DeveloperContactInfo>>() {
             @Override
@@ -176,11 +181,20 @@ public class MergeMeActivity extends BaseActivity {
                     mProgressBarSpinner.setVisibility(View.GONE);
 
                 } else {
-                    // Should not happen.
+                    // Can happen if there is not already a location for this user in backend.
                     Log.w("MergeMeActivity: ", String.format(
                             "getDevelopers(): Error: Status code: %d, successful: %s," + "headers: %s",
                             response.code(), response.isSuccessful(), response.headers())
                     );
+                    Snackbar.make(mMainButton, String.format(Locale.getDefault(), "No location was found, please " +
+                            "send data from Settings screen and try again."), Snackbar.LENGTH_INDEFINITE)
+                            .setAction("CLOSE", new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {}
+                            })
+                            .setActionTextColor(ContextCompat.getColor(mMainButton.getContext(), R.color.colorAccent))
+                            .show();
+
                 }
             }
 

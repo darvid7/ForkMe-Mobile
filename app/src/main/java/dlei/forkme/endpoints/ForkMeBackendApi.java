@@ -3,11 +3,9 @@ package dlei.forkme.endpoints;
 import java.util.List;
 
 import dlei.forkme.model.DeveloperContactInfo;
-import dlei.forkme.model.LocationData;
 import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.model.json.PostLocationDataBody;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -38,7 +36,7 @@ public interface ForkMeBackendApi {
     Call<ResponseBody> postLocation(@Body PostLocationDataBody data);
 
     // Get developers v2.
-    @GET("/developers")
-    Call<List<DeveloperContactInfo>> getDevelopers();
+    @GET("/developers:{login}")
+    Call<List<DeveloperContactInfo>> getDevelopers(@Path("login") String login);
 
 }
