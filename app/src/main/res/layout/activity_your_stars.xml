@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dlei.forkme.gui.activities.github.YourStarsActivity">
+    tools:context="dlei.forkme.gui.activities.github.UserStarsActivity">
 
     <include layout="@layout/nav_drawer_toolbar"
         android:id="@+id/toolbar_layout"

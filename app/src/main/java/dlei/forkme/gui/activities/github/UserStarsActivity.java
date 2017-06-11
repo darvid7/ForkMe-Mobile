@@ -1,7 +1,7 @@
 package dlei.forkme.gui.activities.github;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,14 +24,13 @@ import dlei.forkme.model.Repository;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class YourStarsActivity extends BaseActivity {
+public class UserStarsActivity extends BaseActivity {
 
     private String mOAuthToken;
     private ProgressBar mProgressBarSpinner;
@@ -42,14 +41,16 @@ public class YourStarsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("YourStarsActivity: ", "creating");
+        Log.d("UserStarsActivity: ", "creating");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_stars);
-        super.inflateNavDrawer(savedInstanceState, YourStarsActivity.class.getSimpleName());
-        Log.d("YourStarsActivity: ", "created");
+        super.inflateNavDrawer(savedInstanceState, UserStarsActivity.class.getSimpleName());
+        Log.d("UserStarsActivity: ", "created");
 
         mProgressBarSpinner = (ProgressBar)findViewById(R.id.progress_bar_spinner);
 
+        Intent i = getIntent();
+        String userLogin = i.getStringExtra("userLogin");
         // TODO: Refactor this out.
         SharedPreferences sharedPreferences = getSharedPreferences("github_prefs", 0);
         mOAuthToken = sharedPreferences.getString("oauth_token", null);
@@ -69,13 +70,13 @@ public class YourStarsActivity extends BaseActivity {
                 mLayoutManager.getOrientation());
         mRecyclerViewRepositories.addItemDecoration(dividerItemDecoration);
 
-        this.getGithubStars();
+        this.getGithubStars(userLogin);
     }
 
     // Note: Response from Github API won't have subscribers_count even though the docs said it does.
     // TODO: Double check that having the field @SerializedName("subscribers_count") in Repository
     // won't break anything if it doesn't exist in the json response. Pretty sure it doensn't as it just returns 0 now.
-    public void getGithubStars() {
+    public void getGithubStars(String user) {
         // Goes into the network level of OkHttp.
         OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
         okHttpBuilder.addInterceptor(new Interceptor() {
@@ -99,7 +100,7 @@ public class YourStarsActivity extends BaseActivity {
                 .build();
 
         GithubApi endpoint = retrofit.create(GithubApi.class);
-        Call<List<Repository>> call = endpoint.getStarredRepositories();
+        Call<List<Repository>> call = endpoint.getStarredRepositories(user);
 
         call.enqueue(new Callback<List<Repository>>() {
             @Override
@@ -118,7 +119,7 @@ public class YourStarsActivity extends BaseActivity {
                     mProgressBarSpinner.setVisibility(View.GONE);
 
                 } else {
-                    Log.w("YourStarsActivity: ", String.format(
+                    Log.w("UserStarsActivity: ", String.format(
                             "getGithubStars: Error: Status code: %d, successful: %s," + "headers: %s",
                             response.code(), response.isSuccessful(), response.headers())
                     );
@@ -128,7 +129,7 @@ public class YourStarsActivity extends BaseActivity {
             @Override
             public void onFailure(Call<List<Repository>> call, Throwable t) {
                 // Failure to connect to endpoint.
-                Log.i("YourStarsActivity: ", "getGithubStars: Failed: " + t.getMessage());
+                Log.i("UserStarsActivity: ", "getGithubStars: Failed: " + t.getMessage());
             }
         });
     }

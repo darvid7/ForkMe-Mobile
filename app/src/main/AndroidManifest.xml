@@ -31,7 +31,7 @@
         <activity android:name=".gui.activities.AboutActivity" />
         <activity android:name=".gui.activities.BaseActivity" />
         <activity android:name=".gui.activities.github.MergeMeActivity" />
-        <activity android:name=".gui.activities.github.YourStarsActivity" />
+        <activity android:name=".gui.activities.github.UserStarsActivity" />
         <activity android:name=".gui.activities.github.YourRepositoriesActivity" />
         <activity android:name=".gui.activities.SettingsActivity" />
     </application>

@@ -30,6 +30,8 @@ import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
  */
 public class StarNotificationDialog extends DialogFragment {
 
+    public static int numNotifications = 0;
+
     /**
      * Create a new instance of StarNotificationDialog, providing "repositoryFullName" as an argument.
      * This is called before OnCreateDialog().
@@ -102,7 +104,8 @@ public class StarNotificationDialog extends DialogFragment {
 
         // Add as notification
         NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
+        manager.notify(numNotifications, builder.build());
+        numNotifications++;
     }
 
 

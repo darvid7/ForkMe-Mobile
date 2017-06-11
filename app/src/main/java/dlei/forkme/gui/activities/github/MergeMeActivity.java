@@ -122,7 +122,7 @@ public class MergeMeActivity extends BaseActivity {
         setContentView(R.layout.activity_merge_me);
         super.inflateNavDrawer(savedInstanceState, MergeMeActivity.class.getSimpleName());
         Log.d("MergeMeActivity: ", "created");
-
+        setTitle("MergeMe");
         // Set up UI elements.
         mRecyclerViewDevContactInfo = (RecyclerView) findViewById(R.id.mergeMeRecyclerView);
         mMainButton = (AppCompatButton) findViewById(R.id.mergeMeMainButton);

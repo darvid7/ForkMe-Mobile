@@ -18,7 +18,7 @@ import dlei.forkme.R;
 import dlei.forkme.gui.activities.github.MergeMeActivity;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
 import dlei.forkme.gui.activities.github.YourRepositoriesActivity;
-import dlei.forkme.gui.activities.github.YourStarsActivity;
+import dlei.forkme.gui.activities.github.UserStarsActivity;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.state.AppSettings;
@@ -99,7 +99,8 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
                         if (drawerItem == mStars) {
-                            Intent intent = new Intent(getBaseContext(), YourStarsActivity.class);
+                            Intent intent = new Intent(getBaseContext(), UserStarsActivity.class);
+                            intent.putExtra("userLogin", AppSettings.sUserLogin);
                             startActivity(intent);
                         } else if (drawerItem == mTrending) {
                             Intent intent = new Intent(getBaseContext(), TrendingRepositoriesActivity.class);
@@ -134,7 +135,7 @@ public class BaseActivity extends AppCompatActivity {
         this.inflateNavDrawer(savedInstanceState);
 
         // Disable clicking on current activity.
-        if (currentActivity.equals(YourStarsActivity.class.getSimpleName())) {
+        if (currentActivity.equals(UserStarsActivity.class.getSimpleName())) {
             mStars.withSelectable(false);
             mNavDrawer.setSelection(mStars, false);
         } else if (currentActivity.equals(TrendingRepositoriesActivity.class.getSimpleName())) {
