@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import dlei.forkme.R;
-import dlei.forkme.gui.activities.github.UserViewActivity;
+import dlei.forkme.gui.activities.github.UserRepositoriesViewActivity;
 import dlei.forkme.model.DeveloperContactInfo;
 
 public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<DeveloperContactViewHolder>{
@@ -58,8 +58,8 @@ public class DeveloperContactRecyclerViewAdapter extends RecyclerView.Adapter<De
             // TODO: Intent to user view??
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), UserViewActivity.class);
-                i.putExtra("user", developerInfo.getLogin());
+                Intent i = new Intent(v.getContext(), UserRepositoriesViewActivity.class);
+                i.putExtra("userLogin", developerInfo.getLogin());
                 v.getContext().startActivity(i);
             }
         });

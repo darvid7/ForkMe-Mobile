@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.util.Log;
 
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -1412,6 +1413,7 @@ public class LanguageColor {
     );
 
     private static final int noLanguageColor = Color.parseColor("#e5e5e5");
+    private static final String noLanguageColorHex = "#e5e5e5";
 
 
     private static final JsonObject languageColorLookup = new JsonParser().parse(colorJsonString).getAsJsonObject();
@@ -1425,7 +1427,12 @@ public class LanguageColor {
             return null;
         }
         JsonObject colorUrlObject = colorUrl.getAsJsonObject();
-        String colorHex = colorUrlObject.get("color").getAsString();
+        String colorHex;
+        try {
+            colorHex = colorUrlObject.get("color").getAsString();
+        } catch (UnsupportedOperationException e) {
+            colorHex = noLanguageColorHex;
+        }
         return colorHex;
     }
 
