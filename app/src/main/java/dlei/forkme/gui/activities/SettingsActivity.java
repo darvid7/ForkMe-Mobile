@@ -55,13 +55,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SettingsActivity extends BaseActivity implements LocationListener {
     private LocationManager mLocationManager;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private DatabaseHelper mDbHelper;
 
     private AppCompatSpinner mLanguageSpinner;
     private AppCompatSpinner mSortBySpinner;
     private AppCompatSpinner mTimeframeSpinner;
     private SwitchCompat mLocationSwitch;
     private AppCompatTextView mSwitchText;
-    private DatabaseHelper mDbHelper;
     private TextInputEditText mDevMessage;
     private AppCompatButton mMergeMeButton;
 
@@ -117,9 +117,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             mSwitchText.setText(getResources().getText(R.string.str_true));
             mDevMessage.setEnabled(true);
             mMergeMeButton.setEnabled(true);
-
         }
-
     }
 
     @SuppressWarnings (value="unchecked")
@@ -131,25 +129,9 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         super.inflateNavDrawer(savedInstanceState, SettingsActivity.class.getSimpleName());
         Log.d("SettingsActivity: ", "created");
         setTitle("Settings");
-        mDbHelper = DatabaseHelper.getDbInstance(this);
-        try {
-            // Loads settings from persistent storage to AppSettings attributes.
-            mDbHelper.loadSettings();
-        } catch (NoDataException e) {
-            Log.d("No data: ", "No data from db");
-            if (!AppSettings.sUserLogin.equals("")) {
-                mDbHelper.insertSettings();
-            } else {
-                // Should never happen.
-                Log.wtf("SettingsActivity: ", "AppSettings.sUserLogin has no value");
-            }
-        } catch (TooMuchDataException e) {
-            // Should not ever happen.
-            Log.d("Too much data: ", "Too much data from db");
-        }
-        // Up to here: AppSettings will always have most up to date data.
 
-        // Load what is chosen from settings static attributes.
+        // Get DB helper.
+        mDbHelper = DatabaseHelper.getDbInstance(getApplicationContext());
 
         // Set up spinners.
         mLanguageSpinner = (AppCompatSpinner) findViewById(R.id.languageSpinner);

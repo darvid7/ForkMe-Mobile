@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -18,6 +21,7 @@ import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapters.SwipeDeckAdapter;
 import dlei.forkme.gui.fragments.StarNotificationDialog;
+import dlei.forkme.helpers.DateHelper;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
 import dlei.forkme.model.Repository;
@@ -89,6 +93,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         mProgressBarSpinner = (ProgressBar) findViewById(R.id.progress_bar_spinner);
 
         this.getTrendingRepositoriesArray();
+        // this.queryGitHubSearchApiForTrendingRepositories();
     }
 
     /**
@@ -181,6 +186,75 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
     // HTTP request methods.
     // TODO: Maybe move off Heroku to something that is faster in Australia.
     // TODO: Check network status on failures and notify user instead of just logging.
+
+    public void queryGitHubSearchApiForTrendingRepositories() {
+        OkHttpClient.Builder okHttpBuilder = new OkHttpClient.Builder();
+        okHttpBuilder.addInterceptor(new Interceptor() {
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                // Manipulate request to add headers.
+                // Can't mutate the request but can make a new one.
+                Request request = chain.request();
+                Request.Builder newRequest = request.newBuilder()
+                        // Add in user access token.
+                        .addHeader("Authorization", "token " + AppSettings.sOAuthToken);
+                // Pass on our request to execute.
+                return chain.proceed(newRequest.build());
+            }
+        });
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .client(okHttpBuilder.build())
+                .baseUrl(BaseUrls.githubApi)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+
+        String formattedDate = DateHelper.getFormattedQueryDate(AppSettings.sTimeframe);
+
+        GithubApi endpoint = retrofit.create(GithubApi.class);
+        Call<List<Repository>> call = endpoint.searchGitHubTrendingRepositories(
+                formattedDate,
+                AppSettings.sLanguage,
+                AppSettings.sSortBy
+        );
+
+        call.enqueue(new Callback<List<Repository>>() {
+            @Override
+            public void onResponse(Call<List<Repository>> call, Response<List<Repository>> response) {
+                if (response.code() == 200 && response.isSuccessful()) {
+                    List<Repository> repositories = response.body();
+                    for (Repository r: repositories) {
+                        mDeck.add(r);
+                    }
+                    // Let the adapter know data has changed.
+                    mSwipeDeckAdapter.notifyDataSetChanged();
+
+                    // Get rid of mProgressBarSpinner.
+                    mProgressBarSpinner.setVisibility(View.GONE);
+
+                } else {
+                    Log.i("TrendingActivity: ", "queryGitHubSearchApiForTrendingRepositories(): " +
+                            "Error: " + response.code() + ", " + response.isSuccessful());
+                    Log.i("Error message: ", response.message());
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Repository>> call, Throwable t) {
+                // Failure to connect to endpoint.
+                Log.i("TrendingActivity: ", "queryGitHubSearchApiForTrendingRepositories(): Failed: " + t.getMessage());
+                NetworkAsyncCheck n = NetworkHelper.checkNetworkConnection(mSwipeDeck);
+                if (n != null) {
+                    n.execute();
+                }
+
+            }
+        });
+    }
+
+
 
     /**
      * HTTP request to backend hosted on Heroku which returns an array of repositories.

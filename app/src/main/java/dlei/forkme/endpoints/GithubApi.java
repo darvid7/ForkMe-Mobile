@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Endpoints for GitHub's API v3.
@@ -39,6 +40,15 @@ public interface GithubApi {
     // Get user details (for the user who is logged in and supplies the OAuth Token.
     @GET("/user")
     Call<User> getAuthenticatedUser();
+
+    // Search API.
+    // /search/repositories?q=created:>2017-06-04+language:python&sort=stars&order=desc
+    // Note: all works if no language is to be specified.
+    @GET("/search/repositories?q=created:>{stringDate}+language:{language}&sort={sortBy}&order=desc")
+    Call<List<Repository>> searchGitHubTrendingRepositories(
+            @Query("stringDate") String stringDate,
+            @Query("language") String language,
+            @Query("sortBy") String sortBy);
 
 
 }

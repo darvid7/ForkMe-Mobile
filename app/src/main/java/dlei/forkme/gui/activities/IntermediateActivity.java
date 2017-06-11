@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.Locale;
 
 import dlei.forkme.R;
+import dlei.forkme.datastore.DatabaseHelper;
+import dlei.forkme.datastore.NoDataException;
+import dlei.forkme.datastore.TooMuchDataException;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.endpoints.GithubApi;
 import dlei.forkme.gui.activities.github.TrendingRepositoriesActivity;
@@ -39,6 +42,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * user details are retrieved from getAuthenticatedUser().
  */
 public class IntermediateActivity extends AppCompatActivity {
+
+    private DatabaseHelper mDbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,28 @@ public class IntermediateActivity extends AppCompatActivity {
                     AppSettings.setUserName(u.getName());
                     AppSettings.setUserAvatarUrl(u.getAvatarUrl());
                     AppSettings.setUserEmail(u.getEmail());
+
+                    // Get information from db.
+                    mDbHelper = DatabaseHelper.getDbInstance(getApplicationContext());
+                    try {
+                        // Loads settings from persistent storage to AppSettings attributes.
+                        mDbHelper.loadSettings();
+                        Log.d("IntermediateActivity: ", "Data loaded from db");
+                    } catch (NoDataException e) {
+                        Log.d("No data: ", "No data from db");
+                        if (!AppSettings.sUserLogin.equals("")) {
+                            mDbHelper.insertSettings();
+                        } else {
+                            // Should never happen.
+                            Log.wtf("IntermediateActivity: ", "AppSettings.sUserLogin has no value");
+                        }
+                    } catch (TooMuchDataException e) {
+                        // Should not ever happen.
+                        Log.wtf("IntermediateActivity: ", "Too much data from db");
+                    }
+                    // Up to here: AppSettings will always have most up to date data.
+
+
                     Log.d("IntermediateActivity: ", "getAuthenticatedUser: " + u.getLogin());
                     Intent intent = new Intent(getApplicationContext(), TrendingRepositoriesActivity.class);
                     startActivity(intent);

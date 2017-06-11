@@ -1,7 +1,9 @@
 package dlei.forkme.gui.activities.github;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -191,7 +193,9 @@ public class UserRepositoriesViewActivity extends BaseActivity {
                             }
                     );
                     toogleViews(mHeaderViews, View.VISIBLE);
-
+                    // Set star to a different color because it is clickable.
+                    mUserStarIconImage.setColorFilter(ContextCompat.getColor(
+                            mUserStarIconImage.getContext(), R.color.primary_light));
                     getUserRepositories(userLogin);
                 } else {
                     Log.w("UserReposViewActivity: ", String.format(
