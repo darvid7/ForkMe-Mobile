@@ -55,6 +55,7 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         setContentView(R.layout.activity_trending_repositories);
         super.inflateNavDrawer(savedInstanceState, TrendingRepositoriesActivity.class.getSimpleName());
         Log.d("TrendingActivity: ", "created");
+        setTitle("Trending Repositories");
 
 
         mSwipeDeck = (SwipeStack) findViewById(R.id.swipeStack);

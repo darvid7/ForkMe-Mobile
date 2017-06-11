@@ -26,8 +26,6 @@
         <activity android:name=".gui.activities.github.TrendingRepositoriesActivity" />
         <activity android:name=".gui.activities.LogInActivity" />
         <activity android:name=".gui.activities.github.RepositoryViewActivity" />
-        <activity android:name=".gui.activities.github.UserViewActivity" />
-        <activity android:name=".gui.activities.github.OrganizationViewActivity" />
         <activity android:name=".gui.activities.InAppWebView" />
         <activity android:name=".gui.activities.AboutActivity" />
         <activity android:name=".gui.activities.BaseActivity" />

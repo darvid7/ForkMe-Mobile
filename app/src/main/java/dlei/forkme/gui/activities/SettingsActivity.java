@@ -101,7 +101,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         setContentView(R.layout.activity_settings);
         super.inflateNavDrawer(savedInstanceState, SettingsActivity.class.getSimpleName());
         Log.d("SettingsActivity: ", "created");
-
+        setTitle("Settings");
         mDbHelper = DatabaseHelper.getDbInstance(this);
         try {
             // Loads settings from persistent storage to AppSettings attributes.
