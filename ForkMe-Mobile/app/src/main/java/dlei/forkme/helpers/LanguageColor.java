@@ -1331,6 +1331,9 @@ public class LanguageColor {
             "\"Vim script\": {\n" +
             "\"color\": \"#199f4b\",\n" +
             "\"url\": \"https://github.com/trending?l=Vim-script\"\n" +
+            "\"VimL\": {\n" +
+            "\"color\": \"#199f4b\",\n" +
+            "\"url\": \"https://github.com/trending?l=VimL\"\n" +
             "},\n" +
             "\"Visual Basic\": {\n" +
             "\"color\": \"#945db7\",\n" +
