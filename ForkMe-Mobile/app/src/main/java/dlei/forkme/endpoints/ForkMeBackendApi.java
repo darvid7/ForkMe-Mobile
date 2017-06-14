@@ -15,7 +15,7 @@ import retrofit2.http.Path;
 
 /**
  * Endpoints for ForkMe Backend.
- * v1 is depreacted, using v2 now
+ * v1 is deprecated, using v2 now
  */
 public interface ForkMeBackendApi {
 
@@ -36,7 +36,7 @@ public interface ForkMeBackendApi {
     Call<ResponseBody> postLocation(@Body PostLocationDataBody data);
 
     // Get developers v2.
-    @GET("/developers:{login}")
+    @GET("/developers/{login}")
     Call<List<DeveloperContactInfo>> getDevelopers(@Path("login") String login);
 
 }

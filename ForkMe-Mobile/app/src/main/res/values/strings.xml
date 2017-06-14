@@ -155,7 +155,7 @@
         In making ForkMe I made use of the following libraries.</string>
 
     <string name="merge_me_button">Send data</string>
-    <string name="dev_msg_hint">Public message, what are ypu after?</string>
+    <string name="dev_msg_hint">Public message, what are you after?</string>
     <string name="dev_msg_example">Eg: Looking for a Python dev for Unihack!</string>
     <string name="no_topics">No Topics!</string>
     <string name="topics">Topics: </string>
