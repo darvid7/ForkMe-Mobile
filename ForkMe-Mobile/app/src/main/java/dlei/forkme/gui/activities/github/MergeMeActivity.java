@@ -187,7 +187,7 @@ public class MergeMeActivity extends BaseActivity {
                             response.code(), response.isSuccessful(), response.headers())
                     );
                     Snackbar.make(mMainButton, String.format(Locale.getDefault(), "No location was found, please " +
-                            "send data from Settings screen and try again."), Snackbar.LENGTH_INDEFINITE)
+                            "send data from Settings first and try again."), Snackbar.LENGTH_INDEFINITE)
                             .setAction("CLOSE", new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {}

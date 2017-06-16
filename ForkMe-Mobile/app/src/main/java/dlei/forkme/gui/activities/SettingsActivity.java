@@ -320,7 +320,8 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
         try {
             Location location = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             // location time retrieved > time in milliseconds - 2000 (less than 2 days old).
-            if (location != null && location.getTime() > Calendar.getInstance().getTimeInMillis() - 2 * 60 * 1000) {
+            // 1.4 days.
+            if (location != null && location.getTime() < Calendar.getInstance().getTimeInMillis() + 2 * 60 * 1000) {
                 // Use olg location.
                 Log.d("SettingActivity: ", "getLocation(): Old location, latitude: " + location.getLatitude() +
                         ", longitude: " + location.getLongitude() + ", time: " + location.getTime());
@@ -328,7 +329,10 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
             } else {
                 // Ask for location updates.
                 Log.d("SettingActivity: ", "getLocation(): Request location updates.");
+                // Bug fix for not being called onLocationChanged()
+                // https://stackoverflow.com/questions/9007600/onlocationchanged-callback-is-never-called
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
             }
         } catch (SecurityException e) {
             Log.wtf("SettingActivity: ", "Failed " + e.getMessage());
@@ -342,6 +346,7 @@ public class SettingsActivity extends BaseActivity implements LocationListener {
      * @param location new location.
      */
     public void onLocationChanged(Location location) {
+        Log.d("SettingActivity: ", "onLocationChanged() called");
         if (location != null) {
             Log.d("SettingActivity: ", "onLocationChanged(): Location update, latitude: "
                     + location.getLatitude() + ", longitude: " + location.getLongitude());
