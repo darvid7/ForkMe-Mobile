@@ -2,6 +2,8 @@
 
 Is a GitHub :octocat: Trending 📈 Repository viewer Android app!
 
+WIP: Will make things dynamically update by 2018.
+
 You can browse trending repositories, star repositories and connect with other devs.
 
 This application was my final project for FIT3027: Android & iOS at Monash University.
