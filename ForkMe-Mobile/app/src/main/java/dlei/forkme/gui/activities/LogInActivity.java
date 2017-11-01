@@ -9,16 +9,13 @@ import android.view.View;
 import com.hardikgoswami.oauthLibGithub.GithubOauth;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import dlei.forkme.AppCredentials;
 import dlei.forkme.R;
 
 public class LogInActivity extends AppCompatActivity {
 
     private AppCompatButton mLoginButton;
-    private static String clientId = "Put your app id here";
-    private static String clientSecret = "Put your app secret here";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +35,8 @@ public class LogInActivity extends AppCompatActivity {
                 Log.i("----- Start OAuth", " -----");
                 GithubOauth
                         .Builder()
-                        .withClientId(clientId)
-                        .withClientSecret(clientSecret)
+                        .withClientId(AppCredentials.clientId)
+                        .withClientSecret(AppCredentials.clientSecret)
                         .withContext(getApplicationContext())
                         .packageName("dlei.forkme")
                         .nextActivity("dlei.forkme.gui.activities.TrendingRepositoriesActivity")

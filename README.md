@@ -19,6 +19,20 @@ It makes use of:
 - SufficientlySecure/[html-textview](https://github.com/SufficientlySecure/html-textview)
 - geniushkg/[github-oauth](https://github.com/geniushkg/github-oauth)
 
+## To run this
+
+Make a GitHub application and put your application `Client ID` and `Client Secret` in `dlei.forkme.AppCredential`
+
+```java
+package dlei.forkme;
+
+public class AppCredentials {
+    public static String clientId = "Put your app id here";
+    public static String clientSecret = "Put your app secret here";
+}
+```
+
+
 ## Screenshots
 
 <div>
