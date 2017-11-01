@@ -39,7 +39,7 @@ public class LogInActivity extends AppCompatActivity {
                         .withClientSecret(AppCredentials.clientSecret)
                         .withContext(getApplicationContext())
                         .packageName("dlei.forkme")
-                        .nextActivity("dlei.forkme.gui.activities.TrendingRepositoriesActivity")
+                        .nextActivity("dlei.forkme.gui.activities.IntermediateActivity")
                         .withScopeList(scopeList)
                         .debug(true)
                         .execute();

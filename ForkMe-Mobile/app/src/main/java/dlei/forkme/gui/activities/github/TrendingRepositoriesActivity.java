@@ -177,8 +177,11 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         String user = repo.getUserName();
         String repoName = repo.getRepoName();
         // Note: 91 character limit for repo.getFullName() before overflow.
-        StarNotificationDialog s = StarNotificationDialog.newInstance(repo.getFullName());
-        s.show(getFragmentManager(), "StarNotificationDialog-Tag");
+
+        // TODO: This fragment is meant to set a timr which will be triggered,
+        // but it doesn't work now and just clutters the UI.
+        // StarNotificationDialog s = StarNotificationDialog.newInstance(repo.getFullName());
+        // s.show(getFragmentManager(), "StarNotificationDialog-Tag");
 
         starGithubRepo(user, repoName);
     }

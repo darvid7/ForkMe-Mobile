@@ -32,7 +32,6 @@ public class AppCredentials {
 }
 ```
 
-
 ## Screenshots
 
 <div>
