@@ -1,7 +1,6 @@
 package dlei.forkme.gui.activities.github;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,17 +9,12 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 
 import dlei.forkme.R;
 import dlei.forkme.endpoints.BaseUrls;
 import dlei.forkme.gui.activities.BaseActivity;
 import dlei.forkme.gui.adapters.SwipeDeckAdapter;
-import dlei.forkme.gui.fragments.StarNotificationDialog;
 import dlei.forkme.helpers.DateHelper;
 import dlei.forkme.helpers.NetworkAsyncCheck;
 import dlei.forkme.helpers.NetworkHelper;
@@ -28,7 +22,6 @@ import dlei.forkme.model.Repository;
 import dlei.forkme.model.RepositoryResponse;
 import dlei.forkme.endpoints.ForkMeBackendApi;
 import dlei.forkme.endpoints.GithubApi;
-import dlei.forkme.model.User;
 import dlei.forkme.state.AppSettings;
 import link.fls.swipestack.SwipeStack;
 import okhttp3.Interceptor;
@@ -69,18 +62,30 @@ public class TrendingRepositoriesActivity extends BaseActivity implements SwipeS
         // Make new listener so can emulate an onClick() event.
         SwipeStack.SwipeProgressListener swipeProgressListener = new SwipeStack.SwipeProgressListener() {
 
+            private boolean isTouch = true;
+            private double touchThreshold = 0.003;
+
             // Called when user starts interacting with the repository card.
             @Override
-            public void onSwipeStart(int position) { mSwipeIsTouch = true; }
+            public void onSwipeStart(int position) {
+                Log.d("Swipey", "swipe start position: " + position);
+                isTouch = true;
+            }
 
             // Called when user moves the repository card.
             @Override
-            public void onSwipeProgress(int position, float progress) { mSwipeIsTouch = false; }
+            public void onSwipeProgress(int position, float progress) {
+                Log.d("Swipey", "swipe progress position: " + position + ", progress: " + progress);
+                if (Math.abs(progress) > touchThreshold) {
+                    isTouch = false;
+                }
+            }
 
             // Called when user stops interacting with the repository card.
             @Override
             public void onSwipeEnd(int position) {
-                if (mSwipeIsTouch) {
+                Log.d("Swipey", "swipe end");
+                if (isTouch) {
                     onTouch(position);
                 }
             }
