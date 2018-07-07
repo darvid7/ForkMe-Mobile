@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dlei.forkme.gui.activities.SettingsActivity"
+    tools:layout_editor_absoluteY="25dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <include layout="@layout/nav_drawer_toolbar"
+        android:id="@+id/toolbar_layout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp" />
+
+    <!-- Trending Repositories settings -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/trendingRepositoryImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="@dimen/padding_extra"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_layout"
+        app:srcCompat="@drawable/ic_trending_up_48px"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/trendingRepositoryText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/trending_repositories_heading"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        app:layout_constraintTop_toTopOf="@+id/trendingRepositoryImageView"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/trendingRepositoryImageView"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="@dimen/padding_normal"
+        app:layout_constraintHorizontal_bias="0.07" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/timeframeSpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        android:entries="@array/timeframe_array"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        app:layout_constraintTop_toTopOf="@+id/timeframeText"
+        />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/sortBySpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        android:entries="@array/sort_by_array"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/timeframeSpinner" />
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/languageSpinner"
+        android:layout_width="@dimen/spinner_dropdown_width"
+        android:layout_height="@dimen/spinner_dropdown_height"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="@dimen/padding_extra"
+        android:layout_marginEnd="@dimen/padding_extra"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/sortBySpinner" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/timeframeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/timeframe"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryImageView"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/trendingRepositoryImageView" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/sortByText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sort_by"
+        app:layout_constraintLeft_toLeftOf="@+id/timeframeText"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintTop_toTopOf="@+id/sortBySpinner"
+        android:layout_marginTop="0dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/languageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_language"
+        app:layout_constraintLeft_toLeftOf="@+id/sortByText"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintTop_toTopOf="@+id/languageSpinner"
+        />
+
+    <View
+    android:layout_width="0dp"
+    android:layout_height="2dp"
+    android:background="?android:attr/dividerHorizontal"
+    android:id="@+id/viewTrendingBottomSeperator"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    android:layout_marginTop="@dimen/padding_extra"
+    app:layout_constraintTop_toBottomOf="@+id/languageSpinner" />
+
+    <!-- Find People settings -->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/findPeopleImageView"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryImageView"
+        app:layout_constraintTop_toBottomOf="@+id/viewTrendingBottomSeperator"
+        app:srcCompat="@drawable/ic_group_48px" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/findPeopleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:text="@string/find_people_heading"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle"
+        app:layout_constraintLeft_toLeftOf="@+id/trendingRepositoryText"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleImageView"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/findPeopleAllowedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/find_people_allowed_label"
+        android:layout_marginTop="@dimen/padding_extra"
+        app:layout_constraintTop_toBottomOf="@+id/findPeopleImageView"
+        app:layout_constraintLeft_toLeftOf="@+id/findPeopleImageView"
+        />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/findPeopleAllowedSwitch"
+        android:layout_width="57dp"
+        android:layout_height="27dp"
+        android:showText="false"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleAllowedText"
+
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="@dimen/padding_normal"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/switchStatusText"
+        android:layout_marginBottom="0dp" />
+
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/switchStatusText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginTop="0dp"
+        android:text="@string/str_false"
+        app:layout_constraintRight_toLeftOf="@+id/findPeopleAllowedSwitch"
+        app:layout_constraintTop_toTopOf="@+id/findPeopleAllowedText"
+        android:layout_marginLeft="0dp"
+        app:layout_constraintLeft_toLeftOf="@+id/timeframeSpinner"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/publicMessageContainer"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="@dimen/padding_normal"
+        android:layout_marginTop="28dp"
+        app:layout_constraintLeft_toLeftOf="@+id/findPeopleAllowedText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPeopleAllowedText">
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/publicMessageText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dev_msg_hint"
+            />
+    </android.support.design.widget.TextInputLayout>
+
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="?android:attr/dividerHorizontal"
+        android:id="@+id/viewFindPeopleBottomSeparator"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/mergeMeButton" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/mergeMeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/merge_me_button"
+        android:layout_marginTop="@dimen/padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/publicMessageContainer"
+        android:layout_marginRight="@dimen/padding_normal"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/padding_normal"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <!-- You Repository settings -->
+
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/padding_normal"
+    android:paddingRight="@dimen/padding_normal"
+    android:paddingLeft="@dimen/padding_normal"
+    android:paddingBottom="@dimen/padding_normal"
+    >
+
+    <android.support.v7.widget.CardView
+
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingBottom="@dimen/padding_normal"
+
+        android:paddingLeft="@dimen/padding_normal"
+        android:paddingRight="@dimen/padding_normal"
+        android:paddingTop="@dimen/padding_normal"
+        card_view:cardCornerRadius="@dimen/card_corner_radius_bold"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardUseCompatPadding="true"
+        card_view:layout_constraintBottom_toBottomOf="parent"
+        card_view:layout_constraintLeft_toLeftOf="parent"
+        card_view:layout_constraintRight_toRightOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        card_view:layout_constraintVertical_bias="1.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/repositoryCardFullNameText"
+                android:layout_width="176dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="@string/placeholder_text_med"
+                android:textAlignment="viewStart"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                card_view:layout_constraintRight_toRightOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent"
+                card_view:layout_constraintLeft_toRightOf="@+id/repoUserIconImageView" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/repositoryCardDescriptionText"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/placeholder_text_med"
+                android:typeface="sans"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toRightOf="parent"
+                android:layout_marginTop="16dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/repoUserIconImageView" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/repoUserIconImageView"
+                android:layout_width="48dp"
+                android:layout_height="52dp"
+                card_view:layout_constraintTop_toTopOf="@+id/repositoryCardFullNameText"
+                card_view:srcCompat="@mipmap/forkme_clear_launcher"
+                card_view:layout_constraintLeft_toLeftOf="parent"
+                card_view:layout_constraintRight_toLeftOf="@+id/repositoryCardFullNameText"
+                android:layout_marginTop="0dp"
+                card_view:layout_constraintBottom_toBottomOf="@+id/repositoryCardFullNameText"
+                android:layout_marginBottom="@dimen/padding_normal" />
+
+            <include
+                android:id="@+id/topics_card"
+                layout="@layout/repository_extra_information"
+                android:layout_width="252dp"
+                android:layout_height="176dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/repositoryCardDescriptionText"
+                card_view:layout_constraintVertical_bias="0.142"
+                android:layout_marginLeft="0dp"
+                card_view:layout_constraintLeft_toLeftOf="@+id/repositoryCardDescriptionText"
+                android:layout_marginRight="0dp"
+                card_view:layout_constraintRight_toRightOf="@+id/repositoryCardDescriptionText"
+                card_view:layout_constraintHorizontal_bias="0.4"
+                />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/updatedLabelText"
+                android:layout_width="87dp"
+                android:layout_height="22dp"
+                android:text="@string/updated_at"
+                android:layout_marginStart="0dp"
+                card_view:layout_constraintLeft_toLeftOf="@+id/topics_card"
+                android:layout_marginLeft="0dp"
+                card_view:layout_constraintTop_toTopOf="@+id/updatedAtText"
+                android:layout_marginTop="0dp" />
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/updatedAtText"
+                android:layout_width="153dp"
+                android:layout_height="22dp"
+                android:text="@string/placeholder_date"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintTop_toBottomOf="@+id/topics_card"
+                card_view:layout_constraintVertical_bias="0.162"
+                card_view:layout_constraintLeft_toRightOf="@+id/updatedLabelText"
+                android:layout_marginStart="@dimen/padding_normal"
+                android:layout_marginEnd="0dp"
+                card_view:layout_constraintRight_toRightOf="@+id/topics_card" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/forkImageView"
+                android:layout_width="25dp"
+                android:layout_height="21dp"
+                card_view:layout_constraintLeft_toRightOf="@+id/starCountText"
+                card_view:layout_constraintRight_toLeftOf="@+id/forkCountText"
+                card_view:layout_constraintTop_toTopOf="@+id/forkCountText"
+                card_view:srcCompat="@drawable/ic_fork" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/languageCircleImageView"
+                android:layout_width="@dimen/padding_extra"
+                android:layout_height="@dimen/padding_extra"
+                card_view:layout_constraintRight_toLeftOf="@+id/languageText"
+                card_view:layout_constraintTop_toTopOf="@+id/languageText"
+                card_view:srcCompat="@drawable/circle"
+                android:layout_marginRight="0dp"
+                card_view:layout_constraintLeft_toLeftOf="@+id/topics_card"
+                android:layout_marginEnd="0dp" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/starImageView"
+                android:layout_width="22dp"
+                android:layout_height="21dp"
+                card_view:layout_constraintLeft_toRightOf="@+id/languageText"
+                card_view:layout_constraintRight_toLeftOf="@+id/starCountText"
+                card_view:layout_constraintTop_toTopOf="@+id/starCountText"
+                card_view:srcCompat="@drawable/ic_grade_48px" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/forkCountText"
+                android:layout_width="40dp"
+                android:layout_height="23dp"
+                android:text="@string/placeholder_number"
+                card_view:layout_constraintLeft_toRightOf="@+id/forkImageView"
+                card_view:layout_constraintRight_toRightOf="@+id/topics_card"
+                android:layout_marginTop="24dp"
+                card_view:layout_constraintTop_toBottomOf="@+id/updatedAtText"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="64dp" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/languageText"
+                android:layout_width="73dp"
+                android:layout_height="21dp"
+                android:text="@string/placeholder_text_small"
+                card_view:layout_constraintLeft_toRightOf="@+id/languageCircleImageView"
+                card_view:layout_constraintRight_toLeftOf="@+id/starImageView"
+                card_view:layout_constraintTop_toTopOf="@+id/starImageView" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/starCountText"
+                android:layout_width="42dp"
+                android:layout_height="20dp"
+                android:text="@string/placeholder_number"
+                card_view:layout_constraintLeft_toRightOf="@+id/starImageView"
+                card_view:layout_constraintRight_toLeftOf="@+id/forkImageView"
+                card_view:layout_constraintTop_toTopOf="@+id/forkImageView" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+
+</android.support.constraint.ConstraintLayout>

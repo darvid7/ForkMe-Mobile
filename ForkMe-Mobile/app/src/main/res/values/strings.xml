@@ -1,0 +1,164 @@
+<resources>
+    <string name="app_name">ForkMe</string>
+    <string name="title_activity_log_in">LogInActivity</string>
+    <string name="placeholder_text_small">TypeScript</string>
+    <string name="placeholder_text_med">Somebody once told me the world was macaroni, Mom\'s spaghetti</string>
+    <string name="placeholder_repository_description">The go programming language https://golang.org</string>
+    <string name="placeholder_date">2017/05/31T09:13:11Z</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="drawer_settings">Settings</string>
+    <string name="drawer_about">About</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <string name="drawer_section_github">Github</string>
+    <string name="drawer_section_people">People</string>
+    <string name="drawer_section_settings">Settings</string>
+
+    <string name="placeholder_number">666</string>
+    <string name="john">John</string>
+    <string name="john_doe">JohnDoe</string>
+    <string name="placeholder_username">darvid7/</string>
+    <string name="placeholder_reponame">ForkMe-Mobile</string>
+
+    <string name="trending_repositories_heading">Trending Repositories</string>
+    <string name="your_repositories_heading">Your Repositories</string>
+    <string name="find_people_heading">Merge Me</string>
+
+    <string name="coming_soon">Coming soon</string>
+
+    <string name="updated_at">Last updated:</string>
+    <string name="none">None</string>
+
+    <string name="timeframe">Timeframe</string>
+    <string name="choose_language">Choose language</string>
+    <string name="sort_by">Sort by</string>
+    <string name="main_text">Main text</string>
+    <string name="main_button">Main button</string>
+
+    <string name="find_people_allowed_label">Allowed</string>
+    <string name="find_people_message_placeholder">Looking for Python dev.</string>
+
+    <string name="title_location_permission">Allow location access for finding other developers.</string>
+    <string name="text_location_permission">This will only get your location once.</string>
+    <string name="ok">ok</string>
+    <string name="str_false">False</string>
+    <string name="str_true">True</string>
+    <string name="disabled">Disabled</string>
+
+    <string name="give_perms_in_app_text">This functionality requires location permissions so it can
+        group users by city. Allow locations permissions in application.</string>
+    <string name="give_perms_externally_text">This functionality requires location permissions so it can
+        group users by city. Permissions have been disabled forever. You need to allow permissions form
+        outside the application.</string>
+    <string name="give_perms_in_app_button">Give Permissions</string>
+    <string name="give_perms_externally_button">Give Location Permissions Externally</string>
+
+
+    <string-array name="timeframe_array">
+        <item>1 Week</item>
+        <item>1 Month</item>
+        <item>2 Months</item>
+        <item>3 Months</item>
+        <item>6 Months</item>
+        <item>1 Year</item>
+        <item>No bound</item>
+    </string-array>
+
+    <string-array name="language_array">
+        <item>All</item>
+        <item>None</item>
+        <item>Fake Really long name language</item>
+        <item>Python</item>
+        <item>Java</item>
+        <item>C</item>
+        <item>C++</item>
+        <item>Php</item>
+        <item>Bash</item>
+        <item>Perl</item>
+        <item>Swift</item>
+        <item>Objective C</item>
+        <item>Rust</item>
+        <item>Ruby</item>
+        <item>JavaScript</item>
+        <item>TypeScript</item>
+        <item>XSLT</item>
+        <item>Visual Basic</item>
+        <item>Prolog</item>
+        <item>Pascal</item>
+        <item>Kotlin</item>
+        <item>Clojure</item>
+        <item>Scala</item>
+        <item>Haskell</item>
+    </string-array>
+
+    <string-array name="sort_by_array">
+        <item>Stars</item>
+        <item>Forks</item>
+        <item>Updated</item>
+    </string-array>
+
+    <string-array name="time_hours_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+    </string-array>
+
+    <string name="hours">Hours</string>
+    <string name="dialog_star_notification_message">"Remind me to look at this later in"</string>
+    <string name="dialog_star_notification_message_first_half">"Remind me to look at "</string>
+    <string name="dialog_star_notification_message_second_half">" later in"</string>
+
+
+    <string name="starred_repositories">"Starred Repositories"</string>
+
+    <string name="bio">Something About me :) Show and tell and stuff! YAY :)</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="licence_label">Licence: </string>
+    <string name="library_label">Library: </string>
+    <string name="library_button_label">Library</string>
+    <string name="licence_button_label">Licence</string>
+
+    <string name="library_placeholder">Matheson Library</string>
+    <string name="licence_placeholder">My License</string>
+    <string name="used_for_label">Used for: </string>
+    <string name="used_for_placeholder">Doing cool stuff :)</string>
+    <string name="about_text">ForkMe is an application made for FIT3027 Android and iOS at
+        Monash University by David Lei. Is is a GitHub Trending repository viewer!
+        In making ForkMe I made use of the following libraries.</string>
+
+    <string name="merge_me_button">Send data</string>
+    <string name="dev_msg_hint">Public message, what are you after?</string>
+    <string name="dev_msg_example">Eg: Looking for a Python dev for Unihack!</string>
+    <string name="no_topics">No Topics!</string>
+    <string name="topics">Topics: </string>
+    <string name="bullet">•</string>
+
+</resources>
